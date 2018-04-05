@@ -1,33 +1,40 @@
-# Bash Aliases
+# get alias to work on root
+alias sudo='sudo '
 
-# ls
+
+# git alias
+alias gss='git status'
+alias gm='git commit'
+alias ga='git add *'
+alias gpull='git pull origin master'
+alias gpush='git push -u origin master'
+
+
+# ls alias
 alias ls='ls --color=auto'
-alias ll='ls -laFh'
+alias ll='ls -lahF'
 
-# system administration
-alias up='trizen -Syyu'
-alias s='pacman -Ss'
-alias aurs='trizen -Ss'
-alias i='trizen -S'
-alias u='trizen -Runs'
-
-# colored manpages
+# manpages
+# requires package 'most'
 alias man='man -P most'
 
-# grep
-alias egrep='egrep --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
 
 # neovim
 alias v='nvim'
-alias vim='nvim'
 alias vi='nvim'
+alias vim='nvim'
 
-# git
-alias gss='git status'
-alias ga='git add *'
-alias gm='git commit'
-alias gpull='git pull'
-alias gpush='git push'
+
+# Updating system
+alias up='trizen -Syyu'
+alias s='trizen -Ss'        # search package official and AUR
+alias i='trizen -S'         # install package official and AUR
+alias u='trizen -Runs'
+alias q='trizen -Qi'
+
+# grep
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
 

@@ -1,8 +1,6 @@
 {
   "segments": [
     "virtual_env",
-    "username",
-    "hostname",
     "ssh",
     "cwd",
     "git",
@@ -12,6 +10,7 @@
   ],
   "mode": "patched",
   "cwd": {
-      "mode": "dironly"
+      "mode": "full_cwd",
+      "max_depth": 3
   }
 }

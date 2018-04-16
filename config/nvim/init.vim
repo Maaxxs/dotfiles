@@ -69,7 +69,7 @@ set cindent
 set nobackup
 set noswapfile
 " set nowrap
-set colorcolumn=79
+set colorcolumn=80
 set scrolloff=7
 
 

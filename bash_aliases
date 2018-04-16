@@ -38,3 +38,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 
+# youtube-dl
+alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'
+
+

@@ -28,3 +28,5 @@ fi
 
 HISTSIZE=1000
 export EDITOR=nvim
+export PATH=$PATH:/$HOME/.local/bin
+

@@ -15,5 +15,5 @@ cp ~/.config/conky/archlinux.png ./config/conky/archlinux.png
 cp ~/.config/conky/conky.conf ./config/conky/conky.conf
 cp ~/.config/conky/conky2.conf ./config/conky/conky2.conf
 
-
+cp ~/.mozilla/firefox/*.default/chrome/userContent.css ./mozilla/firefox/*.default/chrome/
 

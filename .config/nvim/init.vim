@@ -15,18 +15,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'rust-lang/rust.vim'
 
 " work with RestructeredText
-Plug 'Rykka/riv.vim'
-Plug 'matthew-brett/vim-rst-sections'
+" Plug 'Rykka/riv.vim'
+" Plug 'matthew-brett/vim-rst-sections'
 
 " Git
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
-" Vim Color Themes
-" Plug 'chriskempson/base16-vim'
+" === Vim Color Themes ===
 " Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'tyrannicaltoucan/vim-deep-space'
+
 
 " Icons
 Plug 'ryanoasis/vim-devicons'
@@ -54,8 +55,11 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " Theme
 set background=dark
 syntax enable
-colorscheme gruvbox
-" set termguicolors
+" colorscheme gruvbox
+colorscheme deep-space
+set termguicolors
+
+let g:airline_theme='deep_space'
 
 :let mapleader = ","
 

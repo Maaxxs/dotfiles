@@ -2,15 +2,6 @@
 Max Kunzelmann <maxdev@posteo.de>
 :toc:
 ifndef::env-gitlab[:icons: font]
-ifdef::env-gitlab[]
-:status:
-:outfilesuffix: .adoc
-:caution-caption: :fire:
-:important-caption: :exclamation:
-:note-caption: :paperclip:
-:tip-caption: :bulb:
-:warning-caption: :warning:
-endif::[]
 
 == Installation
 

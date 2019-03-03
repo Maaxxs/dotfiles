@@ -28,6 +28,11 @@ Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tyrannicaltoucan/vim-deep-space'
 
+" === AsciiDoc Support ===
+Plug 'dahu/vimple'
+Plug 'dahu/asif'
+Plug 'raimondi/vimregstyle'
+Plug 'dahu/vim-asciidoc'
 
 " Icons
 Plug 'ryanoasis/vim-devicons'

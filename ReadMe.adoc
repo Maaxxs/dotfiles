@@ -10,8 +10,10 @@ Clone the repository to `~/.dotfiles`
 `git clone https://gitlab.com/Maaxxs/dotfiles.git ~/.dotfiles/`
 
 Look at `deploy.sh` and comment the lines for configurations you don't
-want to change. Run it. What it will do for `~/.zshrc` for example. It
-replaces the content with `source $HOME/.dotfiles/.zshrc` to load the
+want to change. Run it.
+
+It will do the following for `~/.zshrc` for example: It replaces the
+content in `~/.zshrc` with `source $HOME/.dotfiles/.zshrc` to load the
 configuration which is stored in this git repository. This has 2
 advantages: 
 
@@ -19,11 +21,5 @@ advantages:
 . You can add machine dependent configuration to the `~/.zshrc`,
   which is not stored in git.
 
-
-
-NOTE: Is this text or a icon?
-
-
-WARNING: text or icon? 
 
 

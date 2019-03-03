@@ -3,6 +3,9 @@ Max Kunzelmann <maxdev@posteo.de>
 :toc:
 :icons: font
 
+ifdef::env-gitlab[]
+:icons:
+endif::[]
 
 == Installation
 

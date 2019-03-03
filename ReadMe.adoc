@@ -1,7 +1,6 @@
 = My Dotfiles
 Max Kunzelmann <maxdev@posteo.de>
 :toc:
-
 ifndef::env-gitlab[:icons: font]
 ifdef::env-gitlab[]
 :status:

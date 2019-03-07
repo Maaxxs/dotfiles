@@ -40,10 +40,10 @@ fi
 if [ ! -d ~/.oh-my-zsh ]; then
   echo 'Downloading oh-my-zsh and zsh-autosuggestions'
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh/
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 elif [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/ ]; then
   echo 'Downloading zsh-autosuggestions'
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 else 
   echo 'oh-my-zsh and zsh-autosuggestions are already there'
 fi

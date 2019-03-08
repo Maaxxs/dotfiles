@@ -13,7 +13,7 @@ if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 fi
-mkdir ~/.config/nvim/
+mkdir -p ~/.config/nvim/
 printf "so $HOME/.dotfiles/.config/nvim/init.vim" > ~/.config/nvim/init.vim
 
 # Tmux

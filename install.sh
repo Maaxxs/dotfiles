@@ -29,6 +29,11 @@ if ! command -v nvim 1>/dev/null; then
   packages+=('neovim')
 fi
 
+if ! command -v curl 1>/dev/null; then
+  packages+=('curl')
+fi
+
+
 if [ ${#packages[@]} -gt 0 ]; then
   sudo $installer ${packages[@]}
 else 

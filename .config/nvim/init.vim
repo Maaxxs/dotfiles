@@ -178,3 +178,13 @@ set autochdir
 
 map <leader><leader>g :!asciidoctor-pdf %<CR>
 
+" Function to strip whitespace at end of line
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd FileType asciidoc,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+

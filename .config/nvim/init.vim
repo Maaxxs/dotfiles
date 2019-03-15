@@ -140,6 +140,10 @@ map <C-l> <C-W>l
 noremap ; :
 noremap ;qq :q!
 
+" switch on/off spell checking
+map <leader>sf :set nospell<cr>
+map <leader>sn :set spell<cr>
+
 " Keep the blog selected when moving right or left
 vmap < <gv
 vmap > >gv

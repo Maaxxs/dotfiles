@@ -34,12 +34,12 @@ Plug 'dahu/asif'
 Plug 'raimondi/vimregstyle'
 Plug 'dahu/vim-asciidoc'
 
-" Icons
-Plug 'ryanoasis/vim-devicons'
-
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
+
+" Icons. Always load as last plugin
+Plug 'ryanoasis/vim-devicons'
 
 " Multiple cursor. Standard is <C-n>. 
 " TODO: Change that, since <C-n> is NerdTree here.

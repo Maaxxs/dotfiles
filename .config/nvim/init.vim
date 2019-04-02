@@ -34,6 +34,9 @@ Plug 'dahu/asif'
 Plug 'raimondi/vimregstyle'
 Plug 'dahu/vim-asciidoc'
 
+" === Log Highlighting ===
+Plug 'mtdl9/vim-log-highlighting'
+
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
@@ -191,4 +194,8 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd FileType asciidoc,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+autocmd FileType    log
+                \   set cc=0 |
+                \   set nowrap
 

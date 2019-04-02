@@ -183,7 +183,11 @@ autocmd BufRead * normal zz
 " auto change terminal's cwd to the current file
 set autochdir
 
+" Generate a pdf document from the current adoc file
 map <leader><leader>g :!asciidoctor-pdf %<CR>
+
+" Open the current file in firefox
+map <leader><leader>f :!firefox %<CR>
 
 " Function to strip whitespace at end of line
 fun! <SID>StripTrailingWhitespaces()

@@ -211,5 +211,6 @@ autocmd BufEnter,WinEnter *
     \ getline(1) =~ "^# Firewall configuration written by" |
         \ setfiletype iptables |
         \ set commentstring=#%s |
+        \ set cc=0 |
     \ endif
 

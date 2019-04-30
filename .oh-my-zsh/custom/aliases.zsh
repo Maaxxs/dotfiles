@@ -28,6 +28,7 @@ fi
 
 # neovim
 alias nvimconfig='nvim ~/.config/nvim/init.vim'
+alias dotnvim='nvim ~/.dotfiles/.config/nvim/init.vim'
 alias v='nvim'
 
 

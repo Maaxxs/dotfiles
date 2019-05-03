@@ -66,11 +66,12 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " Theme
 set background=dark
 syntax enable
-" colorscheme gruvbox
-colorscheme deep-space
+colorscheme gruvbox
+" colorscheme deep-space
 set termguicolors
 
-let g:airline_theme='deep_space'
+" let g:airline_theme='deep_space'
+let g:airline_theme='gruvbox'
 
 :let mapleader = ","
 

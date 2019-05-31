@@ -33,6 +33,9 @@ if ! command -v curl 1>/dev/null; then
   packages+=('curl')
 fi
 
+if ! command -v most 1>/dev/null; then
+  packages+=('most')
+fi
 
 if [ ${#packages[@]} -gt 0 ]; then
   sudo $installer ${packages[@]}

@@ -23,6 +23,14 @@ then
     alias i='sudo apt install'        
     alias u='sudo apt purge && sudo apt autoremove'
     alias q='apt-cache show'
+elif command -v dnf > /dev/null;
+then
+    alias up='sudo dnf upgrade'
+    alias s='dnf search'
+    alias si='dnf info'
+    alias i='sudo dnf install'
+    alias u='sudo dnf remove'
+    alias q='dnf info'
 fi
 
 

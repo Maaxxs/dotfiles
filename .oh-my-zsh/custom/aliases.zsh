@@ -15,6 +15,14 @@ then
     alias u='trizen -Runs'
     alias q='trizen -Qi'
     alias pacs='pacman -Ss'
+elif command -v pacman > /dev/null;
+then
+    alias up='pacman -Syyu'
+    alias s='pacman -Ss'        
+    alias si='pacman -Si'
+    alias i='pacman -S'        
+    alias u='pacman -Runs'
+    alias q='pacman -Qi'
 elif command -v apt > /dev/null;
 then
     alias up='sudo apt update && sudo apt dist-upgrade'

@@ -9,6 +9,8 @@ elif command -v apt 1>/dev/null; then
   installer='apt install'
 elif command -v dnf 1>/dev/null; then
   installer='dnf install'
+elif command -v eopkg 1>/dev/null; then
+  installer='eopkg install'
 fi
 
 packages=()

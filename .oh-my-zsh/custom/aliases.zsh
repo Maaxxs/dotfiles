@@ -39,6 +39,14 @@ then
     alias i='sudo dnf install'
     alias u='sudo dnf remove'
     alias q='dnf info'
+elif command -v eopkg > /dev/null;
+then
+    alias up='sudo eopkg upgrade'
+    alias s='eopkg search'
+    alias si='eopkg info'
+    alias i='sudo eopkg install'
+    alias u='sudo eopkg remove'
+    alias q='eopkg info'
 fi
 
 

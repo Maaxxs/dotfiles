@@ -12,7 +12,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
 " rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 
 " work with RestructeredText
 " Plug 'Rykka/riv.vim'
@@ -26,23 +26,23 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'tyrannicaltoucan/vim-deep-space'
+" Plug 'tyrannicaltoucan/vim-deep-space'
 
 " === AsciiDoc Support ===
-Plug 'dahu/vimple'
-Plug 'dahu/asif'
-Plug 'raimondi/vimregstyle'
-Plug 'dahu/vim-asciidoc'
+" Plug 'dahu/vimple'
+" Plug 'dahu/asif'
+" Plug 'raimondi/vimregstyle'
+" Plug 'dahu/vim-asciidoc'
 
 " === Log Highlighting ===
 Plug 'mtdl9/vim-log-highlighting'
 
 " iptables highlighting
-Plug 'vim-scripts/iptables'
+" Plug 'vim-scripts/iptables'
 
 " Fuzzy search
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+" Plug 'junegunn/fzf.vim'
 
 " Icons. Always load as last plugin
 Plug 'ryanoasis/vim-devicons'

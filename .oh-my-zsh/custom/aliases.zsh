@@ -17,11 +17,11 @@ then
     alias pacs='pacman -Ss'
 elif command -v pacman > /dev/null;
 then
-    alias up='pacman -Syyu'
+    alias up='sudo pacman -Syyu'
     alias s='pacman -Ss'        
     alias si='pacman -Si'
-    alias i='pacman -S'        
-    alias u='pacman -Runs'
+    alias i='sudo pacman -S'        
+    alias u='sudo pacman -Runs'
     alias q='pacman -Qi'
 elif command -v apt > /dev/null;
 then

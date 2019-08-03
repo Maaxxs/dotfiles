@@ -6,7 +6,16 @@ alias sudo='sudo '
 alias man='man -P most'
 
 # Updating system
-if command -v trizen > /dev/null;
+if command -v yay > /dev/null;
+then
+    alias up='yay -Syu'
+    alias s='yay -Ss'        
+    alias si='yay -Si'
+    alias i='yay -S'        
+    alias u='yay -Runs'
+    alias q='yay -Qi'
+    alias pacs='pacman -Ss'
+elif command -v trizen > /dev/null;
 then
     alias up='trizen -Syyu'
     alias s='trizen -Ss'        

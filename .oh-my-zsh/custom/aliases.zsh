@@ -3,7 +3,7 @@ alias sudo='sudo '
 
 # manpages
 # requires package 'most'
-alias man='man -P most'
+# alias man='man -P most'
 
 # Updating system
 if command -v yay > /dev/null;

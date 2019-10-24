@@ -29,6 +29,9 @@ fi
 mkdir -p ~/.config/nvim/
 printf "so $HOME/.dotfiles/.config/nvim/init.vim" > ~/.config/nvim/init.vim
 
+# Vim
+printf "so $HOME/.dotfiles/.vimrc" > ~/.vimrc
+
 # Tmux
 printf "source-file $HOME/.dotfiles/.tmux.conf" > ~/.tmux.conf
 

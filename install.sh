@@ -61,15 +61,23 @@ else
   echo 'oh-my-zsh and zsh-autosuggestions are already there'
 fi
 
-# Install patched font "Source Code Pro"
-echo "Downloading Source Code Pro. This might take a while"
-mkdir -p $HOME/.local/share/fonts/SourceCodePro
-cd $HOME/.local/share/fonts/SourceCodePro
-latest_version=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url" | grep "SourceCodePro.zip" | awk '{ print $2 }' | tr -d \")
-wget --quiet $latest_version
-echo "Setting Source Code Pro as default monospace font"
-unzip SourceCodePro.zip
-fc-cache -f
-rm -f SourceCodePro.zip
-gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro Nerd Font 10'
-cd
+# 1: true, 0: false
+INSTALL_SOURCE_CODE_PRO=0
+
+if [ $INSTALL_SOURCE_CODE_PRO -eq 1 ]; then
+    # Install patched font "Source Code Pro"
+    echo "Downloading Source Code Pro. This might take a while"
+    mkdir -p $HOME/.local/share/fonts/SourceCodePro
+    cd $HOME/.local/share/fonts/SourceCodePro
+    latest_version=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url" | grep "SourceCodePro.zip" | awk '{ print $2 }' | tr -d \")
+    wget --quiet $latest_version
+    echo "Setting Source Code Pro as default monospace font"
+    unzip SourceCodePro.zip
+    fc-cache -f
+    rm -f SourceCodePro.zip
+    gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro Nerd Font 10'
+    cd
+fi
+
+
+

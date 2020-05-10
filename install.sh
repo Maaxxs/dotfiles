@@ -71,11 +71,12 @@ if [ $INSTALL_SOURCE_CODE_PRO -eq 1 ]; then
     cd $HOME/.local/share/fonts/SourceCodePro
     latest_version=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url" | grep "SourceCodePro.zip" | awk '{ print $2 }' | tr -d \")
     wget --quiet $latest_version
-    echo "Setting Source Code Pro as default monospace font"
     unzip SourceCodePro.zip
     fc-cache -f
     rm -f SourceCodePro.zip
-    gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro Nerd Font 10'
+    # echo "Setting Source Code Pro as default monospace font"
+    # This command never seems to work, but I don't know why
+    # gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro Nerd Font 10'
     cd
 fi
 

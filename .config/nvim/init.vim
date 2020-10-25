@@ -1,18 +1,28 @@
 call plug#begin('~/.config/nvim/bundle')
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 " Not need atm
 " Plug 'kien/ctrlp.vim'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
-" rust
-" Plug 'rust-lang/rust.vim'
+" Rust
+Plug 'rust-lang/rust.vim'
+" Install: https://rust-analyzer.github.io/manual.html#vimneovim 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" Desktop and editor setup for Rust development by Jon Gjengset
+Plug 'w0rp/ale'
+Plug 'machakann/vim-highlightedyank'
 
 " work with RestructeredText
 " Plug 'Rykka/riv.vim'
@@ -26,7 +36,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'tyrannicaltoucan/vim-deep-space'
 
 " === AsciiDoc Support ===
 " Plug 'dahu/vimple'
@@ -41,8 +51,9 @@ Plug 'mtdl9/vim-log-highlighting'
 " Plug 'vim-scripts/iptables'
 
 " Fuzzy search
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
-" Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Icons. Always load as last plugin
 Plug 'ryanoasis/vim-devicons'
@@ -71,7 +82,10 @@ colorscheme gruvbox
 set termguicolors
 
 " let g:airline_theme='deep_space'
-let g:airline_theme='gruvbox'
+" let g:airline_theme='gruvbox'
+
+" Vim Rooter - Dont echo project directory
+let g:rooter_silent_chdir = 1
 
 :let mapleader = ","
 
@@ -81,9 +95,22 @@ let g:airline_theme='gruvbox'
 " create:  ysiw"
 " wrap entire line: yss"
 
+" Open hotkeys
+map <C-p> :Files<CR>
+nmap <leader>; :Buffers<CR>
+nnoremap <leader><leader> <c-^>
+
+" Quick Save
+nmap <leader>w :w<CR>
+
+" Permanent Undo 
+set undodir=~/.vimdid
+set undofile
+
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " NERTCommenter
 " press: 78GV88G <leader>c<space> -> comment lines 78-88
@@ -93,10 +120,6 @@ let g:NERTCommentEmptyLines = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 1
 
-
-" remapping ESC to jk
-inoremap jk <ESC>
-
 " Y copies everything from cursor to end of line
 noremap Y y$
 
@@ -105,7 +128,12 @@ set relativenumber
 set incsearch
 set ignorecase
 set smartcase
-" set nohlsearch
+nnoremap <C-h> :nohlsearch<CR>
+vnoremap <C-h> :nohlsearch<CR>
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
 
 " Tab settings
 set tabstop=4
@@ -114,17 +142,18 @@ set shiftwidth=4
 set expandtab
 set smarttab
 
+filetype plugin indent on
 " if smartindent is set, autoindent should be set as well
 " set smartindent
-" set autoindent
+set autoindent
 
 " another auto indenation, preferred for C
-set cindent
+" set cindent
 
 set nobackup
 set noswapfile
 " set nowrap
-set colorcolumn=79
+set colorcolumn=80
 set scrolloff=7
 
 " from https://defuse.ca/vimrc.htm
@@ -138,10 +167,10 @@ map <C-d> 10<C-E>10j
 " Switch windows quickly with CTRL+{h,j,k,l}
 " This breaks backspace in a terminal, but I never use backspace in
 " normal mode
-map <C-h> <C-W>h
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
+" map <C-h> <C-W>h
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-l> <C-W>l
 
 " Map the semicolon to colon, so you don't have to press <Shift+;>
 noremap ; :
@@ -150,10 +179,11 @@ noremap ;qq :q!
 " switch on/off spell checking
 map <leader>sf :set nospell<cr>
 map <leader>sn :set spell<cr>
+set timeoutlen=300
 
 " Keep the blog selected when moving right or left
 vmap < <gv
-vmap > >gv
+vmap > >g
 
 " After a search, clear all the highlighted results
 map <esc> :noh<cr>
@@ -168,10 +198,8 @@ set laststatus=2
 set clipboard+=unnamedplus
 
 " Shortcuts for fzf, Ag ... 
-map <C-p> :FZF<CR> 
-map <leader>a :Ag<CR>
-" TODO Mabe add <leader>r for that regex search which I have to install though
-" map <leaer>r :Rg
+" map <C-p> :FZF<CR>
+" map <leader>a :Ag<CR>
 " See https://github.com/BurntSushi/ripgrep
 map <leader>h :History
 " map <leader>l :Lines<CR>
@@ -214,4 +242,38 @@ autocmd BufEnter,WinEnter *
         \ set commentstring=#%s |
         \ set cc=0 |
     \ endif
+
+" Ripgrep search
+noremap <leader>s :Rg<CR>
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0)
+
+" Reload nvim config
+map <leader>r :source ~/.config/nvim/init.vim<CR>
+
+
+" Ctrl+j as ESC
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+" remapping ESC to jk
+inoremap jk <ESC>
+
+" File types
+autocmd BufRead *.tex set filetype=tex
+autocmd BufRead *.md set filetype=markdown
+
+""""" Programming Lanuages """""
+" Rust
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
+au Filetype rust set colorcolumn=100
+
+
+
 

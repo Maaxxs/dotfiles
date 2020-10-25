@@ -33,6 +33,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " === Vim Color Themes ===
+Plug 'chriskempson/base16-vim'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
@@ -75,11 +76,25 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Theme
+let base16colorspace=256
 set background=dark
-syntax enable
-colorscheme gruvbox
-" colorscheme deep-space
 set termguicolors
+syntax enable
+
+" Gruvbox
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'medium'
+
+" Deepspace
+" colorscheme deep-space
+
+" Base16 
+" colorscheme base16-default-dark
+colorscheme base16-atelier-dune
+" colorscheme base16-gruvbox-dark-medium
+" colorscheme base16-tomorrow-night
+" colorscheme base16-woodland
+
 
 " let g:airline_theme='deep_space'
 " let g:airline_theme='gruvbox'
@@ -266,6 +281,10 @@ inoremap jk <ESC>
 " File types
 autocmd BufRead *.tex set filetype=tex
 autocmd BufRead *.md set filetype=markdown
+
+" Markdown Folding
+" Have not folding when opening a file
+set nofoldenable
 
 """"" Programming Lanuages """""
 " Rust

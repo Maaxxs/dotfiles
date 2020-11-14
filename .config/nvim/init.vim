@@ -212,6 +212,9 @@ set laststatus=2
 " Use clipboard 
 set clipboard+=unnamedplus
 
+" Use mouse scrolling for vim instead tmux terminal
+set mouse=a
+
 " Shortcuts for fzf, Ag ... 
 " map <C-p> :FZF<CR>
 " map <leader>a :Ag<CR>

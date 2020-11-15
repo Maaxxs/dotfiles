@@ -16,6 +16,9 @@ Plug 'rust-lang/rust.vim'
 " Install: https://rust-analyzer.github.io/manual.html#vimneovim 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Python 
+Plug 'psf/black', { 'branch': 'stable' }
+
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -103,6 +106,21 @@ colorscheme base16-atelier-dune
 let g:rooter_silent_chdir = 1
 
 :let mapleader = ","
+
+" remapping ESC to jk
+inoremap jk <ESC>
+
+" Ctrl+k as Esc
+" So we also map Ctrl+k
+nnoremap <C-k> <Esc>
+inoremap <C-k> <Esc>
+vnoremap <C-k> <Esc>
+snoremap <C-k> <Esc>
+xnoremap <C-k> <Esc>
+cnoremap <C-k> <C-c>
+onoremap <C-k> <Esc>
+lnoremap <C-k> <Esc>
+tnoremap <C-k> <Esc>
 
 " Vim Surround:
 " replace: cs"'
@@ -275,11 +293,6 @@ command! -bang -nargs=* Rg
 map <leader>r :source ~/.config/nvim/init.vim<CR>
 
 
-" Ctrl+j as ESC
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-" remapping ESC to jk
-inoremap jk <ESC>
 
 " File types
 autocmd BufRead *.tex set filetype=tex
@@ -295,6 +308,10 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 au Filetype rust set colorcolumn=100
+
+" ### Python
+" Auto format on write
+autocmd BufWritePre *.py execute ':Black'
 
 
 

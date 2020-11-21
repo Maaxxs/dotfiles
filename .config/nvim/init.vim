@@ -293,6 +293,13 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 au Filetype rust set colorcolumn=100
 
+" Set the textwidth and auto line breaks (format option)
+autocmd FileType tex setlocal textwidth=80 colorcolumn=81 formatoptions+=t
+autocmd FileType text,markdown setlocal textwidth=72 colorcolumn=73 formatoptions+=t
 
+" M to make 
+noremap M :!make -k -j4<CR>
 
+" Use mouse to scroll inside of tmux
+set mouse=a
 

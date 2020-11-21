@@ -16,6 +16,9 @@ Plug 'rust-lang/rust.vim'
 " Install: https://rust-analyzer.github.io/manual.html#vimneovim 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Python 
+Plug 'psf/black', { 'branch': 'stable' }
+
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -103,6 +106,21 @@ colorscheme base16-atelier-dune
 let g:rooter_silent_chdir = 1
 
 :let mapleader = ","
+
+" remapping ESC to jk
+inoremap jk <ESC>
+
+" Ctrl+k as Esc
+" So we also map Ctrl+k
+nnoremap <C-k> <Esc>
+inoremap <C-k> <Esc>
+vnoremap <C-k> <Esc>
+snoremap <C-k> <Esc>
+xnoremap <C-k> <Esc>
+cnoremap <C-k> <C-c>
+onoremap <C-k> <Esc>
+lnoremap <C-k> <Esc>
+tnoremap <C-k> <Esc>
 
 " Vim Surround:
 " replace: cs"'
@@ -212,6 +230,9 @@ set laststatus=2
 " Use clipboard 
 set clipboard+=unnamedplus
 
+" Use mouse scrolling for vim instead tmux terminal
+set mouse=a
+
 " Shortcuts for fzf, Ag ... 
 " map <C-p> :FZF<CR>
 " map <leader>a :Ag<CR>
@@ -272,15 +293,15 @@ command! -bang -nargs=* Rg
 map <leader>r :source ~/.config/nvim/init.vim<CR>
 
 
-" Ctrl+j as ESC
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-" remapping ESC to jk
-inoremap jk <ESC>
 
 " File types
 autocmd BufRead *.tex set filetype=tex
 autocmd BufRead *.md set filetype=markdown
+
+" Set the textwidth and auto line breaks (format option)
+autocmd FileType tex setlocal textwidth=80 colorcolumn=81 formatoptions+=t
+autocmd FileType text,markdown setlocal textwidth=72 colorcolumn=73 formatoptions+=t
+=======
 
 " Markdown Folding
 " Have not folding when opening a file
@@ -293,9 +314,9 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 au Filetype rust set colorcolumn=100
 
-" Set the textwidth and auto line breaks (format option)
-autocmd FileType tex setlocal textwidth=80 colorcolumn=81 formatoptions+=t
-autocmd FileType text,markdown setlocal textwidth=72 colorcolumn=73 formatoptions+=t
+" ### Python
+" Auto format on write
+autocmd BufWritePre *.py execute ':Black'
 
 " M to make 
 noremap M :!make -k -j4<CR>

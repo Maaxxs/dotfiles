@@ -299,8 +299,7 @@ autocmd BufRead *.tex set filetype=tex
 autocmd BufRead *.md set filetype=markdown
 
 " Set the textwidth and auto line breaks (format option)
-autocmd FileType tex setlocal textwidth=80 colorcolumn=81 formatoptions+=t
-autocmd FileType text,markdown setlocal textwidth=72 colorcolumn=73 formatoptions+=t
+autocmd FileType tex,text,markdown setlocal textwidth=80 colorcolumn=81 formatoptions+=t
 
 " Markdown Folding
 " Have not folding when opening a file

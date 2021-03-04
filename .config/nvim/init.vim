@@ -12,9 +12,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 
 " Rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 " Install: https://rust-analyzer.github.io/manual.html#vimneovim 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Python 
 Plug 'psf/black', { 'branch': 'stable' }
@@ -22,12 +22,15 @@ Plug 'psf/black', { 'branch': 'stable' }
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " Desktop and editor setup for Rust development by Jon Gjengset
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
+
+" Highlight the yanked line
 Plug 'machakann/vim-highlightedyank'
 
-" work with RestructeredText
+" RestructeredText
 " Plug 'Rykka/riv.vim'
 " Plug 'matthew-brett/vim-rst-sections'
 
@@ -38,9 +41,9 @@ Plug 'airblade/vim-gitgutter'
 " === Vim Color Themes ===
 Plug 'chriskempson/base16-vim'
 " Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'tyrannicaltoucan/vim-deep-space'
+" Plug 'tyrannicaltoucan/vim-deep-space'
 
 " === AsciiDoc Support ===
 " Plug 'dahu/vimple'
@@ -58,6 +61,11 @@ Plug 'mtdl9/vim-log-highlighting'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" Latex plugins
+" Plug 'lervag/vimtex'
+" Plug 'Konfekt/FastFold'
+" Plug 'matze/vim-tex-fold'
 
 " Icons. Always load as last plugin
 Plug 'ryanoasis/vim-devicons'
@@ -292,7 +300,12 @@ command! -bang -nargs=* Rg
 " Reload nvim config
 map <leader>r :source ~/.config/nvim/init.vim<CR>
 
+" Markdown Preview
+" Do not close preview window when switching buffer in vim
+let g:mkdp_auto_close = 0
 
+nmap <C-s> <Plug>MarkdownPreview
+nmap <M-s> <Plug>MarkdownPreviewStop
 
 " File types
 autocmd BufRead *.tex set filetype=tex

@@ -94,17 +94,26 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-prompt_context() {}
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# This is dump. THis puts a writable folder .pyenv/bin before systems paths.
+# Now it would be possible to alias legitimate binaries like `ls` in one of these 
+# folders and do stupid shit with it. 
+# Changed location of new paths to the end of $PATH
+
+# commented by default as this is not needed atm.
+# prompt_context() {}
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PATH:$PYENV_ROOT/bin"
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 # added by pipsi (https://github.com/mitsuhiko/pipsi)
-# export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export MOZ_USE_XINPUT2=1
+# Edited this to put the new paths at the end of $PATH
+# commented by default as this is not needed atm.
+# export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
+# export PATH="$PATH:$HOME/.local/bin"
+
+# export MOZ_USE_XINPUT2=1
 
 # Color manpage
 # 30 = black

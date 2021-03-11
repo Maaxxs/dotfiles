@@ -8,6 +8,8 @@ Plug 'scrooloose/nerdcommenter'
 " Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 " Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
@@ -20,9 +22,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'psf/black', { 'branch': 'stable' }
 
 " Markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 
 " Desktop and editor setup for Rust development by Jon Gjengset
 " Plug 'w0rp/ale'
@@ -108,7 +111,7 @@ colorscheme base16-atelier-dune
 
 
 " let g:airline_theme='deep_space'
-" let g:airline_theme='gruvbox'
+let g:airline_theme='base16_atelierdune'
 
 " Vim Rooter - Dont echo project directory
 let g:rooter_silent_chdir = 1

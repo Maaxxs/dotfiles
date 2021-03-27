@@ -35,6 +35,10 @@ printf "so $HOME/.dotfiles/.vimrc" > ~/.vimrc
 # Tmux
 printf "source-file $HOME/.dotfiles/.tmux.conf" > ~/.tmux.conf
 
+# Alacritty
+mkdir $HOME/.config/alacritty
+ln -s $HOME/.dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+
 # change default shell to zsh
 echo '[*] Changing shell to zsh'
 sudo chsh -s $(which zsh) $USER

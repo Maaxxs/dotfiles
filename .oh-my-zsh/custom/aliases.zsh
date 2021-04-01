@@ -72,9 +72,17 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # Exa
-alias l='exa --git'
-alias ll='exa -l --git'
-alias la='exa -la --git'
+if command -v exa > /dev/null;
+then
+    alias l='exa --git'
+    alias ll='exa -l --git'
+    alias la='exa -la --git'
+else
+    alias l='ls'
+    alias ll='ls -l'
+    alias la='ls -la'
+fi
+
 
 # youtube-dl
 alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'

@@ -1,45 +1,50 @@
 call plug#begin('~/.config/nvim/bundle')
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-jedi'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-" Not need atm
-" Plug 'kien/ctrlp.vim'
-" Plug 'vim-syntastic/syntastic'
+" VIM enhancments
+Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'machakann/vim-highlightedyank'
+" Plug 'andymass/vim-matchup'
 
-" Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-fugitive'
+" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
 
-" Rust
-" Plug 'rust-lang/rust.vim'
+" Git support
+Plug 'airblade/vim-gitgutter'
+" Plug 'tpope/vim-fugitive'
+
+Plug 'itchyny/lightline.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+
+" Fuzzy search
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Language support
 " Install: https://rust-analyzer.github.io/manual.html#vimneovim 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Python 
+Plug 'rust-lang/rust.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" python black formatter
 Plug 'psf/black', { 'branch': 'stable' }
-
 " Markdown
-" Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-
-" Desktop and editor setup for Rust development by Jon Gjengset
-" Plug 'w0rp/ale'
-
-" Highlight the yanked line
-Plug 'machakann/vim-highlightedyank'
-
 " RestructeredText
 " Plug 'Rykka/riv.vim'
 " Plug 'matthew-brett/vim-rst-sections'
-
-" Git
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'airblade/vim-gitgutter'
+" AsciiDoc Support
+" Plug 'dahu/vimple'
+" Plug 'dahu/asif'
+" Plug 'raimondi/vimregstyle'
+" Plug 'dahu/vim-asciidoc'
+" Log Highlighting
+Plug 'mtdl9/vim-log-highlighting'
+" Latex plugins
+" Plug 'lervag/vimtex'
+" Plug 'Konfekt/FastFold'
+" Plug 'matze/vim-tex-fold'
 
 " === Vim Color Themes ===
 Plug 'chriskempson/base16-vim'
@@ -48,40 +53,36 @@ Plug 'chriskempson/base16-vim'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'tyrannicaltoucan/vim-deep-space'
 
-" === AsciiDoc Support ===
-" Plug 'dahu/vimple'
-" Plug 'dahu/asif'
-" Plug 'raimondi/vimregstyle'
-" Plug 'dahu/vim-asciidoc'
 
-" === Log Highlighting ===
-Plug 'mtdl9/vim-log-highlighting'
+
+
+" =============================================================
+" I should probably remove the rest of the plugins. 
+" I leave it there for now. we'll see.
+
+" Desktop and editor setup for Rust development by Jon Gjengset
+" Plug 'w0rp/ale'
+
+" Not need atm
+" Plug 'vim-syntastic/syntastic'
+" Plug 'jiangmiao/auto-pairs'
+
+" Git. Not sure when I last used this.
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " iptables highlighting
 " Plug 'vim-scripts/iptables'
 
-" Fuzzy search
-Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Latex plugins
-" Plug 'lervag/vimtex'
-" Plug 'Konfekt/FastFold'
-" Plug 'matze/vim-tex-fold'
-
 " Icons. Always load as last plugin
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 
 " Multiple cursor. Standard is <C-n>. 
-" TODO: Change that, since <C-n> is NerdTree here.
+" Change that, since <C-n> is NerdTree here.
 " See https://github.com/terryma/vim-multiple-cursors
 " Plug 'terryma/vim-multiple-cursors'
 "
 call plug#end()
 
-" Enable deoplete
-let g:deoplete#enable_at_startup=1
 " use Tab to go forwards
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " use Shift + Tab to go backwards
@@ -89,34 +90,49 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 " close documentation window once completion is done
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Theme
+" Theme and colors
 let base16colorspace=256
 set background=dark
 set termguicolors
 syntax enable
 
-" Gruvbox
-" colorscheme gruvbox
 " let g:gruvbox_contrast_dark = 'medium'
-
-" Deepspace
-" colorscheme deep-space
-
-" Base16 
-" colorscheme base16-default-dark
 colorscheme base16-atelier-dune
 " colorscheme base16-gruvbox-dark-medium
-" colorscheme base16-tomorrow-night
-" colorscheme base16-woodland
 
 
-" let g:airline_theme='deep_space'
+let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'
+" let g:lightline = {
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'filename': 'LightlineFilename',
+"       \   'gitbranch': 'FugitiveHead',
+"       \   'cocstatus': 'coc#status'
+"       \ },
+"       \ }
+" function! LightlineFilename()
+"   return expand('%:t') !=# '' ? @% : '[No Name]'
+" endfunction
 
 " Vim Rooter - Dont echo project directory
 let g:rooter_silent_chdir = 1
 
 :let mapleader = ","
+
+" Sane splits
+set splitright
+set splitbelow
+
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
 
 " remapping ESC to jk
 inoremap jk <ESC>

@@ -83,13 +83,6 @@ Plug 'chriskempson/base16-vim'
 "
 call plug#end()
 
-" use Tab to go forwards
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" use Shift + Tab to go backwards
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-" close documentation window once completion is done
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " Theme and colors
 let base16colorspace=256
 set background=dark

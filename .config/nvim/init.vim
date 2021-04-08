@@ -96,20 +96,22 @@ colorscheme base16-atelier-dune
 
 let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'
-" let g:lightline = {
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'filename': 'LightlineFilename',
-"       \   'gitbranch': 'FugitiveHead',
-"       \   'cocstatus': 'coc#status'
-"       \ },
-"       \ }
-" function! LightlineFilename()
-"   return expand('%:t') !=# '' ? @% : '[No Name]'
-" endfunction
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Vim Rooter - Dont echo project directory
 let g:rooter_silent_chdir = 1
@@ -119,6 +121,12 @@ let g:rooter_silent_chdir = 1
 " Sane splits
 set splitright
 set splitbelow
+
+" Completion
+" Better display for messages
+set cmdheight=2
+" You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
 
 " Search results centered please
 nnoremap <silent> n nzz

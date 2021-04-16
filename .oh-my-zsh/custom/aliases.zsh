@@ -83,6 +83,13 @@ else
     alias la='ls -la'
 fi
 
+if command -v ip  > /dev/null;
+then
+    alias ipa='ip -c addr'
+    alias ipr='ip -c route'
+fi
+
+
 
 # youtube-dl
 alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'

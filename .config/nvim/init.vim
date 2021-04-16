@@ -214,18 +214,6 @@ nnoremap <silent> g* g*zz
 " remapping ESC to jk
 inoremap jk <ESC>
 
-" Ctrl+k as Esc
-" So we also map Ctrl+k
-nnoremap <C-k> <Esc>
-inoremap <C-k> <Esc>
-vnoremap <C-k> <Esc>
-snoremap <C-k> <Esc>
-xnoremap <C-k> <Esc>
-cnoremap <C-k> <C-c>
-onoremap <C-k> <Esc>
-lnoremap <C-k> <Esc>
-tnoremap <C-k> <Esc>
-
 " Vim Surround:
 " replace: cs"'
 " remove:  ds"

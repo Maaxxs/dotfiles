@@ -87,11 +87,18 @@ if command -v ip  > /dev/null;
 then
     alias ipa='ip -c addr'
     alias ipr='ip -c route'
+    alias ipr6='ip -c -6 route'
 fi
 
 # view file from terminal and open it with associated mime type
 alias v='xdg-open'
 
+# Get ext4 FileSystem Creation Date (fscd)
+alias fscd='function _fscd() { 
+    FILESYSTEM=$(mount | grep "/ type ext4" | cut -d " " -f 1); 
+    CREATION_DATE=$(sudo tune2fs -l "$FILESYSTEM" | grep "Filesystem created");
+    echo "$FILESYSTEM - $CREATION_DATE"; };
+    _fscd'
 
 # youtube-dl
 alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'

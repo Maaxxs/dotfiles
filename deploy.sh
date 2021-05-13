@@ -5,6 +5,7 @@ configuration_files=(
     "~/.zshrc"
     "~/.tmux.conf"
     "~/.config/nvim/init.vim"
+    "~/.pam_environment"
     )
 
 for file in ${configuration_files[@]}
@@ -42,4 +43,7 @@ ln -sf $HOME/.dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/a
 # change default shell to zsh
 echo '[*] Changing shell to zsh'
 sudo chsh -s $(which zsh) $USER
+
+echo "Link ~/.pam_environment to .dotfiles/.pam_environment"
+ln -sf $HOME/.dotfiles/.pam_environment $HOME/.pam_environment
 

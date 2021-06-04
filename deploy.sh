@@ -47,3 +47,14 @@ sudo chsh -s $(which zsh) $USER
 echo "Link ~/.pam_environment to .dotfiles/.pam_environment"
 ln -sf $HOME/.dotfiles/.pam_environment $HOME/.pam_environment
 
+echo "Link ~/.config/i3/config to .dotfiles/.config/i3/config"
+mkdir -p $HOME/.config/i3
+ln -sf $HOME/.dotfiles/.config/i3/config $HOME/.config/i3/config
+
+echo "Link ~/.config/polybar/config to .dotfiles/.config/polybar/config"
+mkdir -p $HOME/.config/polybar
+ln -sf $HOME/.dotfiles/.config/polybar/config $HOME/.config/polybar/config
+
+
+
+

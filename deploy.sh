@@ -56,5 +56,8 @@ mkdir -p $HOME/.config/polybar
 ln -sf $HOME/.dotfiles/.config/polybar/config $HOME/.config/polybar/config
 
 
-
+echo "Link newsboat config and url file"
+mkdir -p $HOME/.config/newsboat
+ln -sf $HOME/.dotfiles/.config/newsboat/config $HOME/.config/newsboat/config
+ln -sf $HOME/.dotfiles/.config/newsboat/urls $HOME/.config/newsboat/urls
 

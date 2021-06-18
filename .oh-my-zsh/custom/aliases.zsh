@@ -106,4 +106,5 @@ alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'
 # clipboard with X
 # make clipboard the default (usually this is `primary` which is pasted via middleclick
 alias xclip='xclip -selection clipboard'
+alias news='newsboat'
 

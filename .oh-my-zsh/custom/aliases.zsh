@@ -91,7 +91,10 @@ then
 fi
 
 # view file from terminal and open it with associated mime type
-alias v='xdg-open'
+alias v='function _xdg-open() {
+        xdg-open $1 2&>/dev/null &
+    };
+    _xdg-open'
 
 # Get ext4 FileSystem Creation Date (fscd)
 alias fscd='function _fscd() { 

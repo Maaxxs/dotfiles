@@ -91,7 +91,10 @@ then
 fi
 
 # view file from terminal and open it with associated mime type
-alias v='xdg-open'
+alias v='function _xdg-open() {
+        xdg-open $1 2&>/dev/null &
+    };
+    _xdg-open'
 
 # Get ext4 FileSystem Creation Date (fscd)
 alias fscd='function _fscd() { 
@@ -106,4 +109,5 @@ alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'
 # clipboard with X
 # make clipboard the default (usually this is `primary` which is pasted via middleclick
 alias xclip='xclip -selection clipboard'
+alias news='newsboat'
 

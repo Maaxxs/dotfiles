@@ -35,6 +35,10 @@ printf "so $HOME/.dotfiles/.vimrc" > ~/.vimrc
 
 # Tmux
 printf "source-file $HOME/.dotfiles/.tmux.conf" > ~/.tmux.conf
+# if platform is MacOS use xterm-256color as TERM
+if uname -a | grep '^Darwin' >/dev/null; then
+    echo 'set -g default-terminal "xterm-256color"' >> ~/.tmux.conf
+fi
 
 # Alacritty
 mkdir $HOME/.config/alacritty

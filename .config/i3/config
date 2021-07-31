@@ -240,9 +240,15 @@ bindsym Print exec flameshot gui
 # Automatically change back to workspace
 workspace_auto_back_and_forth yes
 
+# switsch between rotated states
+bindsym $mod+y exec /home/max/.local/bin/rotate_screen.sh
+
 # Colors
+# old client.focused child_border: #17c10b
+#                       indicator: #ddb500
 # class                 border  backgr. text    indicator child_border
-client.focused          #06d317 #000000 #06d317 #ddb500   #17c10b
+# client.focused          #06d317 #000000 #06d317 #004fff   #ffb000
+client.focused          #06d317 #000000 #06d317 #0b6b00   #19ff00 
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -255,12 +261,14 @@ exec xrandr --output DP-4 --primary --output DP-2 --right-of DP-4
 # set background
 exec feh --bg-scale /home/max/Pictures/wallpapers/PagedOut-ship-world.jpg
 # start polybar
-exec_always --no-startup-id /home/max/.dotfiles/.config/polybar/launch_polybar.sh
+# exec_always --no-startup-id /home/max/.dotfiles/.config/polybar/launch_polybar.sh
 # screensaver
 exec /home/max/.local/bin/screensaver.sh
 # Autostart applications
 exec /usr/bin/nextcloud --background
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
+exec /usr/bin/pasystray
+exec /usr/bin/nm-applet
 
 # shutdown, reboot, lock screen
 set $Locker convert /home/max/Pictures/wallpapers/large/funky-colors.png RGB:- | i3lock --raw 5120x1440:rgb --image /dev/stdin && sleep 1
@@ -282,6 +290,22 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system" 
 
+bar {
+    tray_output primary
+    # separator_symbol ":|:"
+    position top
+    font pango:DejaVu Sans Mono 10
+    colors {
+        statusline #ffffff
+        background #323232
+        # inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+    # status_command i3status
+
+    status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
+        # font pango:Noto Sans Mono 10
+
+}
 
 # Take screenshot and blur. Could be used as lock image
 # flameshot full -r | convert - -blur 0x4 -paint 8 RGB:- | i3lock --raw 5120x1440:rgb --image /dev/stdin

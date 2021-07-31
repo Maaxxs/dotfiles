@@ -54,6 +54,7 @@ ln -sf $HOME/.dotfiles/.pam_environment $HOME/.pam_environment
 echo "Link ~/.config/i3/config to .dotfiles/.config/i3/config"
 mkdir -p $HOME/.config/i3
 ln -sf $HOME/.dotfiles/.config/i3/config $HOME/.config/i3/config
+ln -sf $HOME/.dotfiles/.config/i3/status.sh $HOME/.config/i3/status.sh
 
 echo "Link ~/.config/polybar/config to .dotfiles/.config/polybar/config"
 mkdir -p $HOME/.config/polybar

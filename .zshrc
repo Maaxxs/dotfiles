@@ -61,6 +61,16 @@ ZSH_THEME="bira"
 plugins=(
   git
   zsh-autosuggestions
+  rust
+  rustup
+  emoji
+  ufw
+  pipenv
+  docker
+  docker-compose
+  archlinux
+  copybuffer
+  ripgrep
 )
 
 source $ZSH/oh-my-zsh.sh

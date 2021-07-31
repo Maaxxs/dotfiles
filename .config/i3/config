@@ -274,6 +274,7 @@ mode "$mode_system" {
 bindsym $mod+Shift+e mode "$mode_system" 
 
 bar {
+    output primary
     # strip_workspace_numbers yes
     tray_output primary
     # separator_symbol ":|:"
@@ -288,7 +289,12 @@ bar {
 
     status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
         # font pango:Noto Sans Mono 10
+}
 
+bar {
+    output nonprimary
+    position top
+    font pango:DejaVu Sans Mono 10
 }
 
 # Take screenshot and blur. Could be used as lock image

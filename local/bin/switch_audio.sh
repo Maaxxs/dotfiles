@@ -16,7 +16,7 @@ done
 if [[ "$current_audio_index" = "" ]]; then 
     pactl set-default-sink "${audio_devices[0]}"
 else
-    index=$(((index + 1) % 2))
+    index=$(((index + 1) % ${#audio_devices[@]}))
     pactl set-default-sink "${audio_devices[$index]}"
 fi
 

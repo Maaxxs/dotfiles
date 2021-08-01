@@ -2,17 +2,15 @@
 
 # Create backup of configuration files if they exist
 configuration_files=(
-    "~/.zshrc"
-    "~/.tmux.conf"
-    "~/.config/nvim/init.vim"
-    "~/.pam_environment"
-    )
+    "$HOME/.zshrc"
+    "$HOME/.tmux.conf"
+    "$HOME/.config/nvim/init.vim"
+)
 
-for file in ${configuration_files[@]}
-do
-    if [ -f $file ]
-    then
-        mv $file "$file.old"
+current_date=$(date '+%Y-%m-%d')
+for file in "${configuration_files[@]}"; do
+    if [ -f "$file" ]; then
+        mv "$file" "$file.old-$current_date"
     fi
 done
 

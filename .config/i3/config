@@ -183,7 +183,7 @@ gaps inner 10
 # gaps outer 10
 # if smart_gaps is switched on, then there are no gaps if there is only one
 # window on one desktop.
-# smart_gaps on
+smart_gaps on
 
 # move workspace to another monitor
 # bindsym $mod+p move workspace to output left

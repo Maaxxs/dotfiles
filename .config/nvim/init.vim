@@ -22,6 +22,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Language support
+" TOML
+Plug 'cespare/vim-toml'
 " Install: https://rust-analyzer.github.io/manual.html#vimneovim 
 Plug 'rust-lang/rust.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -32,7 +34,8 @@ Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " RestructeredText
-" Plug 'Rykka/riv.vim'
+Plug 'Rykka/riv.vim'
+Plug 'Rykka/InstantRst'
 " Plug 'matthew-brett/vim-rst-sections'
 " AsciiDoc Support
 " Plug 'dahu/vimple'
@@ -42,7 +45,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Log Highlighting
 Plug 'mtdl9/vim-log-highlighting'
 " Latex plugins
-" Plug 'lervag/vimtex'
+Plug 'lervag/vimtex'
 " Plug 'Konfekt/FastFold'
 " Plug 'matze/vim-tex-fold'
 
@@ -418,4 +421,18 @@ noremap M :!make -k -j4<CR>
 
 " Use mouse to scroll inside of tmux
 set mouse=a
+
+" Tabularize
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 

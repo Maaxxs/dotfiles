@@ -25,4 +25,9 @@ https://s3cur3th1ssh1t.github.io/feed.xml
 https://www.heise.de/ix/rss/news.rdf
 https://adepts.of0x.cc/feed.xml
 https://www.rtcsec.com/index.xml
-https://blog.cloudflare.com/rss/
+#https://blog.cloudflare.com/rss/
+https://blog.cloudflare.com/tag/security/rss/
+# founder of osmocon. lots of mobile communication and technology
+https://laforge.gnumonks.org/blog/rss.xml
+http://www.mirider.com/weblog/index.rss
+

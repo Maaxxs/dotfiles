@@ -34,8 +34,8 @@ Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " RestructeredText
-Plug 'Rykka/riv.vim'
-Plug 'Rykka/InstantRst'
+" Plug 'Rykka/riv.vim'
+" Plug 'Rykka/InstantRst'
 " Plug 'matthew-brett/vim-rst-sections'
 " AsciiDoc Support
 " Plug 'dahu/vimple'
@@ -93,7 +93,8 @@ set termguicolors
 syntax enable
 
 " let g:gruvbox_contrast_dark = 'medium'
-colorscheme base16-atelier-dune
+" colorscheme base16-atelier-dune
+colorscheme base16-irblack
 " colorscheme base16-gruvbox-dark-medium
 
 
@@ -399,7 +400,7 @@ autocmd BufRead *.tex set filetype=tex
 autocmd BufRead *.md set filetype=markdown
 
 " Set the textwidth and auto line breaks (format option)
-autocmd FileType tex,text,markdown setlocal textwidth=80 colorcolumn=81 formatoptions+=t
+" autocmd FileType tex,text,markdown setlocal textwidth=80 colorcolumn=81 formatoptions+=t
 
 " Markdown Folding
 " Have not folding when opening a file
@@ -436,3 +437,14 @@ function! s:align()
   endif
 endfunction
 
+" vim -b : edit binary using xxd-format!
+augroup Binary
+  au!
+  au BufReadPre  *.bin let &bin=1
+  au BufReadPost *.bin if &bin | %!xxd
+  au BufReadPost *.bin set ft=xxd | endif
+  au BufWritePre *.bin if &bin | %!xxd -r
+  au BufWritePre *.bin endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
+augroup END

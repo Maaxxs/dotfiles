@@ -111,4 +111,5 @@ alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'
 alias xclip='xclip -selection clipboard'
 alias news='newsboat'
 alias duh='du -md1 2>/dev/null | sort -g'
+alias glodse='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)"%an"%Creset %C(yellow)<%ae> %Creset'\'' --date=short'
 

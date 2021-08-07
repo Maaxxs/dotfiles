@@ -32,7 +32,7 @@ Plug 'psf/black', { 'branch': 'stable' }
 " Markdown
 Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " RestructeredText
 Plug 'Rykka/riv.vim'
 Plug 'Rykka/InstantRst'

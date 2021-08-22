@@ -58,6 +58,11 @@ echo "Link ~/.config/polybar/config to .dotfiles/.config/polybar/config"
 mkdir -p $HOME/.config/polybar
 ln -sf $HOME/.dotfiles/.config/polybar/config $HOME/.config/polybar/config
 
+echo "Link sway configuration"
+mkdir -p $HOME/.config/sway 
+ln -sf $HOME/.dotfiles/.config/sway/config $HOME/.config/sway/config
+ln -sf $HOME/.dotfiles/.config/sway/status.sh $HOME/.config/sway/status.sh
+
 
 echo "Link newsboat config and url file"
 mkdir -p $HOME/.config/newsboat

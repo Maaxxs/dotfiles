@@ -14,7 +14,7 @@ https://www.heise.de/security/news/news-atom.xml
 https://www.reddit.com/r/netsec/.rss
 #https://hnrss.org/newest # hacknews
 https://kunzelma.de/index.xml
-https://schwerdtfegr.wordpress.com/feed/
+# https://schwerdtfegr.wordpress.com/feed/
 https://groups.google.com/forum/feed/pagedout-notifications/msgs/rss.xml?num=15
 https://haltp.org/posts.rss
 https://feeds.pinboard.in/rss/u:rooky/
@@ -22,7 +22,7 @@ https://feeds.pinboard.in/rss/u:toericht/
 https://feeds.pinboard.in/rss/u:hoto/
 https://vickieli.dev/feed.xml
 https://s3cur3th1ssh1t.github.io/feed.xml
-https://www.heise.de/ix/rss/news.rdf
+# https://www.heise.de/ix/rss/news.rdf
 https://adepts.of0x.cc/feed.xml
 https://www.rtcsec.com/index.xml
 #https://blog.cloudflare.com/rss/
@@ -34,3 +34,7 @@ http://www.mirider.com/weblog/index.rss
 https://itm4n.github.io/feed.xml
 # did a talk about container security. defcon glasgow
 https://raesene.github.io/feed.xml
+https://blog.cryptographyengineering.com/rss
+# mod%0 blog
+https://www.modzero.com/modlog/rss.xml
+https://www.theguardian.com/news/series/the-long-read/rss

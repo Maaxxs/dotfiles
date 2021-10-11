@@ -95,10 +95,12 @@ syntax enable
 " let g:gruvbox_contrast_dark = 'medium'
 " colorscheme base16-atelier-dune
 " colorscheme base16-irblack
+" colorscheme base16-flat
+" colorscheme base16-github
 " colorscheme base16-gruvbox-dark-medium
 colorscheme base16-solarized-dark
 
-let g:airline_theme='deep_space'
+" let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'
 let g:lightline = {
       \ 'active': {
@@ -283,7 +285,7 @@ set nobackup
 set noswapfile
 " set nowrap
 set colorcolumn=80
-set scrolloff=7
+set scrolloff=2
 
 " from https://defuse.ca/vimrc.htm
 " Make CTRL+u and CTRL+d less confusing
@@ -397,7 +399,10 @@ nmap <M-s> <Plug>MarkdownPreviewStop
 
 " File types
 autocmd BufRead *.tex set filetype=tex
-autocmd BufRead *.md set filetype=markdown
+autocmd BufRead *.md 
+    \ set filetype=markdown |
+    \ set shiftwidth=2 |
+    \ set tabstop=2
 
 " Set the textwidth and auto line breaks (format option)
 " autocmd FileType tex,text,markdown setlocal textwidth=80 colorcolumn=81 formatoptions+=t

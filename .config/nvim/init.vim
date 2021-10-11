@@ -94,9 +94,9 @@ syntax enable
 
 " let g:gruvbox_contrast_dark = 'medium'
 " colorscheme base16-atelier-dune
-colorscheme base16-irblack
+" colorscheme base16-irblack
 " colorscheme base16-gruvbox-dark-medium
-
+colorscheme base16-solarized-dark
 
 let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'

@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 11.0
+  size: 10.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -181,10 +181,10 @@ font:
 colors:
   # Default colors
   primary:
-    # background: '#1d2021' # nice grey
-    background: '#000000'   # black
+    background: '#1d2021' # nice grey
+    # background: '#000000'   # black
     # HERE
-    # foreground: '#d5c4a1'
+    foreground: '#d5c4a1'
 
     # Bright and dim foreground colors
     #
@@ -202,9 +202,9 @@ colors:
   # Allowed values are CellForeground and CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
   # HERE
-  # cursor:
-  #   text: '#1d2021'
-  #   cursor: '#d5c4a1'
+  cursor:
+    text: '#1d2021'
+    cursor: '#d5c4a1'
 
   # Vi mode cursor colors
   #
@@ -255,27 +255,27 @@ colors:
 
   # Normal colors
   # HERE
-  # normal:
-  #   black:   '#1d2021'
-  #   red:     '#fb4934'
-  #   green:   '#b8bb26'
-  #   yellow:  '#fabd2f'
-  #   blue:    '#83a598'
-  #   magenta: '#d3869b'
-  #   cyan:    '#8ec07c'
-  #   white:   '#d5c4a1'
+  normal:
+    black:   '#1d2021'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#d5c4a1'
 
   # Bright colors
   # HERE
-  # bright:
-  #   black:   '#665c54'
-  #   red:     '#fb4934'
-  #   green:   '#b8bb26'
-  #   yellow:  '#fabd2f'
-  #   blue:    '#83a598'
-  #   magenta: '#d3869b'
-  #   cyan:    '#8ec07c'
-  #   white:   '#fbf1c7'
+  bright:
+    black:   '#665c54'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#fbf1c7'
 
   # Dim colors
   #

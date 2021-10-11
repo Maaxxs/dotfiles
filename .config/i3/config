@@ -50,6 +50,12 @@ bindsym $mod+space exec "rofi -modi run,drun,ssh -show run"
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
+# Open file manager thunar
+bindsym $mod+g exec thunar
+bindsym $mod+n exec firefox
+bindsym $mod+c exec chromium
+bindsym $mod+m exec thunderbird
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -183,7 +189,7 @@ workspace 10 output DP-2
 # Gaps
 # window titlebars need to be disabled
 # docs: https://github.com/Airblader/i3
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 3
 gaps inner 6
 # gaps outer 10
 # if smart_gaps is switched on, then there are no gaps if there is only one
@@ -201,34 +207,28 @@ bindsym Print exec flameshot gui
 # Automatically change back to workspace
 workspace_auto_back_and_forth yes
 
-# switsch between rotated states
-bindsym $mod+y exec /home/max/.local/bin/rotate_screen.sh
-
 # Colors
+# neo green: #19ff00
+# dark green: #009a59
 # old client.focused child_border: #17c10b
 #                       indicator: #ddb500
 # class                 border  backgr. text    indicator child_border
 # client.focused          #06d317 #000000 #06d317 #004fff   #ffb000
-client.focused          #06d317 #000000 #06d317 #0b6b00   #19ff00 
+client.focused          #06d317 #000000 #06d317 #0b6b00   #009a59
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
 client.background       #ffffff 
 
-## Display orientation
-# Both horizontal
-#exec xrandr --output DP-4 --primary --output DP-2 --right-of DP-4
-# Only first monitor
-#exec xrandr --output DP-4 --primary --output DP-2 --off
-# horizontal und vertial to the right
-exec xrandr --output DP-4 --primary --output DP-2 --auto --right-of DP-4 --rotate right
+# Display orientation (generated with `arandr`)
+exec --no-startup-id ~/.screenlayout/normal-rotated-right.sh
+
 
 # set background
-exec feh --bg-scale /home/max/Pictures/wallpapers/PagedOut-ship-world.jpg
-# start polybar
-exec_always --no-startup-id /home/max/.dotfiles/.config/polybar/launch_polybar.sh
+# exec feh --bg-scale /home/max/Pictures/wallpapers/PagedOut-ship-world.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper/farn.jpg ~/Pictures/wallpaper/farn-vertical.jpg
+
 # screensaver
 exec /home/max/.local/bin/screensaver.sh
 # Autostart applications
@@ -256,6 +256,10 @@ mode "$mode_system" {
 }
 
 bindsym $mod+Shift+e mode "$mode_system" 
+
+
+# start polybar
+exec_always --no-startup-id /home/max/.dotfiles/.config/polybar/launch_polybar.sh
 
 # bar {
 #     output primary

@@ -35,16 +35,21 @@ line-color = #f00
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
-padding-right = 2
+; The padding of the whole bar the left and right
+; padding-left = 0
+; padding-right = 0
 
-module-margin-left = 3
-module-margin-right = 4
+module-margin-left = 2
+module-margin-right = 2
+; module-margin-left = 3
+; module-margin-right = 4
 
 ; separator = |
 
 ; font-0 = fixed:pixelsize=10;1
-font-0 = Noto Sans:size=13;1
+; font-0 = Noto Sans:size=13;1
+; font-0 = Noto Sans Mono:size=12;1
+font-0 = DejaVu Sans Mono:8
 font-1 = unifont:fontformat=truetype:size=13:antialias=false;0
 font-2 = siji:style=Medium:pixelsize=18;1
 font-3 = Font Awesome 5 Free:pixelsize=12;2
@@ -53,6 +58,7 @@ font-5 = Font Awesome 5 Free Brands:pixelsize=12;2
 
 modules-left = i3
 modules-center = 
+; modules-right = spotify previous playpause next weather pacman-updates pulseaudio filesystem xkeyboard memory cpu eth temperature date
 modules-right = spotify previous playpause next pacman-updates pulseaudio filesystem xkeyboard memory cpu eth temperature date 
 
 
@@ -76,16 +82,16 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 ;format-prefix = " "
-format-prefix = "  "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 ; format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
 ; label-layout-underline = ${colors.secondary}
 
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
+; label-indicator-padding = 2
+; label-indicator-margin = 1
+; label-indicator-background = ${colors.secondary}
 ; label-indicator-underline = ${colors.secondary2
 
 [module/filesystem]
@@ -96,7 +102,7 @@ mount-0 = /
 
 ; label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 ; label-mounted = "  %{F#0a81f5}%mountpoint%%{F-}: %free% Free"
-label-mounted = "  %free%"
+label-mounted = " %free%"
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -112,7 +118,7 @@ pin-workspaces = true
 ; ws-icon-0 = 1;
 ; ws-icon-1 = 2;
 
-label-mode-padding = 2
+; label-mode-padding = 2
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
@@ -120,11 +126,11 @@ label-mode-background = ${colors.primary}
 label-focused = %index%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
-label-unfocused-padding = 2
+label-unfocused-padding = 1
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
@@ -135,7 +141,7 @@ label-visible-padding = ${self.label-focused-padding}
 ; urgent = Workspace with urgency hint set
 label-urgent = %index%
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 ; Separator in between workspaces
 ; label-separator = |
@@ -149,7 +155,7 @@ label-urgent-padding = 2
 [module/cpu]
 type = internal/cpu
 interval = 5
-format-prefix = "  "
+format-prefix = " "
 ; pad with zeros to 2 numbers
 label = %percentage:02%%
 
@@ -189,7 +195,7 @@ interface = enp0s25
 interval = 5.0
 
 ; format-connected-underline = #55aa55
-format-connected-prefix = "  "
+format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -203,14 +209,14 @@ format-disconnected =
 type = internal/date
 interval = 5
 date = "(%U) %Y-%m-%d"
-time = "  %H:%M"
-format-prefix = "  "
+time = " %H:%M"
+format-prefix = " "
 label = %date% %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label-volume> <bar-volume>
-label-volume =   %percentage%%
+label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 label-muted = "  muted"
 click-right = pavucontrol
@@ -295,6 +301,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 ; animation-discharging-framerate = 750
 
 [module/temperature]
+interval = 5
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
@@ -308,9 +315,9 @@ label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = " "
-ramp-1 = " "
-ramp-2 = " "
+ramp-0 = ""
+ramp-1 = ""
+ramp-2 = ""
 ramp-foreground = ${colors.foreground-alt}
 
 [settings]
@@ -373,9 +380,22 @@ type = custom/script
 exec = checkupdates | wc -l
 ; pull every 15 min
 interval = 900
-label = Updates: %output%
 format-foreground = ${colors.foreground}
-format-prefix = "  "
+format-prefix = " "
+label = %output%
+
+[module/weather]
+type = custom/script
+; exec = curl -s https://wttr.in/12345\?format\=1
+exec = curl -s https://wttr.in/12345\?format\=1
+; pull every 15 min
+interval = 900
+label =  %output%
+; format-font = 4
+; label-volume-foreground = ${root.foreground}
+; format-prefix-foreground = ${colors.foreground-alt}
+
+
 
 ; Define the two bar which inhert the main bar
 ; bar on primary monitor 
@@ -383,6 +403,7 @@ format-prefix = "  "
 inherit = bar/mainbar
 monitor = DP-4
 tray-position = right
+; padding between tray icons
 tray-padding = 2
 ;tray-background = #0063ff
 

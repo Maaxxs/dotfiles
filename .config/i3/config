@@ -240,9 +240,10 @@ bar {
     output primary
     # strip_workspace_numbers yes
     tray_output primary
+    tray_padding 4
     position top
-    font pango:DejaVu Sans Mono 11
-    # font pango:Noto Sans Mono 10
+    # font pango:DejaVu Sans Mono 11
+    font pango:Noto Sans Mono 10
     colors {
         statusline $font_color
         background $bg_color
@@ -261,7 +262,8 @@ bar {
     output nonprimary
     tray_output none
     position top
-    font pango:DejaVu Sans Mono 10
+    # font pango:DejaVu Sans Mono 10
+    font pango:Noto Sans Mono 10
     colors {
         statusline $font_color
         background $bg_color

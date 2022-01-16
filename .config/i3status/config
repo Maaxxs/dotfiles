@@ -1,0 +1,86 @@
+general {
+        colors = false
+        interval = 5
+}
+
+# order += "ipv6"
+order += "read_file pkg_updates"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "path_exists VPN"
+order += "disk /"
+order += "disk /home"
+# order += "load"
+order += "memory"
+order += "volume master"
+order += "battery all"
+order += "tztime local"
+
+
+read_file pkg_updates {
+    # format = "%title: %content"
+    format = " %content"
+    path = "~/.config/i3status/pkg_updates"
+}
+
+wireless _first_ {
+        format_up = "W: (%quality at %essid) %ip"
+        format_down = ""
+}
+
+ethernet _first_ {
+        # format_up = "E: %ip (%speed)"
+        format_up = "⇆ %ip"
+        format_down = "⛔E: down"
+}
+
+path_exists VPN {
+    path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+        # format = "%percentage %remaining"
+        status_chr = "⚡"
+        status_unk = "⚡"
+        status_bat = "🔋"
+        # status_unk = "?"
+        status_full = "☻"
+}
+
+
+disk "/" {
+        format = "disk %avail"
+}
+
+disk "/home" {
+        format = "home %avail"
+}
+
+
+load {
+        format = "%1min"
+}
+
+# memory {
+#         # format = "mem %used/%available"
+#         format = "mem %used"
+#         threshold_degraded = "1G"
+#         format_degraded = "MEMORY < %available"
+# }
+
+memory {
+    format = "mem %used"
+    threshold_degraded = "10%"
+    format_degraded = "MEMORY < %free"
+}
+
+volume master {
+   device = "pulse"
+   format = "🔊 %volume"
+   format_muted = "🔇 %volume"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M"
+}

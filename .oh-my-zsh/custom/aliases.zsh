@@ -92,7 +92,7 @@ fi
 
 # view file from terminal and open it with associated mime type
 alias v='function _xdg-open() {
-        xdg-open $1 2&>/dev/null &
+        nohup xdg-open $1 2>&1 > /dev/null &
     };
     _xdg-open'
 
@@ -112,4 +112,5 @@ alias xclip='xclip -selection clipboard'
 alias news='newsboat'
 alias duh='du -md1 2>/dev/null | sort -g'
 alias glodse='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)"%an"%Creset %C(yellow)<%ae> %Creset'\'' --date=short'
+alias digx='dig +short -x'
 

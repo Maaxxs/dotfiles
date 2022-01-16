@@ -37,4 +37,23 @@ https://raesene.github.io/feed.xml
 https://blog.cryptographyengineering.com/rss
 # mod%0 blog
 https://www.modzero.com/modlog/rss.xml
-https://www.theguardian.com/news/series/the-long-read/rss
+# too many podcasts in that feed. is there one with just articles?
+# https://www.theguardian.com/news/series/the-long-read/rss
+# arstechnica science
+https://arstechnica.com/science/rss
+https://arstechnica.com/tag/security/rss
+https://citizenlab.ca/rss
+https://blog.trailofbits.com/feed/
+https://blog.cr.yp.to/feed.application=xml
+# new LaTeX thing
+https://www.finl.xyz/feed/
+https://netzpolitik.org/rss
+# research security blog. found this fail2ban issue with mailutils
+https://research.securitum.com/rss
+# finance
+https://www.investmentnews.com/rss
+https://www.statewatch.org/rss
+https://usesthis.com/feed.atom
+https://tutanota.com/blog/feed.xml
+# blog about ML, privacy, PhotoDNA post
+https://www.anishathalye.com/feed.xml

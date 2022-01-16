@@ -1,4 +1,4 @@
-# mod is Alt
+# Mod1 is Alt
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -7,34 +7,30 @@ set $mod Mod1
 font pango:NotoSansMono 11
 # font pango:DejaVu Sans Mono 10
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# Variables
+set $refresh_i3status killall -SIGUSR1 i3status
+# Locker. Used for shutdown, reboot, lock screen,...
+set $Locker i3lock -c 005d82
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Media player controls
-bindsym XF86AudioPlay exec /home/max/.local/bin/playerctl_wrapper play-pause
-bindsym XF86AudioNext exec /home/max/.local/bin/playerctl_wrapper next
-bindsym XF86AudioPrev exec /home/max/.local/bin/playerctl_wrapper previous
+bindsym XF86AudioPlay exec --no-startup-id $HOME/.local/bin/playerctl_wrapper play-pause
+bindsym XF86AudioNext exec --no-startup-id $HOME/.local/bin/playerctl_wrapper next
+bindsym XF86AudioPrev exec --no-startup-id $HOME/.local/bin/playerctl_wrapper previous
 
 # Switch audio devices
-bindsym $mod+o exec /home/max/.local/bin/switch_audio.sh
+bindsym $mod+o exec --no-startup-id /home/max/.local/bin/switch_audio.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# Automatically change back to workspace
+workspace_auto_back_and_forth yes
 
 # start a terminal
 bindsym $mod+Return exec alacritty -e tmux
@@ -55,6 +51,12 @@ bindsym $mod+g exec thunar
 bindsym $mod+n exec firefox
 bindsym $mod+c exec chromium
 bindsym $mod+m exec thunderbird
+
+# screen layout
+bindsym $mod+Ctrl+Shift+1 exec --no-startup-id $HOME/.screenlayout/home1.sh
+bindsym $mod+Ctrl+Shift+2 exec --no-startup-id $HOME/.screenlayout/home2.sh
+bindsym $mod+Ctrl+Shift+l exec --no-startup-id $HOME/.screenlayout/laptop-only.sh
+bindsym $mod+Ctrl+Shift+o exec --no-startup-id $HOME/.screenlayout/office-one-screen-above.sh
 
 # change focus
 bindsym $mod+h focus left
@@ -80,7 +82,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 
@@ -89,7 +91,7 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 # bindsym $mod+space focus mode_toggle
-bindsym $mod+t focus mode_toggle
+# bindsym $mod+t focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -110,6 +112,9 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+# renaming workspaces
+bindsym $mod+Ctrl+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -122,6 +127,10 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
+# move to next or previous workspace on the same screen
+bindsym $mod+Shift+f workspace next_on_output
+bindsym $mod+Shift+d workspace prev_on_output
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -133,10 +142,6 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
-
-# Switch workspaces to left/right
-bindsym $mod+Shift+d workspace next
-bindsym $mod+Shift+a workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -171,20 +176,18 @@ bindsym $mod+r mode "resize"
 # assign [class="Spotify"] 9
 # assign [class="TelegramDesktop"] 9
 
-# Assign workspaces to display
-# DP-4 left display
-# DP-2 right display
-workspace 1 output DP-4
-workspace 2 output DP-4
-workspace 3 output DP-4
-workspace 4 output DP-4
-workspace 5 output DP-4
+# Workspace
+workspace 1 output DP2-1
+workspace 2 output DP2-1
+workspace 3 output DP2-1
+workspace 4 output DP2-1
+workspace 5 output DP2-1
 
-workspace 6 output DP-2
-workspace 7 output DP-2
-workspace 8 output DP-2
-workspace 9 output DP-2
-workspace 10 output DP-2
+# workspace 6 output DP2-1
+# workspace 7 output DP2-1
+# workspace 8 output DP2-1
+# workspace 9 output DP2-1
+# workspace 10 output DP2-1
 
 # Gaps
 # window titlebars need to be disabled
@@ -197,12 +200,11 @@ gaps inner 6
 # smart_gaps on
 
 # move workspace to another monitor
-# bindsym $mod+p move workspace to output left
-# bindsym $mod+o move workspace to output right
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+l move workspace to output right
 
 # Take screenshot with flamehsot
 bindsym Print exec flameshot gui
-
 
 # Automatically change back to workspace
 workspace_auto_back_and_forth yes
@@ -214,7 +216,7 @@ workspace_auto_back_and_forth yes
 #                       indicator: #ddb500
 # class                 border  backgr. text    indicator child_border
 # client.focused          #06d317 #000000 #06d317 #004fff   #ffb000
-client.focused          #06d317 #000000 #06d317 #0b6b00   #009a59
+client.focused          #009a59 #009a59 #000000 #0b6b00   #009a59
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -222,25 +224,27 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff 
 
 # Display orientation (generated with `arandr`)
-exec --no-startup-id ~/.screenlayout/normal-rotated-right.sh
+# selects home layout if DP2-2 is connected, otherwise laptop-only layout.
+exec --no-startup-id ~/.local/bin/select_screen_layout.sh
 
 
 # set background
 # exec feh --bg-scale /home/max/Pictures/wallpapers/PagedOut-ship-world.jpg
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper/farn.jpg ~/Pictures/wallpaper/farn-vertical.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/farn.jpg ~/Pictures/wallpapers/farn-vertical.jpg
+exec_always --no-startup-id checkupdates | wc -l > ~/.config/i3status/pkg_updates
 
-# screensaver
-exec /home/max/.local/bin/screensaver.sh
 # Autostart applications
-exec /usr/bin/nextcloud --background
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
-exec /usr/bin/pasystray
-exec /usr/bin/nm-applet
+exec --no-startup-id /home/max/.local/bin/screensaver.sh
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/bin/pasystray
+exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id bash -c 'sleep 10; if ip a | grep tun0; then element-desktop; fi'
+# update number of upgradable package hourly
+exec --no-startup-id systemd-run --user --on-calendar=hourly /bin/sh -c 'checkupdates | wc -l > ~/.config/i3status/pkg_updates'
 
-# shutdown, reboot, lock screen
-set $Locker convert /home/max/Pictures/wallpapers/large/funky-colors.png RGB:- | i3lock --raw 5120x1440:rgb --image /dev/stdin && sleep 1
 
-
+# Shutdown, exit, lock, reboot menu
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -257,38 +261,42 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system" 
 
+bar {
+    output primary
+    # strip_workspace_numbers yes
+    tray_output primary
+    position top
+    font pango:DejaVu Sans Mono 11
+    colors {
+        statusline #ffffff
+        background #323232
+        # dark green: #009a59
+        # inactive_workspace #32323200 #32323200 #5c5c5c
+        #
+        focused_workspace #009a59 #009a59 #ffffff
+    }
+    # status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
 
-# start polybar
-exec_always --no-startup-id /home/max/.dotfiles/.config/polybar/launch_polybar.sh
+    separator_symbol ":|:"
+    status_command i3status
 
-# bar {
-#     output primary
-#     # strip_workspace_numbers yes
-#     tray_output primary
-#     position top
-#     font pango:DejaVu Sans Mono 10
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         # inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-#     status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
+    # font pango:Noto Sans Mono 10
+}
 
-#     # separator_symbol ":|:"
-#     # status_command i3status
-
-#     # font pango:Noto Sans Mono 10
-# }
-
-# bar {
-#     output nonprimary
-#     tray_output none
-#     position top
-#     font pango:DejaVu Sans Mono 10
-# }
+bar {
+    output nonprimary
+    tray_output none
+    position top
+    font pango:DejaVu Sans Mono 10
+    colors {
+        statusline #ffffff
+        background #323232
+        focused_workspace #009a59 #009a59 #ffffff
+    }
+}
 
 # Take screenshot and blur. Could be used as lock image
 # flameshot full -r | convert - -blur 0x4 -paint 8 RGB:- | i3lock --raw 5120x1440:rgb --image /dev/stdin
 
 
-
+include $HOME/.config/i3/config.local

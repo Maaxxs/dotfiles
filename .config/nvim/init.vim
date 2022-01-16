@@ -453,3 +453,6 @@ augroup Binary
   au BufWritePost *.bin if &bin | %!xxd
   au BufWritePost *.bin set nomod | endif
 augroup END
+
+" search for highlighted text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>

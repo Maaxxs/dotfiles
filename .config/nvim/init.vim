@@ -5,7 +5,7 @@ Plug 'tpope/vim-surround'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'andymass/vim-matchup'
 
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 
 " Git support
@@ -197,6 +197,10 @@ nnoremap <silent> <space>a  :CocAction<cr>
 
 " Vim Rooter - Dont echo project directory
 let g:rooter_silent_chdir = 1
+" list of string which identify root dirs
+let g:rooter_patterns = ['.git']
+" root hast direct parent dir 'Projects'
+" let g:rooter_patterns = ['Projects']
 
 :let mapleader = ","
 
@@ -255,7 +259,7 @@ let g:NERDCompactSexyComs = 1
 noremap Y y$
 
 set number
-set relativenumber
+" set relativenumber
 set incsearch
 set ignorecase
 set smartcase
@@ -286,6 +290,8 @@ set noswapfile
 " set nowrap
 set colorcolumn=80
 set scrolloff=2
+" don't break in the middle of words
+set linebreak
 
 " from https://defuse.ca/vimrc.htm
 " Make CTRL+u and CTRL+d less confusing
@@ -347,7 +353,7 @@ autocmd BufReadPost *
 autocmd BufRead * normal zz
 
 " auto change terminal's cwd to the current file
-set autochdir
+" set autochdir
 
 " Generate a pdf document from the current adoc file
 map <leader><leader>g :!asciidoctor-pdf %<CR>
@@ -363,7 +369,7 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
-autocmd FileType asciidoc,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType markdown,asciidoc,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 autocmd FileType    log
                 \   set cc=0 |

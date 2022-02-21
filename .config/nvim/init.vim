@@ -102,6 +102,22 @@ colorscheme base16-solarized-dark
 
 " let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
+" let g:lightline = {
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'filename': 'LightlineFilename',
+"       \ },
+"       \ }
+
+
+
+" COC SETTINGS
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
@@ -112,9 +128,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status'
       \ },
       \ }
-function! LightlineFilename()
-  return expand('%:t') !=# '' ? @% : '[No Name]'
-endfunction
 
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -216,11 +229,11 @@ set cmdheight=2
 " set updatetime=300
 
 " Search results centered please
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+" nnoremap <silent> * *zz
+" nnoremap <silent> # #zz
+" nnoremap <silent> g* g*zz
 
 " remapping ESC to jk
 inoremap jk <ESC>
@@ -348,7 +361,7 @@ set mouse=a
 map <leader>h :History
 " map <leader>l :Lines<CR>
 
-" Remeber cursor position between vim sessions
+" Remember cursor position between vim sessions
 autocmd BufReadPost *
             \ if line("'\"") > 0 && line ("'\"") <= line("$") |
             \   exe "normal! g'\"" |
@@ -466,3 +479,6 @@ augroup END
 
 " search for highlighted text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" terminal mode
+tnoremap <Esc> <C-\><C-n>

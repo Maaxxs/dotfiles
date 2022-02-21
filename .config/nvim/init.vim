@@ -5,7 +5,7 @@ Plug 'tpope/vim-surround'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'andymass/vim-matchup'
 
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 
 " Git support
@@ -71,7 +71,7 @@ Plug 'chriskempson/base16-vim'
 " Plug 'jiangmiao/auto-pairs'
 
 " Git. Not sure when I last used this.
-" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " iptables highlighting
 " Plug 'vim-scripts/iptables'
@@ -193,6 +193,7 @@ nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement mi
 
 " Show actions available at this location
 nnoremap <silent> <space>a  :CocAction<cr>
+" END COC SETTINGS
 
 
 " Vim Rooter - Dont echo project directory
@@ -241,6 +242,7 @@ set undofile
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
+map <C-f> :NERDTreeFocus<CR>
 let NERDTreeShowHidden=1
 
 " NERTCommenter
@@ -255,12 +257,14 @@ let g:NERDCompactSexyComs = 1
 noremap Y y$
 
 set number
-set relativenumber
+set numberwidth=4
+" set relativenumber
 set incsearch
 set ignorecase
 set smartcase
 nnoremap <C-h> :nohlsearch<CR>
 vnoremap <C-h> :nohlsearch<CR>
+set signcolumn=yes
 
 " Jump to start and end of line using the home row keys
 map H ^

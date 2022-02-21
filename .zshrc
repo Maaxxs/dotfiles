@@ -7,7 +7,15 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bira"
+# ZSH_THEME="bira"
+# ZSH_THEME="robbyrussell"
+# no hostname, with time, full path
+# ZSH_THEME="amuse"
+# no hostname, with time, full path
+# ZSH_THEME="crunch"
+# simple: shows git branch and path.
+ZSH_THEME="eastwood"
+
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random

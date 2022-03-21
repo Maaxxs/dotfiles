@@ -48,6 +48,7 @@ Plug 'mtdl9/vim-log-highlighting'
 Plug 'lervag/vimtex'
 " Plug 'Konfekt/FastFold'
 " Plug 'matze/vim-tex-fold'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " === Vim Color Themes ===
 Plug 'chriskempson/base16-vim'
@@ -98,7 +99,8 @@ syntax enable
 " colorscheme base16-flat
 " colorscheme base16-github
 " colorscheme base16-gruvbox-dark-medium
-colorscheme base16-solarized-dark
+" colorscheme base16-solarized-dark
+colorscheme base16-woodland
 
 " let g:airline_theme='deep_space'
 let g:airline_theme='base16_atelierdune'
@@ -114,8 +116,6 @@ endfunction
 "       \   'filename': 'LightlineFilename',
 "       \ },
 "       \ }
-
-
 
 " COC SETTINGS
 let g:lightline = {
@@ -297,7 +297,7 @@ set smarttab
 filetype plugin indent on
 " if smartindent is set, autoindent should be set as well
 " set smartindent
-set autoindent
+" set autoindent
 
 " another auto indenation, preferred for C
 " set cindent
@@ -306,7 +306,7 @@ set nobackup
 set noswapfile
 " set nowrap
 set colorcolumn=80
-set scrolloff=2
+" set scrolloff=2
 " don't break in the middle of words
 set linebreak
 
@@ -325,6 +325,11 @@ map <C-d> 10<C-E>10j
 " map <C-j> <C-W>j
 " map <C-k> <C-W>k
 " map <C-l> <C-W>l
+
+" goto definition in new vertical split window
+map gdv <C-w>vgd
+" goto definition in new horizontal split window
+map gdh <C-w>sgd
 
 " Map the semicolon to colon, so you don't have to press <Shift+;>
 noremap ; :
@@ -482,3 +487,40 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+    let @/ = ''
+    if exists('#auto_highlight')
+        au! auto_highlight
+        augroup! auto_highlight
+        setl updatetime=4000
+        echo 'Highlight current word: off'
+        return 0
+    else
+        augroup auto_highlight
+            au!
+            au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+        augroup end
+        setl updatetime=500
+        echo 'Highlight current word: ON'
+        return 1
+    endif
+endfunction
+
+" move line by line with wrap=on but do the jump x lines correctly
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+augroup md
+  autocmd!
+  au BufNewFile,BufRead *.md syntax keyword todo TODO
+  au BufNewFile,BufRead *.md inoremap <buffer> ;` ```<cr>```<Up>
+augroup END
+
+" gitgutter
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)

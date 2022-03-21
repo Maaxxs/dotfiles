@@ -34,7 +34,7 @@ bindsym $mod+Return exec --no-startup-id alacritty -e tmux
 bindsym $mod+Shift+q kill
 
 # application launcher
-bindsym $mod+space exec --no-startup-id "rofi -modi run,drun,ssh -show run"
+bindsym $mod+space exec "rofi -modi run,drun,ssh -show run"
 
 # Open file manager thunar
 bindsym $mod+g exec thunar
@@ -46,8 +46,6 @@ bindsym $mod+y exec chromium --user-data-dir=~/.config/chromium-profile-yt
 # screen layout
 bindsym $mod+Ctrl+Shift+1 exec --no-startup-id $HOME/.screenlayout/home1.sh
 bindsym $mod+Ctrl+Shift+2 exec --no-startup-id $HOME/.screenlayout/home2.sh
-bindsym $mod+Ctrl+Shift+l exec --no-startup-id $HOME/.screenlayout/laptop-only.sh
-bindsym $mod+Ctrl+Shift+o exec --no-startup-id $HOME/.screenlayout/office-one-screen-above.sh
 
 # change focus
 bindsym $mod+h focus left
@@ -152,6 +150,16 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# floating windows 
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# popup windows don't get automatic focus
+no_focus [window_role="pop-up"]
+
+# don't move mouse to output automatically
+# mouse_warping none
+
 # find the class with: xprop | grep -i class 
 # click on the window
 # Move Element always to workspace 9
@@ -188,19 +196,22 @@ workspace_auto_back_and_forth yes
 
 # Colors
 # neo green: #19ff00
-# class                 border  backgr. text    indicator child_border
 # set $dark_green #009a59
 set $blue #33aadd
+set $darker_blue #1177cc
 set $dark_grey #111111
-client.focused          $blue $blue $dark_grey #19ff55   $blue
+# class                 border  backgr. text    indicator child_border
+client.focused          $blue $blue $dark_grey $darker_blue $blue
 client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff 
 
+# screen layout
+exec --no-startup-id ~/.screenlayout/normal-rotated-right.sh
 # set background
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/farn.jpg ~/Pictures/wallpapers/farn-vertical.jpg
+exec_always --no-startup-id ~/.dotfiles/scripts/set_wallpaper.sh
 
 # Update number of upgradable packages
 exec_always --no-startup-id checkupdates | wc -l > ~/.config/i3status/pkg_updates
@@ -211,6 +222,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /home/max/.local/bin/screensaver.sh
 exec --no-startup-id /usr/bin/pasystray
 exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/nextcloud --background
 
 # Menu: lock, logout, suspend, hibernate, reboot, shutdown
 set $Locker convert $HOME/Pictures/wallpapers/large/universe.jpg RGB:- | i3lock -t --raw 5120x1440:rgb --image /dev/stdin && sleep 1
@@ -230,6 +242,9 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system" 
 
+# use polybar
+# exec_always --no-startup-id $HOME/.dotfiles/.config/polybar/launch_polybar.sh
+#
 #######
 # BAR #
 #######
@@ -272,6 +287,9 @@ bar {
         inactive_workspace $bg_color $bg_color #aaaaaa
     }
 }
+###########
+# BAR END #
+###########
 
 # Take screenshot and blur. Could be used as lock image
 # flameshot full -r | convert - -blur 0x4 -paint 8 RGB:- | i3lock --raw 5120x1440:rgb --image /dev/stdin

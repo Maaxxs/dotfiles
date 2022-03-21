@@ -77,15 +77,15 @@ language="  $()"
 # * If `head` reads an incorrect date, then `date` will fail and the script 
 #   fails because the `difference` calculation has an syntax error. 
 # Don't mess with the created files :)
-last_download_unix=$(date -d "$(head -n1 $weather_file)" +%s)
-difference=$((current_date_unix - last_download_unix))
-if [[ $difference -lt $interval ]]; then
-    weather=$(tail -n1 "$weather_file")
-else
-    current_date=$(date '+%Y-%m-%d %H:%M:%S')
-    weather=$(curl https://wttr.in/91315\?format\=1)
-    echo -e "$current_date\n$weather" > "$weather_file"
-fi
+#last_download_unix=$(date -d "$(head -n1 $weather_file)" +%s)
+#difference=$((current_date_unix - last_download_unix))
+#if [[ $difference -lt $interval ]]; then
+#    weather=$(tail -n1 "$weather_file")
+#else
+#    current_date=$(date '+%Y-%m-%d %H:%M:%S')
+#    weather=$(curl https://wttr.in/91315\?format\=1)
+#    echo -e "$current_date\n$weather" > "$weather_file"
+#fi
 
 if [ $battery_status = "discharging" ]; then
     # old symbol: ⚠

@@ -515,6 +515,16 @@ endfunction
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
+" insert mapping
+inoremap ;mfg Mit freundlichen gruessen<cr>/Max
+
+" turn off relativenumber for insert mode
+augroup every
+  autocmd!
+  au InsertEnter * set norelativenumber
+  au InsertLeave * set relativenumber
+augroup END
+
 augroup md
   autocmd!
   au BufNewFile,BufRead *.md syntax keyword todo TODO
@@ -524,3 +534,12 @@ augroup END
 " gitgutter
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
+
+func URL_Decode()
+   sub/%2C/,/ge
+   sub/%3A/:/ge
+   sub/%5B/[/ge
+   sub/%5D/]/ge
+endfunc
+
+nmap c :call URL_Decode()<CR>

@@ -114,4 +114,5 @@ alias duh='du -md1 2>/dev/null | sort -g'
 alias glodse='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)"%an"%Creset %C(yellow)<%ae> %Creset'\'' --date=short'
 alias digx='dig +short -x'
 alias rgi='rg -i'
+alias tcplisten='netstat -ap tcp | grep LISTEN'
 

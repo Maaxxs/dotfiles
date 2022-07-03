@@ -40,7 +40,17 @@ fi
 
 # Alacritty
 mkdir $HOME/.config/alacritty
-ln -sf $HOME/.dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+if ! [ -e $HOME/.config/alacritty/alacritty.yml ] ; then
+    cat > $HOME/.config/alacritty/alacritty.yml <<EOF
+import:
+  - ~/.dotfiles/.config/alacritty/alacritty.yml
+
+# put local override of configuration values below
+
+EOF
+else
+    echo '[!]' "'$HOME/.config/alacritty/alacritty.yml' already exists! Did not change content."
+fi
 
 # change default shell to zsh
 echo '[*] Changing shell to zsh'

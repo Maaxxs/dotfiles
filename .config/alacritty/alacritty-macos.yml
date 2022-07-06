@@ -1,3 +1,19 @@
+# Exmaple config
+# https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+
+hints:
+  enabled:
+    # Open URLs with cmd+click. 
+    # If in tmux session and mouse mode is enabled, use shift to disable mouse
+    # mode in tmux and send mouse events to alacritty. So, Cmd+shift works.
+  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+            [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    command: open
+    post_processing: true
+    mouse:
+      enabled: true
+      mods: Command
+
 # Send ESC (\x1b) before characters when alt is pressed.
 alt_send_esc: true
 

@@ -45,8 +45,8 @@ battery_charge=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "
 battery_status=$(upower --show-info $(upower --enumerate | grep 'BAT') | egrep "state" | awk '{print $2}')
 
 # Audio and multimedia
-audio_volume=$(pamixer --sink `pactl list sinks short | grep RUNNING | awk '{print $1}'` --get-volume)
-audio_is_muted=$(pamixer --sink `pactl list sinks short | grep RUNNING | awk '{print $1}'` --get-mute)
+audio_volume=$(pamixer --sink `pactl get-default-sink` --get-volume)
+audio_is_muted=$(pamixer --sink `pactl get-default-sink` --get-mute)
 media_artist=$(playerctl metadata artist)
 media_song=$(playerctl metadata title)
 player_status=$(playerctl status)

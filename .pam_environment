@@ -21,3 +21,5 @@ EDITOR=nvim
 #     see http://jugglingbits.wordpress.com/2010/03/24/a-better-less-playing-nice-with-git/
 LESS DEFAULT="-F -X -R"
 
+# enable wayland for firefox
+#MOZ_ENABLE_WAYLAND=1

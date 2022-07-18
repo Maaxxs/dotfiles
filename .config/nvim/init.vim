@@ -72,7 +72,7 @@ Plug 'chriskempson/base16-vim'
 " Plug 'jiangmiao/auto-pairs'
 
 " Git. Not sure when I last used this.
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " iptables highlighting
 " Plug 'vim-scripts/iptables'

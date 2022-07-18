@@ -27,10 +27,10 @@ then
 fi
 mkdir -p ~/.config/nvim/
 printf "so $HOME/.dotfiles/.config/nvim/init.vim" > ~/.config/nvim/init.vim
-nvim +'PlugInstall' +qall
+# nvim +'PlugInstall' +qall
 
 # if `npm` is installed, this install coc-plugins
-nvim +'CocInstall -sync coc-pyright coc-json' +qall
+# nvim +'CocInstall -sync coc-pyright coc-json' +qall
 
 # Vim
 printf "so $HOME/.dotfiles/.vimrc" > ~/.vimrc

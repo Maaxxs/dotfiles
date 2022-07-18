@@ -18,6 +18,9 @@ bindsym XF86AudioPlay exec --no-startup-id $HOME/.local/bin/playerctl_wrapper pl
 bindsym XF86AudioNext exec --no-startup-id $HOME/.local/bin/playerctl_wrapper next
 bindsym XF86AudioPrev exec --no-startup-id $HOME/.local/bin/playerctl_wrapper previous
 
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
 # Switch audio devices
 bindsym $mod+o exec --no-startup-id /home/max/.local/bin/switch_audio.sh
 

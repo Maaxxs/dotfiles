@@ -18,14 +18,24 @@ set $locker 'swaylock -f -c 000000'
 
 ### Output configuration
 #
+# Disabled:
+# output DP-1 disable
+
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output HDMI-A-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fill
+# output eDP-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output HDMI-A-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fill
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 # laptop screen is left from my second monitor
-output eDP-1    resolution 1366x768  position 0,0
-output HDMI-A-1 resolution 2560x1440 position 3926,0 
+# output eDP-1    resolution 1366x768  position 0,0
+# output HDMI-A-1 resolution 2560x1440 position 3926,0
+
+# mode: fill, stretch, fit, center, tile
+ output eDP-1 resolution 1920x1080 position 2140,2700 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+ output DP-1 resolution 2560x1440 position 1780,1260 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fill #000000
+
+# Autostart applications
+exec --no-startup-id nm-applet
 
 ### Idle configuration
 # Lock screen after 10 mintes and turn off monitors after another 5 mintes.
@@ -41,11 +51,20 @@ exec swayidle -w \
 input * {
     xkb_layout "us,de"
     xkb_variant ",nodeadkeys"
-    xkb_options "grp:caps_switch"
+    xkb_options "grp:switch"
+    # swap esc and CapsLock key
+    # xkb_options "caps:swapescape"
 }
+# swap escape key with capslock key
+# input "type:keyboard" xkb_options caps:swapescape
 
 input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
-input "2:14:ETPS/2_Elantech_Touchpad" {
+
+# diable mouse accerlation
+input * accel_profile flat
+
+# Touchpad on Thinkpad
+input "2:7:SynPS/2_Synaptics_TouchPad" {
     natural_scroll enabled
     tap enabled
     # disable while typing
@@ -58,6 +77,9 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
 #
 # Start a terminal
 bindsym $mod+Return exec $term -e tmux
+
+bindsym $mod+c exec firefox
+bindsym $mod+g exec thunar
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -78,6 +100,9 @@ bindsym $mod+Shift+c reload
 #
 # Moving around:
 #
+
+workspace_auto_back_and_forth yes
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -202,6 +227,9 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system"
 
+
+gaps inner 3
+
 #
 # Status Bar:
 #
@@ -212,8 +240,11 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-    status_command while ~/.config/sway/status.sh; do sleep 1; done
-    font pango:DejaVu Sans Mono 8
+    # status_command while ~/.config/sway/status.sh; do sleep 1; done
+    # font pango:DejaVu Sans Mono 10
+    swaybar_command waybar
+    # swaybar_command swaybar
+    # status_command i3status
     # font pango:Noto Sans Mono 10
 
     colors {

@@ -76,7 +76,7 @@ if command -v exa > /dev/null;
 then
     alias l='exa --git'
     alias ll='exa -l --git'
-    alias la='exa -la --git'
+    alias la='exa -lag --git'
 else
     alias l='ls'
     alias ll='ls -l'

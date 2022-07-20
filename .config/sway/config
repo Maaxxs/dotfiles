@@ -1,4 +1,9 @@
-### Variables
+# update sway-ipc socket:
+# just `pkill tmux` as this is a terminal multiplexer issue.
+# also see https://wiki.archlinux.org/title/Sway#Sway_socket_not_detected
+# OR:
+# export SWAYSOCK=$(find /run/user/1000/ -name 'sway-ipc.1000.*.sock' -print -quit
+# 
 #
 # Logo key is Mod4. Use Mod1 for Alt.
 set $mod Mod1
@@ -7,35 +12,27 @@ set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
+# Note: pass the final command to swaymsg so that the resulting window can be
+# opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu dmenu_path | wofi --show run | xargs swaymsg exec --
+set $menu 'wofi --allow-images --show drun,run | xargs swaymsg exec --'
 set $locker 'swaylock -f -c 000000'
 
 ### Output configuration
-#
+
 # Disabled:
-# output DP-1 disable
-
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output eDP-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-# output HDMI-A-1 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fill
-
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-# laptop screen is left from my second monitor
-# output eDP-1    resolution 1366x768  position 0,0
-# output HDMI-A-1 resolution 2560x1440 position 3926,0
+# output eDP-1 disable
 
 # mode: fill, stretch, fit, center, tile
- output eDP-1 resolution 1920x1080 position 2140,2700 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
- output DP-1 resolution 2560x1440 position 1780,1260 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fill #000000
+# Use `wdisplays` to position the displays.
+output eDP-1 mode 1920x1080 pos 270,1440 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output DP-1 mode 2560x1440 pos 0,0 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fit #3e3e3e
 
 # Autostart applications
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec wl-paste -t text --watch clipman store --no-persist
+exec --no-startup-id /usr/bin/dunst
 
 ### Idle configuration
 # Lock screen after 10 mintes and turn off monitors after another 5 mintes.
@@ -45,9 +42,8 @@ exec swayidle -w \
          timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
 
-### Input configuration
+# Input configuration: man 5 sway-input
 # You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 input * {
     xkb_layout "us,de"
     xkb_variant ",nodeadkeys"
@@ -72,11 +68,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 }
 
 ### Key bindings
-#
-# Basics:
-#
-# Start a terminal
-bindsym $mod+Return exec $term -e tmux
+bindsym $mod+Return exec alacritty -e tmux
 
 bindsym $mod+c exec firefox
 bindsym $mod+g exec thunar
@@ -103,89 +95,77 @@ bindsym $mod+Shift+c reload
 
 workspace_auto_back_and_forth yes
 
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-#
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
 # Workspaces:
-#
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
+
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+# Note: workspaces can have any name you want, not just numbers.
+# We just use 1-10 as the default.
+
 # Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+bindsym $mod+b splith
+bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-#
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
 # Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-#
 # Resizing containers:
-#
+
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 40px
     bindsym $down resize grow height 40px
     bindsym $up resize shrink height 40px
@@ -207,7 +187,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86Search exec bemenu-run
+# bindsym XF86Search exec bemenu-run
 
 
 # Lock, logout, suspend, hibernate, reboot, shutdown options
@@ -227,13 +207,12 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system"
 
-
 gaps inner 3
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+# swaymsg -t get_tree | jq -r '..|try select(.focused == true)'
+for_window [title="Pinboard - Save a Bookmark.*"] floating enable
+for_window [app_id="^org.gnome.Calculator$"] floating enable
+
 bar {
     position top
 
@@ -255,3 +234,4 @@ bar {
 }
 
 include /etc/sway/config.d/*
+# vi: ft=conf

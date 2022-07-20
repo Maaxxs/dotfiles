@@ -535,11 +535,12 @@ augroup END
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 
-func URL_Decode()
-   sub/%2C/,/ge
-   sub/%3A/:/ge
-   sub/%5B/[/ge
-   sub/%5D/]/ge
-endfunc
-
-nmap c :call URL_Decode()<CR>
+" func URL_Decode()
+"    sub/%2C/,/ge
+"    sub/%3A/:/ge
+"    sub/%5B/[/ge
+"    sub/%5D/]/ge
+" endfunc
+" TODO: create different mapping as this interferes with standard vim
+" movements.
+" nmap c :call URL_Decode()<CR>

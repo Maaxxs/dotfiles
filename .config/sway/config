@@ -66,6 +66,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
     # disable while typing
     dwt enabled
+    pointer_accel 0.4
 }
 
 ### Key bindings

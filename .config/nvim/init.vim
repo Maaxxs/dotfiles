@@ -206,6 +206,8 @@ nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement mi
 
 " Show actions available at this location
 nnoremap <silent> <space>a  :CocAction<cr>
+
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 " END COC SETTINGS
 
 

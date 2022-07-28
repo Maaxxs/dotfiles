@@ -15,32 +15,33 @@ set $right l
 # Note: pass the final command to swaymsg so that the resulting window can be
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu 'wofi --allow-images --show drun,run | xargs swaymsg exec --'
-set $locker 'swaylock -f -c 000000'
+set $menu 'wofi --allow-images --show drun | xargs swaymsg exec --'
+set $locker '$HOME/.dotfiles/scripts/blur_lock.sh'
+# fallback to swaylock does not work, yet.
+# set $locker '$HOME/.dotfiles/scripts/blur_lock.sh || swaylock -K -c ff0000'
 
 ### Output configuration
-
-# Disabled:
-# output eDP-1 disable
-
 # mode: fill, stretch, fit, center, tile
-# Use `wdisplays` to position the displays.
-output eDP-1 mode 1920x1080 pos 270,1440 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output DP-1 mode 2560x1440 pos 0,0 bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_2048x1536.png fit #3e3e3e
+
+# source: https://wall.alphacoders.com/big.php?i=866322
+output * bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+
+# Use `wdisplays` to position the displays and get the offsets.
+output eDP-1 mode 1920x1080 pos 270,1440 bg ~/Pictures/wallpapers/forest-1920x1080.jpg fill
+output DP-1 mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
 
 # Autostart applications
-# exec --no-startup-id nm-applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec wl-paste -t text --watch clipman store --no-persist
 exec --no-startup-id /usr/bin/dunst
+# with transition period of 30 min (1800s)
+exec --no-startup-id wlsunset -S 05:00 -s 19:00 -d 1800
 
 ### Idle configuration
-# Lock screen after 10 mintes and turn off monitors after another 5 mintes.
-# Also look before going to sleep.
 exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
-         timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         timeout 600 "$locker" \
+         timeout 630 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep "$locker"
 
 # Input configuration: man 5 sway-input
 # You can get the names of your inputs by running: swaymsg -t get_inputs

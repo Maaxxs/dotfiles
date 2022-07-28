@@ -71,15 +71,15 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 ### Key bindings
 bindsym $mod+Return exec alacritty -e tmux
-
 bindsym $mod+c exec firefox
 bindsym $mod+g exec thunar
+bindsym $mod+n exec element-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+ctrl+l exec ~/.dotfiles/scripts/toggle_laptop_monitor.sh
 
-# Kill focused window
 bindsym $mod+Shift+q kill
-
-# Start your launcher
 bindsym $mod+d exec $menu
+bindsym $mod+Shift+c reload
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -88,12 +88,8 @@ bindsym $mod+d exec $menu
 # mouse button for dragging.
 floating_modifier $mod normal
 
-# Reload the configuration file
-bindsym $mod+Shift+c reload
 
-#
 # Moving around:
-#
 
 workspace_auto_back_and_forth yes
 
@@ -109,7 +105,9 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-# Workspaces:
+# Cycle workspace forward/backward
+bindsym $mod+Shift+f workspace next_on_output
+bindsym $mod+Shift+d workspace prev_on_output
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1
@@ -211,8 +209,23 @@ bindsym $mod+Shift+e mode "$mode_system"
 
 gaps inner 3
 
+# Colors
+# neo green: #19ff00
+# set $dark_green #009a59
+set $blue #33aadd
+set $darker_blue #1177cc
+set $dark_grey #111111
+# class                 border  backgr. text    indicator child_border
+client.focused          $blue $blue $dark_grey $darker_blue $blue
+client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# client.background       #ffffff
+
+
 # swaymsg -t get_tree | jq -r '..|try select(.focused == true)'
-for_window [title="Pinboard - Save a Bookmark.*"] floating enable
+for_window [app_id="^firefox$" title="^Pinboard - Save a Bookmark — Mozilla Firefox$"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
 
 bar {

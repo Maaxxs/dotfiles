@@ -27,8 +27,10 @@ set $locker '$HOME/.dotfiles/scripts/blur_lock.sh'
 output * bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
 
 # Use `wdisplays` to position the displays and get the offsets.
-output eDP-1 mode 1920x1080 pos 270,1440 bg ~/Pictures/wallpapers/forest-1920x1080.jpg fill
-output DP-1 mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+output eDP-1 mode 1920x1080 pos 400,2180 bg ~/Pictures/wallpapers/forest-1920x1080.jpg fill
+output DP-4 mode 2560x1440 pos 0,740 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+# output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/forest-2560-x1440.png fit
+output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/simple-creative.jpg fit
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

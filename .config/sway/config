@@ -167,8 +167,8 @@ bindsym $mod+minus scratchpad show
 
 mode "resize" {
     bindsym $left resize shrink width 40px
-    bindsym $down resize grow height 40px
-    bindsym $up resize shrink height 40px
+    bindsym $up resize grow height 40px
+    bindsym $down resize shrink height 40px
     bindsym $right resize grow width 40px
 
     # Return to default mode

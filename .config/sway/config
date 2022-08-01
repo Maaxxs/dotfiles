@@ -189,8 +189,8 @@ bindsym $mod+r mode "resize"
 # `intel_backlight` controls laptop screen, which apparently gets left out if
 # only the first command is used meaning that only the brightness of the
 # external monitor is changed.
-set $brightness_up 'brightnessctl set +5%; brightnessctl -d intel_backlight set +5%'
-set $brightness_down 'brightnessctl set 5%-; brightnessctl -d intel_backlight set 5%-'
+set $brightness_up 'brightnessctl -d "ddcci*" set +5%; brightnessctl -d intel_backlight set +5%'
+set $brightness_down 'brightnessctl -d "ddcci*" set 5%-; brightnessctl -d intel_backlight set 5%-'
 
 # practical keybinding for special keys
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%

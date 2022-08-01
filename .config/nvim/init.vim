@@ -50,6 +50,7 @@ Plug 'lervag/vimtex'
 " Plug 'matze/vim-tex-fold'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+Plug 'norcalli/nvim-colorizer.lua'
 " === Vim Color Themes ===
 Plug 'chriskempson/base16-vim'
 " Plug 'altercation/vim-colors-solarized'
@@ -92,6 +93,8 @@ let base16colorspace=256
 set background=dark
 set termguicolors
 syntax enable
+" nvim-colorizer.lua setup. creates an autocmd for all file types.
+lua require'colorizer'.setup()
 
 " let g:gruvbox_contrast_dark = 'medium'
 " colorscheme base16-atelier-dune

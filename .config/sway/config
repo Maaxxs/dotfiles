@@ -76,7 +76,7 @@ bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+c exec firefox
 bindsym $mod+g exec thunar
 bindsym $mod+n exec element-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
-bindsym Print exec --no-startup-id flameshot gui
+bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
 bindsym $mod+ctrl+l exec ~/.dotfiles/scripts/toggle_laptop_monitor.sh
 
 bindsym $mod+Shift+q kill

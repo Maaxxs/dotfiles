@@ -15,7 +15,8 @@ set $right l
 # Note: pass the final command to swaymsg so that the resulting window can be
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu 'wofi --allow-images --show drun | xargs swaymsg exec --'
+# set $menu 'wofi --allow-images --show drun | xargs swaymsg exec --'
+set $menu 'fuzzel --lines 15 --background-color 000000cc --text-color aaaaaaff --match-color 33aaffff --selection-color 000000ee --selection-text-color ffffffff --border-color 000000ff --font "Noto Sans" | xargs swaymsg exec --'
 set $locker '$HOME/.dotfiles/scripts/blur_lock.sh'
 # fallback to swaylock does not work, yet.
 # set $locker '$HOME/.dotfiles/scripts/blur_lock.sh || swaylock -K -c ff0000'

@@ -8,5 +8,3 @@ xdg-mime default org.gnome.eog.desktop image/jpeg
 xdg-mime default org.gnome.eog.desktop image/gif
 xdg-mime default firefox.desktop x-scheme-handler/http
 xdg-mime default firefox.desktop x-scheme-handler/https
-
-

@@ -3,15 +3,14 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'machakann/vim-highlightedyank'
-" Plug 'andymass/vim-matchup'
-" Highlight trailing whitespace
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'andymass/vim-matchup' "extend vim % key to language specific words
+Plug 'ntpeters/vim-better-whitespace' "Highlight trailing whitespace
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'luukvbaal/nnn.nvim'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 
 " Git support
@@ -25,6 +24,7 @@ Plug 'itchyny/lightline.vim'
 " Fuzzy search
 Plug 'airblade/vim-rooter'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug '/usr/bin/fzf'
 " Plug 'junegunn/fzf.vim'
 
 " Editorconfig
@@ -68,100 +68,188 @@ Plug 'godlygeek/tabular'
 " Plug 'dahu/vim-asciidoc'
 " Log Highlighting
 Plug 'mtdl9/vim-log-highlighting'
+
 " Latex plugins
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 " Plug 'Konfekt/FastFold'
 " Plug 'matze/vim-tex-fold'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Formatter
-Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat' "formatter
+" Plug 'norcalli/nvim-colorizer.lua' "colorize color names and hex values
+Plug 'chriskempson/base16-vim' "base16 color themes
 
-Plug 'norcalli/nvim-colorizer.lua'
-" === Vim Color Themes ===
-Plug 'chriskempson/base16-vim'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'morhetz/gruvbox'
-" Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'tyrannicaltoucan/vim-deep-space'
-
-
-
-
-" =============================================================
-" I should probably remove the rest of the plugins.
-" I leave it there for now. we'll see.
-
-" Desktop and editor setup for Rust development by Jon Gjengset
-" Plug 'w0rp/ale'
-
-" Not need atm
-" Plug 'vim-syntastic/syntastic'
-" Plug 'jiangmiao/auto-pairs'
-
-" Git. Not sure when I last used this.
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" iptables highlighting
-" Plug 'vim-scripts/iptables'
-
-" Icons. Always load as last plugin
-Plug 'ryanoasis/vim-devicons'
-
-" Multiple cursor. Standard is <C-n>.
-" Change that, since <C-n> is NerdTree here.
-" See https://github.com/terryma/vim-multiple-cursors
-" Plug 'terryma/vim-multiple-cursors'
-"
+Plug 'vim-scripts/iptables' "iptables highlighting
+Plug 'ryanoasis/vim-devicons' "icons. Always load as last plugin
 call plug#end()
 
-" GENERAL
-set autoread "refresh file contents when modified externally
+" PLUGIN SETUP
+" nvim-colorizer.lua setup. creates an autocmd for all file types.
+" lua require'colorizer'.setup()
+let g:sneak#s_next = 1 "sneak use s/S to jump forward/backward
+let g:shfmt_opt="-ci" "neoformat
+" Vim Rooter
+let g:rooter_silent_chdir = 1 "don't echo project directory
+" list of string which identify root dirs
+let g:rooter_patterns = ['.git']
+" root hast direct parent dir 'Projects'
+" let g:rooter_patterns = ['Projects']
 
-" Theme and colors
+" Vim Surround
+" replace: cs"'
+" remove:  ds"
+" create:  ysiw"
+" wrap entire line: yss"
+
+" Open hotkeys
+"map <C-p> :Files<CR>
+" nmap <leader>; :Buffers<CR>
+
+" nnn
+lua << EOF
+require("nnn").setup()
+EOF
+
+
+
+
+
+" GENERAL
+set nocompatible "drop some legacy compatibility in favour of new things
+filetype indent on
+filetype on "file specific goodness
+filetype plugin on
+set autoread "refresh file contents when modified externally
+set colorcolumn=80 "visual ruler
+set cursorline "highlight the screen line of the cursor
+set encoding=utf-8 "character encoding to be used in Vim
+set fileencoding=utf-8 "character encoding to be used by current file
+set gdefault "use the 'g' (global) flag for :substitute by default
+set listchars=tab:▸\ ,eol:¬,nbsp:⋅,trail:⋅ "representation of non-vis chars
+set list "show non-vis characters
+set number "show line numbers
+set numberwidth=4
+set incsearch "incremental search
+set ignorecase "search case insensitive
+set smartcase "search case sensitive when a capital letter is entered
+set signcolumn=yes "always show sign column
+set shell=/bin/bash "default shell
+set showmatch "when inserting a bracket, briefly jump to its match
+set wildmode=list:longest "activate <TAB> auto-completion for file paths
+set winheight=5 "min number of lines for current window
+set winminheight=5 "min number of lines for any window
+set winwidth=84 "min number of columns used for the current window
+set splitright "vsplit will split window to the right
+set splitbelow "split will split window below the current one
+set cmdheight=2 "height of cmd height to show hints/errors
+" set updatetime=300 "time of no cursor movment to trigger CursorHold
+set undodir=~/.vimdid "permanent undo
+set undofile
+" set scrolloff=2 "minimal number of lines to keep above/below the cursor
+set laststatus=2 "always show the status line
+set clipboard+=unnamedplus "use system clipboard
+set timeoutlen=300 "time in ms to wait for a mapped sequence to complete
+set mouse=a "use mouse scrolling for vim instead tmux terminal
+
+
+let g:mapleader=',' "remap leader key to ,
+
+" TEXT, TABS AND INDENTS
+set expandtab "expand <Tab> to spaces in Insert mode
+set tabstop=4 "number of spaces a <Tab> in the text stands for
+set softtabstop=4 "number of spaces to insert for a <Tab>
+set shiftwidth=4 "number of spaces used for each step of (auto)indent
+set autoindent "automatically set the indent of a new line
+set smartindent "do clever autoindenting
+set wrap "wrap long lines
+set linebreak "don't break in the middle of words
+
+" set smarttab
+
+" WRAPPING OPTIONS
+set formatoptions=tc "wrap text and comments using textwidth
+set formatoptions+=r "continue comments when pressing ENTER in I mode
+set formatoptions+=q "enable formatting of comments with gq
+set formatoptions+=n "detect lists for formatting
+set formatoptions+=b "auto-wrap in insert mode, and do not wrap old long lines
+
+" FILES, BACKUPS AND UNDOS
+set noswapfile "don't use a swap file for this buffer
+set nobackup "don't write a backup file before overwriting a file
+set nowb "don't write a backup file before overwriting a file
+
+" THEME AND COLORS
 let base16colorspace=256
 set background=dark
 set termguicolors
 syntax enable
-" nvim-colorizer.lua setup. creates an autocmd for all file types.
-lua require'colorizer'.setup()
-
-" let g:gruvbox_contrast_dark = 'medium'
 " colorscheme base16-atelier-dune
-" colorscheme base16-irblack
-" colorscheme base16-flat
-" colorscheme base16-github
-" colorscheme base16-gruvbox-dark-medium
-" colorscheme base16-solarized-dark
+" colorscheme base16-atelier-dune-light
 colorscheme base16-woodland
 
-" let g:airline_theme='deep_space'
-let g:airline_theme='base16_atelierdune'
+
+" EXPLICIT FILE TYPING
+au BufNewFile,BufRead *.adoc set filetype=asciidoc
+autocmd BufRead *.tex set filetype=tex
+
+" KEYBOARD MAPPINGS
+inoremap jk <ESC>
+" stop search highlighting
+nnoremap <C-h> :nohlsearch<CR>
+vnoremap <C-h> :nohlsearch<CR>
+" quick save
+nmap <leader>w :w<CR>
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+" Y copies everything from cursor to end of line
+noremap Y y$
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+" Keep the blog selected when moving right or left
+vmap < <gv
+vmap > >g
+" Format file
+noremap <leader>f :Neoformat<CR>
+" Search results centered please
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+" nnoremap <silent> * *zz
+" nnoremap <silent> # #zz
+" nnoremap <silent> g* g*zz
+" goto definition in new vertical split window
+map gdv <C-w>vgd
+" goto definition in new horizontal split window
+map gdh <C-w>sgd
+" elevated save
+cmap w!! w !sudo tee %
+" insert timestamp
+nmap <leader>d i<C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR><Esc>
+imap <leader><leader>d <C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR>
+" Reload nvim config
+map <leader>r :source $MYVIMRC<CR>
+" search for highlighted text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+
+" lightline
 function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
-" let g:lightline = {
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'filename': 'LightlineFilename',
-"       \ },
-"       \ }
+let g:lightline = {
+     \  'colorscheme': 'one',
+     \  'active': {
+     \    'left': [ [ 'mode', 'paste' ],
+     \              [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+     \  },
+     \  'component_function': {
+     \    'filename': 'LightlineFilename',
+     \    'cocstatus': 'coc#status'
+     \  },
+     \}
+
 
 " COC SETTINGS
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
-
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
@@ -245,59 +333,7 @@ command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 " END COC SETTINGS
 
 
-" Vim Rooter - Dont echo project directory
-let g:rooter_silent_chdir = 1
-" list of string which identify root dirs
-let g:rooter_patterns = ['.git']
-" root hast direct parent dir 'Projects'
-" let g:rooter_patterns = ['Projects']
 
-:let mapleader = ","
-" let mapleader = "\<Space>"
-let g:sneak#s_next = 1
-
-" Sane splits
-set splitright
-set splitbelow
-
-" Completion
-" Better display for messages
-set cmdheight=2
-" You will have bad experience for diagnostic messages when it's default 4000.
-" set updatetime=300
-
-" Search results centered please
-" nnoremap <silent> n nzz
-" nnoremap <silent> N Nzz
-" nnoremap <silent> * *zz
-" nnoremap <silent> # #zz
-" nnoremap <silent> g* g*zz
-
-" remapping ESC to jk
-inoremap jk <ESC>
-
-" Vim Surround:
-" replace: cs"'
-" remove:  ds"
-" create:  ysiw"
-" wrap entire line: yss"
-
-" Open hotkeys
-map <C-p> :Files<CR>
-" nmap <leader>; :Buffers<CR>
-nnoremap <leader><leader> <c-^>
-
-" Quick Save
-nmap <leader>w :w<CR>
-
-" Permanent Undo
-set undodir=~/.vimdid
-set undofile
-
-" nnn
-lua << EOF
-require("nnn").setup()
-EOF
 
 tnoremap <C-A-n> <cmd>NnnExplorer<CR>
 nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>
@@ -306,65 +342,18 @@ nnoremap <C-A-p> <cmd>NnnPicker<CR>
 
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
-map <C-f> :NERDTreeFocus<CR>
-let NERDTreeShowHidden=1
+" map <C-n> :NERDTreeToggle<CR>
+" map <C-f> :NERDTreeFocus<CR>
+" let NERDTreeShowHidden=1
 
 " NERTCommenter
 " press: 78GV88G <leader>c<space> -> comment lines 78-88
-let g:NERDSpaceDelims = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERTCommentEmptyLines = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCompactSexyComs = 1
+" let g:NERDSpaceDelims = 1
+" let g:NERDTrimTrailingWhitespace = 1
+" let g:NERTCommentEmptyLines = 1
+" let g:NERDDefaultAlign = 'left'
+" let g:NERDCompactSexyComs = 1
 
-" Y copies everything from cursor to end of line
-noremap Y y$
-
-set number
-set numberwidth=4
-" set relativenumber
-set incsearch
-set ignorecase
-set smartcase
-nnoremap <C-h> :nohlsearch<CR>
-vnoremap <C-h> :nohlsearch<CR>
-set signcolumn=yes
-
-" Jump to start and end of line using the home row keys
-map H ^
-map L $
-
-" Tab settings
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-set expandtab
-set smarttab
-
-filetype plugin indent on
-" if smartindent is set, autoindent should be set as well
-" set smartindent
-" set autoindent
-
-" another auto indenation, preferred for C
-" set cindent
-
-set nobackup
-set noswapfile
-" set nowrap
-set colorcolumn=80
-" set scrolloff=2
-" don't break in the middle of words
-set linebreak
-
-" from https://defuse.ca/vimrc.htm
-" Make CTRL+u and CTRL+d less confusing
-map <C-u> 10<C-Y>10k
-map <C-d> 10<C-E>10j
-
-" nnoremap <C-e> 5<C-e>
-" nnoremap <C-y> 5<C-y>
 
 " Switch windows quickly with CTRL+{h,j,k,l}
 " This br:aks backspace in a terminal, but I never use backspace in
@@ -374,45 +363,20 @@ map <C-d> 10<C-E>10j
 " map <C-k> <C-W>k
 " map <C-l> <C-W>l
 
-" goto definition in new vertical split window
-map gdv <C-w>vgd
-" goto definition in new horizontal split window
-map gdh <C-w>sgd
 
-" Map the semicolon to colon, so you don't have to press <Shift+;>
-noremap ; :
-noremap ;qq :q!
 
-" switch on/off spell checking
-map <leader>sf :set nospell<cr>
-map <leader>sn :set spell<cr>
-set timeoutlen=300
 
-" Keep the blog selected when moving right or left
-vmap < <gv
-vmap > >g
 
-" After a search, clear all the highlighted results
-map <esc> :noh<cr>
 
-" highlight current line
-set cursorline
 
-" Always show the status line
-set laststatus=2
 
-" Use clipboard
-set clipboard+=unnamedplus
-
-" Use mouse scrolling for vim instead tmux terminal
-set mouse=a
 
 " Shortcuts for fzf, Ag ...
-" map <C-p> :FZF<CR>
+ map <C-p> :FZF<CR>
 " map <leader>a :Ag<CR>
 " See https://github.com/BurntSushi/ripgrep
-map <leader>h :History
-" map <leader>l :Lines<CR>
+"map <leader>h :History
+"map <leader>l :Lines<CR>
 
 " Remember cursor position between vim sessions
 autocmd BufReadPost *
@@ -422,29 +386,12 @@ autocmd BufReadPost *
 " Center buffer around cursor when opening files
 autocmd BufRead * normal zz
 
-" auto change terminal's cwd to the current file
-" set autochdir
-
-" Generate a pdf document from the current adoc file
-map <leader><leader>g :!asciidoctor-pdf %<CR>
-
-" Open the current file in firefox
-map <leader><leader>f :!firefox %<CR>
-
-" Function to strip whitespace at end of line
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
-autocmd FileType markdown,asciidoc,c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-autocmd FileType    log
-                \   set cc=0 |
+" no wrap and no colorcolumn for .log files
+autocmd FileType log
+                \   set colorcolumn=0 |
                 \   set nowrap
 
+" set filetype iptables. plugin needed
 autocmd BufEnter,WinEnter *
     \ if getline(1) =~ "^# Generated by iptables-save" ||
     \ getline(1) =~ "^# Firewall configuration written by" |
@@ -452,6 +399,7 @@ autocmd BufEnter,WinEnter *
         \ set commentstring=#%s |
         \ set cc=0 |
     \ endif
+
 
 " Ripgrep search
 noremap <leader>s :Rg<CR>
@@ -463,29 +411,7 @@ command! -bang -nargs=* Rg
     \           : fzf#vim#with_preview('right:50%:hidden', '?'),
     \   <bang>0)
 
-" Reload nvim config
-map <leader>r :source ~/.config/nvim/init.vim<CR>
 
-" Markdown Preview
-" Do not close preview window when switching buffer in vim
-let g:mkdp_auto_close = 0
-
-nmap <C-s> <Plug>MarkdownPreview
-nmap <M-s> <Plug>MarkdownPreviewStop
-
-" File types
-autocmd BufRead *.tex set filetype=tex
-autocmd BufRead *.md
-    \ set filetype=markdown |
-    \ set shiftwidth=2 |
-    \ set tabstop=2
-
-" Set the textwidth and auto line breaks (format option)
-" autocmd FileType tex,text,markdown setlocal textwidth=80 colorcolumn=81 formatoptions+=t
-
-" Markdown Folding
-" Have not folding when opening a file
-set nofoldenable
 
 """"" Programming Lanuages """""
 " Rust
@@ -498,11 +424,7 @@ au Filetype rust set colorcolumn=100
 " Auto format on write
 autocmd BufWritePre *.py execute ':Black'
 
-" M to make
-noremap M :!make -k -j4<CR>
 
-" Use mouse to scroll inside of tmux
-set mouse=a
 
 " Tabularize
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
@@ -530,8 +452,6 @@ augroup Binary
   au BufWritePost *.bin set nomod | endif
 augroup END
 
-" search for highlighted text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -567,11 +487,11 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 inoremap ;mfg Mit freundlichen gruessen<cr>/Max
 
 " turn off relativenumber for insert mode
-augroup every
-  autocmd!
-  au InsertEnter * set norelativenumber
-  au InsertLeave * set relativenumber
-augroup END
+" augroup every
+"   autocmd!
+"   au InsertEnter * set norelativenumber
+"   au InsertLeave * set relativenumber
+" augroup END
 
 augroup md
   autocmd!
@@ -593,30 +513,19 @@ nmap [h <Plug>(GitGutterPrevHunk)
 " movements.
 " nmap c :call URL_Decode()<CR>
 
-" Format
-noremap <leader>f :Neoformat<CR>
-let g:shfmt_opt="-ci"
 
 " let's see if auto format annoys me at some point
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+"augroup fmt
+  "autocmd!
+  "autocmd BufWritePre * undojoin | Neoformat
+"augroup END
 
 
 " Find files using Telescope command-line sugar.
 " e.g. manual call:
 " :Telescope git_commits
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope git_files<cr>
+nnoremap <leader>gf <cmd>Telescope git_files<cr>
 nnoremap <leader>lg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" elevated save
-cmap w!! w !sudo tee %
-
-" insert timestamp
-nmap <leader>d i<C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR><Esc>
-imap <leader><leader>d <C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR>
-

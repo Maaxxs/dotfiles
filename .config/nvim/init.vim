@@ -5,17 +5,18 @@ Plug 'tpope/vim-surround'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'andymass/vim-matchup' "extend vim % key to language specific words
 Plug 'ntpeters/vim-better-whitespace' "Highlight trailing whitespace
+Plug 'tpope/vim-commentary' "smart commenter
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'luukvbaal/nnn.nvim'
-" Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdcommenter'
 
 " Git support
-Plug 'airblade/vim-gitgutter'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
 
 Plug 'itchyny/lightline.vim'
 " Plug 'vim-airline/vim-airline'
@@ -142,7 +143,7 @@ set winwidth=84 "min number of columns used for the current window
 set splitright "vsplit will split window to the right
 set splitbelow "split will split window below the current one
 set cmdheight=2 "height of cmd height to show hints/errors
-" set updatetime=300 "time of no cursor movment to trigger CursorHold
+set updatetime=300 "time of no cursor movment to trigger CursorHold
 set undodir=~/.vimdid "permanent undo
 set undofile
 " set scrolloff=2 "minimal number of lines to keep above/below the cursor
@@ -232,6 +233,11 @@ map <leader>r :source $MYVIMRC<CR>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 
+" AUTOCMDS
+" vim-commentary: add new comment string for file type
+" autocmd FileType apache setlocal commentstring=#\ %s
+
+
 " lightline
 function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
@@ -240,13 +246,20 @@ let g:lightline = {
      \  'colorscheme': 'one',
      \  'active': {
      \    'left': [ [ 'mode', 'paste' ],
-     \              [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+     \              [ 'cocstatus', 'readonly', 'filename', 'modified' ] ],
+     \    'right': [ [ 'lineinfo' ],
+     \              [ 'percent' ],
+     \              [ 'fileformat', 'fileencoding', 'filetype', 'gitbranch' ] ]
      \  },
      \  'component_function': {
      \    'filename': 'LightlineFilename',
      \    'cocstatus': 'coc#status'
      \  },
+     \  'component': {
+     \    'gitbranch': '%{FugitiveStatusline()}',
+     \  }
      \}
+
 
 
 " COC SETTINGS

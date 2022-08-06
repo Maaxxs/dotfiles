@@ -113,8 +113,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # This is dump. THis puts a writable folder .pyenv/bin before systems paths.
-# Now it would be possible to alias legitimate binaries like `ls` in one of these 
-# folders and do stupid shit with it. 
+# Now it would be possible to alias legitimate binaries like `ls` in one of
+# these folders and do stupid shit with it.
 # Changed location of new paths to the end of $PATH
 
 # commented by default as this is not needed atm.

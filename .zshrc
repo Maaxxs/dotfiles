@@ -73,6 +73,7 @@ plugins=(
   rust
   emoji
   ufw
+  fzf
   # pipenv
   # docker
   # docker-compose

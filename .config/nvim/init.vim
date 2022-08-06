@@ -512,10 +512,6 @@ augroup md
   au BufNewFile,BufRead *.md inoremap <buffer> ;` ```<cr>```<Up>
 augroup END
 
-" gitgutter
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-
 " func URL_Decode()
 "    sub/%2C/,/ge
 "    sub/%3A/:/ge

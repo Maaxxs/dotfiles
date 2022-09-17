@@ -1,3 +1,5 @@
+let mapleader = "\<Space>"
+
 call plug#begin('~/.config/nvim/plugged')
 " VIM enhancments
 Plug 'justinmk/vim-sneak'
@@ -261,7 +263,6 @@ set timeoutlen=300 "time in ms to wait for a mapped sequence to complete
 set mouse=a "use mouse scrolling for vim instead tmux terminal
 
 
-let g:mapleader=',' "remap leader key to ,
 
 " TEXT, TABS AND INDENTS
 set expandtab "expand <Tab> to spaces in Insert mode

@@ -8,8 +8,10 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'andymass/vim-matchup' "extend vim % key to language specific words
 Plug 'ntpeters/vim-better-whitespace' "Highlight trailing whitespace
 Plug 'tpope/vim-commentary' "smart commenter
+" maybe use automatic indent detection based on heuristics too
+" Plug 'tpope/vim-sleuth'
 
-Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/plenary.nvim' "required for telescope
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'luukvbaal/nnn.nvim'
@@ -198,6 +200,11 @@ let g:sneak#s_next = 1 "sneak use s/S to jump forward/backward
 let g:shfmt_opt="-ci" "neoformat
 let g:neoformat_enabled_python = ['black', 'autopep8', 'yapf', 'docformatter']
 let g:neoformat_only_msg_on_error = 1
+
+" let g:vim_markdown_new_list_item_indent = 0
+" let g:vim_markdown_auto_insert_bullets = 0
+" let g:vim_markdown_frontmatter = 1
+
 " Vim Rooter
 let g:rooter_silent_chdir = 1 "don't echo project directory
 " list of string which identify root dirs

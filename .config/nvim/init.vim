@@ -358,14 +358,11 @@ let g:lightline = {
      \              [ 'readonly', 'filename', 'modified' ] ],
      \    'right': [ [ 'lineinfo' ],
      \              [ 'percent' ],
-     \              [ 'fileformat', 'fileencoding', 'filetype', 'gitbranch' ] ]
+     \              [ 'fileencoding', 'filetype' ] ]
      \  },
      \  'component_function': {
      \    'filename': 'LightlineFilename',
      \  },
-     \  'component': {
-     \    'gitbranch': '%{FugitiveStatusline()}',
-     \  }
      \}
 
 

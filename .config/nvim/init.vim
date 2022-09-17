@@ -233,7 +233,8 @@ set cursorline "highlight the screen line of the cursor
 set encoding=utf-8 "character encoding to be used in Vim
 set fileencoding=utf-8 "character encoding to be used by current file
 set gdefault "use the 'g' (global) flag for :substitute by default
-set listchars=tab:▸\ ,eol:¬,nbsp:⋅,trail:⋅ "representation of non-vis chars
+" set listchars=tab:▸\ ,eol:¬,nbsp:⋅,trail:⋅ "representation of non-vis chars
+set listchars=extends:»,precedes:«,tab:▸\ ,nbsp:⋅,trail:⋅ "representation of non-vis chars
 set list "show non-vis characters
 set number "show line numbers
 set numberwidth=4

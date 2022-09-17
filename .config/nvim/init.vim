@@ -447,13 +447,30 @@ autocmd BufEnter,WinEnter *
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
+let g:rust_clip_command = 'wlcopy'
 au Filetype rust set colorcolumn=100
+
+" Completion
+" Better completion
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
 
 " ### Python
 " Auto format on write
 autocmd BufWritePre *.py execute ':Black'
 
+" Javascript
+let javaScript_fold=0
 
+" Java
+let java_ignore_javadoc=1
+
+" Latex
+let g:latex_indent_enabled = 1
+let g:latex_fold_envs = 0
+let g:latex_fold_sections = []
 
 " Tabularize
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a

@@ -243,6 +243,7 @@ client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 # swaymsg -t get_tree | jq -r '..|try select(.focused == true)'
 for_window [app_id="^firefox$" title="^Pinboard - Save a Bookmark — Mozilla Firefox$"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
+for_window [app_id="^thunderbird$" title="^New Event:$"] floating enable
 
 bar {
     position top

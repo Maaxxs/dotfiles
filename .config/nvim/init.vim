@@ -304,6 +304,15 @@ syntax enable
 " colorscheme base16-atelier-dune-light
 colorscheme base16-woodland
 
+" jonhoo color configuration
+" colorscheme base16-gruvbox-dark-hard
+" Customize the highlight a bit.
+" Make comments more prominent -- they are important.
+" call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+" Make it clearly visible which argument we're at.
+" call Base16hi("LspSignatureActiveParameter", g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
+
+
 
 " EXPLICIT FILE TYPING
 au BufNewFile,BufRead *.adoc set filetype=asciidoc

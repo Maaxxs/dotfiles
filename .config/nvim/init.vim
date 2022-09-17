@@ -339,6 +339,7 @@ imap <leader><leader>d <C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR>
 map <leader>r :source $MYVIMRC<CR>
 " search for highlighted text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+map <leader>md :set ft=markdown<CR>
 
 
 " AUTOCMDS
@@ -558,3 +559,12 @@ nnoremap <leader>gf <cmd>Telescope git_files<cr>
 nnoremap <leader>lg <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+" Help filetype detection
+autocmd BufRead *.plot set filetype=gnuplot
+autocmd BufRead *.md set filetype=markdown
+autocmd BufRead *.lds set filetype=ld
+autocmd BufRead *.tex set filetype=tex
+autocmd BufRead *.trm set filetype=c
+autocmd BufRead *.xlsx.axlsx set filetype=ruby

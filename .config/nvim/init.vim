@@ -53,7 +53,9 @@ Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 
 " python black formatter
-Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'psf/black', { 'branch': 'stable' } " TODO: check Neoformat.remove if
+" there
+"
 " Markdown
 Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
@@ -192,6 +194,8 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ on
 " lua require'colorizer'.setup()
 let g:sneak#s_next = 1 "sneak use s/S to jump forward/backward
 let g:shfmt_opt="-ci" "neoformat
+let g:neoformat_enabled_python = ['black', 'autopep8', 'yapf', 'docformatter']
+let g:neoformat_only_msg_on_error = 1
 " Vim Rooter
 let g:rooter_silent_chdir = 1 "don't echo project directory
 " list of string which identify root dirs

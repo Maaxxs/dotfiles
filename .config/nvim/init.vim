@@ -325,6 +325,10 @@ nnoremap <C-h> :nohlsearch<CR>
 vnoremap <C-h> :nohlsearch<CR>
 " quick save
 nmap <leader>w :w<CR>
+" quit
+nmap <leader>q :q<CR>
+" force quit
+nmap <leader>qq :q!<CR>
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 " Y copies everything from cursor to end of line
@@ -413,24 +417,12 @@ nnoremap <C-A-p> <cmd>NnnPicker<CR>
 
 
 
-
-
-
-
-
-
-" Shortcuts for fzf, Ag ...
- map <C-p> :FZF<CR>
-" map <leader>a :Ag<CR>
-" See https://github.com/BurntSushi/ripgrep
-"map <leader>h :History
-"map <leader>l :Lines<CR>
-
 " Remember cursor position between vim sessions
 autocmd BufReadPost *
-            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-            \   exe "normal! g'\"" |
-            \ endif
+    \ if expand('%:p') !~# '\m/\.git/' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \     exe "normal! g`\"" |
+    \ endif
+
 " Center buffer around cursor when opening files
 autocmd BufRead * normal zz
 
@@ -565,14 +557,20 @@ augroup END
 "augroup END
 
 
+" when telescope find_files does not show hidden files, either use
+" <leader>fff which will include .the .git dir or use C-p below
+ map <C-p> :FZF<CR>
 " Find files using Telescope command-line sugar.
 " e.g. manual call:
 " :Telescope git_commits
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>gf <cmd>Telescope git_files<cr>
 nnoremap <leader>lg <cmd>Telescope live_grep<cr>
-nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+" how it look with lua require:
+" nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 
 
 " Help filetype detection
@@ -582,3 +580,11 @@ autocmd BufRead *.lds set filetype=ld
 autocmd BufRead *.tex set filetype=tex
 autocmd BufRead *.trm set filetype=c
 autocmd BufRead *.xlsx.axlsx set filetype=ruby
+
+
+" TODO: maybe at some point.
+" Very magic by default
+" nnoremap ? ?\v
+" nnoremap / /\v
+" cnoremap %s/ %sm/
+

@@ -9,35 +9,35 @@ alias sudo='sudo '
 if command -v yay > /dev/null;
 then
     alias up='yay -Syu'
-    alias s='yay -Ss'        
+    alias s='yay -Ss'
     alias si='yay -Si'
-    alias i='yay -S'        
+    alias i='yay -S'
     alias u='yay -Runs'
     alias q='yay -Qi'
     alias pacs='pacman -Ss'
 elif command -v trizen > /dev/null;
 then
     alias up='trizen -Syyu'
-    alias s='trizen -Ss'        
+    alias s='trizen -Ss'
     alias si='trizen -Si'
-    alias i='trizen -S'        
+    alias i='trizen -S'
     alias u='trizen -Runs'
     alias q='trizen -Qi'
     alias pacs='pacman -Ss'
 elif command -v pacman > /dev/null;
 then
     alias up='sudo pacman -Syyu'
-    alias s='pacman -Ss'        
+    alias s='pacman -Ss'
     alias si='pacman -Si'
-    alias i='sudo pacman -S'        
+    alias i='sudo pacman -S'
     alias u='sudo pacman -Runs'
     alias q='pacman -Qi'
 elif command -v apt > /dev/null;
 then
     alias up='sudo apt update && sudo apt dist-upgrade'
-    alias s='apt search'        
+    alias s='apt search'
     alias si='apt show'
-    alias i='sudo apt install'        
+    alias i='sudo apt install'
     alias u='sudo apt purge && sudo apt autoremove'
     alias q='apt-cache show'
 elif command -v dnf > /dev/null;
@@ -97,8 +97,8 @@ alias v='function _xdg-open() {
     _xdg-open'
 
 # Get ext4 FileSystem Creation Date (fscd)
-alias fscd='function _fscd() { 
-    FILESYSTEM=$(mount | grep "/ type ext4" | cut -d " " -f 1); 
+alias fscd='function _fscd() {
+    FILESYSTEM=$(mount | grep "/ type ext4" | cut -d " " -f 1);
     CREATION_DATE=$(sudo tune2fs -l "$FILESYSTEM" | grep "Filesystem created");
     echo "$FILESYSTEM - $CREATION_DATE"; };
     _fscd'

@@ -4,7 +4,6 @@ call plug#begin('~/.config/nvim/plugged')
 " VIM enhancments
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
-Plug 'machakann/vim-highlightedyank'
 " Plug 'andymass/vim-matchup' "extend vim % key to language specific words
 Plug 'ntpeters/vim-better-whitespace' "Highlight trailing whitespace
 Plug 'tpope/vim-commentary' "smart commenter
@@ -594,3 +593,4 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 " nnoremap / /\v
 " cnoremap %s/ %sm/
 
+au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }

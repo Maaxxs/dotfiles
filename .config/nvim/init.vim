@@ -323,8 +323,8 @@ filetype indent on
 filetype on "file specific goodness
 filetype plugin on
 set autoread "refresh file contents when modified externally
-set colorcolumn=80 "visual ruler
-set cursorline "highlight the screen line of the cursor
+"set colorcolumn=80 "visual ruler
+"set cursorline "highlight the screen line of the cursor
 set encoding=utf-8 "character encoding to be used in Vim
 set fileencoding=utf-8 "character encoding to be used by current file
 set gdefault "use the 'g' (global) flag for :substitute by default
@@ -338,7 +338,7 @@ set ignorecase "search case insensitive
 set smartcase "search case sensitive when a capital letter is entered
 set signcolumn=yes "always show sign column
 set shell=/bin/bash "default shell
-set showmatch "when inserting a bracket, briefly jump to its match
+"set showmatch "when inserting a bracket, briefly jump to its match
 set wildmode=list:longest "activate <TAB> auto-completion for file paths
 set winheight=5 "min number of lines for current window
 set winminheight=5 "min number of lines for any window
@@ -346,7 +346,7 @@ set winwidth=84 "min number of columns used for the current window
 set splitright "vsplit will split window to the right
 set splitbelow "split will split window below the current one
 set cmdheight=2 "height of cmd height to show hints/errors
-set updatetime=300 "time of no cursor movment to trigger CursorHold
+set updatetime=500 "time of no cursor movment to trigger CursorHold
 set undodir=~/.vimdid "permanent undo
 set undofile
 " set scrolloff=2 "minimal number of lines to keep above/below the cursor

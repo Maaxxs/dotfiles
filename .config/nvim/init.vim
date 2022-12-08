@@ -42,7 +42,7 @@ Plug 'hrsh7th/cmp-buffer', {'branch': 'main'} "buffer completion
 " Plug 'ray-x/lsp_signature.nvim'
 
 " Only because nvim-cmp _requires_ snippets, so we use cmp-vsnip and vim-snip
-" but don't load it as source
+" but do not load it as source
 Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
 Plug 'hrsh7th/vim-vsnip'
 
@@ -92,8 +92,42 @@ call plug#end()
 
 " LSP configuration
 lua << END
--- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+
+-- nvim-cmp autocompletion configuration
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    -- REQUIRED by nvim-cmp. get rid of it once we can
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+--  window = {
+--    completion = cmp.config.window.bordered(),
+--    documentation = cmp.config.window.bordered(),
+--  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true })
+    -- maybe change abvoe to <CR>
+  }),
+  sources = cmp.config.sources({
+    -- order specifies priority
+    --  { name = 'buffer' },
+    { name = 'nvim_lsp' },
+    --  { name = 'vsnip' }, -- For vsnip users.
+    { name = 'path' },
+  }),
+--  experimental = {
+--    ghost_text = true,
+--  },
+})
+
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -131,39 +165,6 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-
--- nvim-cmp autocompletion configuration
-local cmp = require'cmp'
-cmp.setup({
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true })
-  }),
-  sources = cmp.config.sources({
-    -- order specifies priority
---    { name = 'buffer' },
-    { name = 'nvim_lsp' },
-    -- { name = 'vsnip' }, -- For vsnip users.
-    { name = 'path' },
-  }),
-  experimental = {
---    ghost_text = true,
-  },
-})
-
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 -- cmp.setup.cmdline('/', {
 --   mapping = cmp.mapping.preset.cmdline(),
@@ -182,11 +183,6 @@ cmp.setup({
 
 -- Set up lspconfig with new capabilities
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
---  require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
---    capabilities = capabilities
---  }
 
 
 -- for every language server, do
@@ -292,7 +288,7 @@ autocmd FileType markdown EnableWhitespace
 " let g:vim_markdown_frontmatter = 1
 
 " Vim Rooter
-let g:rooter_silent_chdir = 1 "don't echo project directory
+let g:rooter_silent_chdir = 1 "do not echo project directory
 " list of string which identify root dirs
 let g:rooter_patterns = ['.git']
 " root hast direct parent dir 'Projects'
@@ -312,9 +308,6 @@ let g:rooter_patterns = ['.git']
 lua << EOF
 require("nnn").setup()
 EOF
-
-
-
 
 
 " GENERAL
@@ -358,14 +351,10 @@ set mouse=a "use mouse scrolling for vim instead tmux terminal
 
 
 " TEXT, TABS AND INDENTS
-set expandtab "expand <Tab> to spaces in Insert mode
-set tabstop=4 "number of spaces a <Tab> in the text stands for
-set softtabstop=4 "number of spaces to insert for a <Tab>
-set shiftwidth=4 "number of spaces used for each step of (auto)indent
 set autoindent "automatically set the indent of a new line
 set smartindent "do clever autoindenting
 set wrap "wrap long lines
-set linebreak "don't break in the middle of words
+set linebreak "do not break in the middle of words
 
 " set smarttab
 
@@ -377,9 +366,9 @@ set formatoptions+=n "detect lists for formatting
 set formatoptions+=b "auto-wrap in insert mode, and do not wrap old long lines
 
 " FILES, BACKUPS AND UNDOS
-set noswapfile "don't use a swap file for this buffer
-set nobackup "don't write a backup file before overwriting a file
-set nowb "don't write a backup file before overwriting a file
+set noswapfile "do not use a swap file for this buffer
+set nobackup " do not write a backup file before overwriting a file
+set nowb "do not write a backup file before overwriting a file
 
 " THEME AND COLORS
 let base16colorspace=256

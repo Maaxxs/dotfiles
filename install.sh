@@ -2,7 +2,10 @@
 
 set -e
 
-packages=()
+packages=(
+python-black
+fzf
+)
 
 # Looking for package manager
 if command -v pacman 1>/dev/null; then

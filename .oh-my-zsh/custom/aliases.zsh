@@ -107,8 +107,8 @@ alias fscd='function _fscd() {
 alias dl='youtube-dl --audio-format mp3 --extract-audio -o "%(title)s.%(ext)s"'
 
 # yt-dlp
-alias dl4='yt-dlp -f mp4'
-alias dl3='yt-dlp -f mp3'
+alias dl4='yt-dlp -f mp4 -o "%(title)s.%(ext)s"'
+alias dl3='yt-dlp -f "ba" -x --audio-format mp3 -o "%(title)s.%(ext)s"'
 
 # clipboard with X
 # make clipboard the default (usually this is `primary` which is pasted via middleclick

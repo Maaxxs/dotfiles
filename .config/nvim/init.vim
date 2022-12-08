@@ -674,4 +674,7 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 " nnoremap / /\v
 " cnoremap %s/ %sm/
 
+nnoremap <leader>co :aboveleft vnew +vertical\ resize\ 85<CR><C-W>l
+nnoremap <leader>cc <C-W>h:q!<CR>
+
 au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }

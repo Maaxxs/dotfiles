@@ -111,6 +111,8 @@ bindsym $mod+Shift+$right move right
 # Cycle workspace forward/backward
 bindsym $mod+Shift+f workspace next_on_output
 bindsym $mod+Shift+d workspace prev_on_output
+bindsym $mod+grave workspace back_and_forth
+bindsym $mod+Shift+grave move container to workspace back_and_forth
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1

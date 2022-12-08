@@ -6,9 +6,9 @@ window:
     title: Terminal
     dynamic_title: false
 font:
-  normal:
-    family: 'Noto Sans Mono'
-  size: 13.0
+    normal:
+        family: "Roboto Mono"
+    size: 11.0
 
 mouse:
     hide_when_typing: true

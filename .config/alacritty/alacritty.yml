@@ -1,20 +1,20 @@
 # For other options check: /usr/share/doc/alacritty/example/alacritty.yml
 
 window:
-  decorations: none
-  startup_mode: Maximized
-  title: Terminal
-  dynamic_title: false
+    decorations: none
+    startup_mode: Maximized
+    title: Terminal
+    dynamic_title: false
 font:
   normal:
     family: 'Noto Sans Mono'
   size: 13.0
 
 mouse:
-  hide_when_typing: true
+    hide_when_typing: true
 key_bindings:
-  - { key: V, mods: Alt, action: Paste }
-  - { key: C, mods: Alt, action: Copy }
+    - { key: V, mods: Alt, action: Paste }
+    - { key: C, mods: Alt, action: Copy }
 
 # Base16 Woodland 256 - alacritty color config
 # Jay Cornwall (https://jcornwall.com)
@@ -99,4 +99,3 @@ colors:
 #     - { index: 19, color: '0xa6a28c' }
 #     - { index: 20, color: '0x7d7a68' }
 #     - { index: 21, color: '0x292824' }
-

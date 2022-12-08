@@ -74,6 +74,7 @@ plugins=(
   emoji
   ufw
   fzf
+  direnv
   # pipenv
   # docker
   # docker-compose

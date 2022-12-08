@@ -71,15 +71,18 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 ### Key bindings
 bindsym $mod+Return exec alacritty -e tmux
-bindsym $mod+c exec firefox
+bindsym $mod+c exec rofi -show calc
+bindsym $mod+Shift+c exec gnome-calculator
 bindsym $mod+g exec thunar
-bindsym $mod+n exec element-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
+bindsym $mod+n exec $HOME/.dotfiles/scripts/sway_next_empty_workspace.sh new
+bindsym $mod+Shift+n exec $HOME/.dotfiles/scripts/sway_next_empty_workspace.sh move
 bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
-bindsym $mod+ctrl+l exec ~/.dotfiles/scripts/toggle_laptop_monitor.sh
+bindsym $mod+ctrl+l output eDP-1 toggle
+bindsym $mod+m exec env MOZ_ENABLE_WAYLAND=1 thunderbird
 
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.

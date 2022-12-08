@@ -227,7 +227,7 @@ mode "$mode_system" {
 bindsym $mod+Shift+e mode "$mode_system"
 
 gaps inner 3
-default_border pixel 4
+default_border pixel 3
 
 # Colors
 # neo green: #19ff00

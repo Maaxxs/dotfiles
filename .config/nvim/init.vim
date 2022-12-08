@@ -443,6 +443,10 @@ map <leader>md :set ft=markdown<CR>
 " vim-commentary: add new comment string for file type
 " autocmd FileType apache setlocal commentstring=#\ %s
 
+" vim, please recognize comments in json
+autocmd FileType json syntax match Comment +\/\/.\+$+
+" tell vim-commentary how to comment in json
+autocmd FileType json setlocal commentstring=//\ %s
 
 " lightline
 function! LightlineFilename()

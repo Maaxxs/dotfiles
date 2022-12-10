@@ -182,7 +182,7 @@
         // 
         "format": " {}",
         "interval": "once",
-        "exec": "$HOME/.scripts/pacman_updates.sh",
+        "exec": "$HOME/.local/bin/pacman_updates.sh",
         "on-click": ""
     },
     "network#vpn": {

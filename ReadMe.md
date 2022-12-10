@@ -7,8 +7,8 @@ Quick setup and basic workflow:
 
 Clone the repository to `~/.dotfiles`.
 
-```bash
-git clone https://gitlab.com/Maaxxs/dotfiles.git ~/.dotfiles/
+```sh
+git clone https://github.com/Maaxxs/dotfiles.git ~/.dotfiles/
 ```
 
 Then use stow to symlink files and directories of a package (=folder in
@@ -16,7 +16,7 @@ this repository) to their correct location.
 
 For instance, stow the files for the package `editor`.
 
-```bash
+```sh
 stow editor
 ```
 
@@ -58,12 +58,12 @@ yet. Otherwise a symlink to the file is created.
 
 Delete symlinks with
 
-```bash
+```sh
 stow -D editor
 ```
 
 or restow them (e.g. after adding new files)
 
-```bash
+```sh
 stow -R editor
 ```

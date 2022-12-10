@@ -234,7 +234,8 @@ label:focus {
   background: red;
 }
 
-#battery.bat1,
+/* #battery.bat1, /1* only if two batteries. thinkpad *1/ */
+#battery,
 #language,
 #pulseaudio,
 #network,

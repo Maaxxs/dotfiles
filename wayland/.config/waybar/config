@@ -4,7 +4,7 @@
     "spacing": 0, // Gaps between modules (4px)
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": [""], //mpd is pissing me off in the logs
-    "modules-right": ["network#vpn", "network", "custom/pacman", "custom/notification", "idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "battery#bat0", "battery#bat1", "clock", "sway/scratchpad", "tray"],
+    "modules-right": ["network#vpn", "network", "custom/pacman", "custom/notification", "idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "clock", "sway/scratchpad", "tray"],
 // Modules configuration
 //     "sway/workspaces": {
 //         "disable-scroll": true,
@@ -117,7 +117,7 @@
             "critical": 15
         },
         "format-time": "{H}h {M}min",
-        "format": "{icon} {capacity}%",
+        "format": "{icon} {capacity}% ({time})",
         "format-charging": " {capacity}% ({time})",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
@@ -181,12 +181,9 @@
         // "min-length": 4,
         // 
         "format": " {}",
-        // "interval": "once",
-        "exec": "$HOME/.dotfiles/scripts/pacman_udpate.sh",
-        // by default the exec script is re-executed on a event such as on-click.
-        "on-click": "$HOME/.dotfiles/scripts/pacman_udpate.sh; pkill -SIGTMIN+10 waybar",
-        "signal": 10
-        // "on-click": "exit 0"
+        "interval": "once",
+        "exec": "$HOME/.scripts/pacman_updates.sh",
+        "on-click": ""
     },
     "network#vpn": {
         "interface": "wg0",

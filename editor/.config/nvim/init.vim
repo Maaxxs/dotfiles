@@ -1,45 +1,54 @@
 let mapleader = ","
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
 " VIM enhancments
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
-" Plug 'andymass/vim-matchup' "extend vim % key to language specific words
-Plug 'ntpeters/vim-better-whitespace' "Highlight trailing whitespace
-Plug 'tpope/vim-commentary' "smart commenter
+" extend vim % key to language specific words
+" Plug 'andymass/vim-matchup'
+" Highlight trailing whitespace
+Plug 'ntpeters/vim-better-whitespace'
+" smart commenter
+Plug 'tpope/vim-commentary'
 " maybe use automatic indent detection based on heuristics too
 Plug 'tpope/vim-sleuth'
 
-Plug 'nvim-lua/plenary.nvim' "required for telescope
+" required for telescope
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'luukvbaal/nnn.nvim'
-"Plug 'scrooloose/nerdtree'
-"Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdcommenter'
 
 " Git support
-Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive' " provides :Git
+Plug 'mhinz/vim-signify' " use signcolum
 
 Plug 'itchyny/lightline.vim'
 
 " Fuzzy search
 Plug 'airblade/vim-rooter'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug '/usr/bin/fzf'
+" Plug '/usr/bin/fzf'
 " Plug 'junegunn/fzf.vim'
+" use system binary for fzf
+" Plug 'junegunn/fzf'
 
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
 
+Plug 'dag/vim-fish'
 " Semantic language support
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp', {'branch': 'main'} "autocompletion
+" autocompletion
+Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
 Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
-Plug 'hrsh7th/cmp-path', {'branch': 'main'} " filesystem path completion
-Plug 'hrsh7th/cmp-buffer', {'branch': 'main'} "buffer completion
-
-" Plug 'ray-x/lsp_signature.nvim'
+" filesystem path completion
+Plug 'hrsh7th/cmp-path', {'branch': 'main'}
+" buffer completion
+Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
+Plug 'ray-x/lsp_signature.nvim'
 
 " Only because nvim-cmp _requires_ snippets, so we use cmp-vsnip and vim-snip
 " but do not load it as source
@@ -47,19 +56,16 @@ Plug 'hrsh7th/cmp-vsnip', {'branch': 'main'}
 Plug 'hrsh7th/vim-vsnip'
 
 " maybe that too:
-" Plug 'hrsh7th/cmp-cmdline' "cmp cmdline completion
-" Plug 'simrat39/rust-tools.nvim' "extra functionality over rust analyzer
+"cmp cmdline completion
+" Plug 'hrsh7th/cmp-cmdline'
+" extra functionality over rust analyzer
+" Plug 'simrat39/rust-tools.nvim'
 
 " Syntactic Language support
 Plug 'cespare/vim-toml'
-" Install: https://rust-analyzer.github.io/manual.html#vimneovim
 Plug 'rust-lang/rust.vim'
 Plug 'simrat39/rust-tools.nvim'
 
-" python black formatter
-" Plug 'psf/black', { 'branch': 'stable' } " TODO: check Neoformat.remove if
-" there
-"
 " Markdown
 Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
@@ -83,195 +89,20 @@ Plug 'mtdl9/vim-log-highlighting'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'sbdchd/neoformat'
-" Plug 'norcalli/nvim-colorizer.lua' "colorize color names and hex values
-Plug 'chriskempson/base16-vim' "base16 color themes
+" colorize color names and hex values
+" Plug 'norcalli/nvim-colorizer.lua'
+"base16 color themes
+Plug 'chriskempson/base16-vim'
 
-Plug 'vim-scripts/iptables' "iptables highlighting
-Plug 'ryanoasis/vim-devicons' "icons. Always load as last plugin
+" iptables highlighting
+" Plug 'vim-scripts/iptables'
 call plug#end()
 
-" LSP configuration
-lua << END
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
 
--- nvim-cmp autocompletion configuration
-local cmp = require'cmp'
-
-cmp.setup({
-  snippet = {
-    -- REQUIRED by nvim-cmp. get rid of it once we can
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
---  window = {
---    completion = cmp.config.window.bordered(),
---    documentation = cmp.config.window.bordered(),
---  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true })
-    -- maybe change abvoe to <CR>
-  }),
-  sources = cmp.config.sources({
-    -- order specifies priority
-    --  { name = 'buffer' },
-    { name = 'nvim_lsp' },
-    --  { name = 'vsnip' }, -- For vsnip users.
-    { name = 'path' },
-  }),
---  experimental = {
---    ghost_text = true,
---  },
-})
-
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  -- TODO: formatting is done by Neoformat.
-  -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline('/', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = {
---     { name = 'buffer' }
---   }
--- })
-
--- enable sources for cmdline. only `path` currently.
--- seems to be buggy sometimes. disabled for now.
--- cmp.setup.cmdline(':', {
---   sources = cmp.config.sources({
---     { name = 'path' }
---   })
--- })
-
--- Set up lspconfig with new capabilities
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-
--- for every language server, do
--- require('lspconfig').<LS>.setup{}
-require('lspconfig').pyright.setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities
-}
-require('lspconfig').rust_analyzer.setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
--- documentation: https://github.com/fannheyward/coc-rust-analyzer/blob/master/README.md#configurations
--- inlay hints: rust-analyzer.inlayHints.enable
--- postfix enable: rust-analyzer.completion.postfix.enable
--- rust-analyzer.inlayHints.closureReturnTypeHints.enable
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = {
-          allFeatures = true,
-        },
-         completion = {
--- l = var.len().ok() <- postfix snippet which will wrap expression in Ok() -> Ok(var.len())
-           postfix = {
-             enable = false,
-           },
-         },
-         inlayHints = {
-            enable = false,
-            closureReturnTypeHints = true;
-         }
-       }
-    }
-}
-
-require('lspconfig').ccls.setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities,
-  init_options = {
-    compilationDatabaseDirectory = "build";
-    index = {
-      threads = 0;
-    };
-    clang = {
-      excludeArgs = { "-frounding-math"} ;
-    };
-  }
-}
-
-
--- local rust-tool-opts = {
---     tools = {
---         inlay_hints = {
---             only_current_line = true,
---         }
---     }
--- }
--- require('rust-tools').setup(rust-tool-opts)
--- local rt = require("rust-tools")
---
--- rt.setup({
---   server = {
---     on_attach = function(_, bufnr)
---       -- Hover actions
---       vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
---       -- Code action groups
---       vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
---     end,
---   },
--- })
-
-
--- TODO: check what this is doing
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics, {
---     virtual_text = true,
---     signs = true,
---     update_in_insert = true,
---   }
--- )
-END
-
-
+" ==============================================================================
 " PLUGIN SETUP
-" nvim-colorizer.lua setup. creates an autocmd for all file types.
-" lua require(colorizer).setup()
-" sneak use s/S to jump forward/backward
+" ==============================================================================
+" sneak: use s/S to jump forward/backward
 let g:sneak#s_next = 1
 " neoformat
 let g:shfmt_opt='-ci'
@@ -288,11 +119,12 @@ autocmd FileType markdown EnableWhitespace
 " let g:vim_markdown_frontmatter = 1
 
 " Vim Rooter
-let g:rooter_silent_chdir = 1 "do not echo project directory
+"do not echo project directory
+let g:rooter_silent_chdir = 1
 " list of string which identify root dirs
 let g:rooter_patterns = ['.git']
 " root hast direct parent dir 'Projects'
-" let g:rooter_patterns = ['Projects']
+" let g:rooter_patterns = ['dev']
 
 " Vim Surround
 " replace: cs"'
@@ -304,14 +136,16 @@ let g:rooter_patterns = ['.git']
 "map <C-p> :Files<CR>
 " nmap <leader>; :Buffers<CR>
 
-" nnn
-lua << EOF
-require("nnn").setup()
-EOF
-
+" Completion
+" Better completion
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
 
 " GENERAL
 set nocompatible "drop some legacy compatibility in favour of new things
+set shortmess+=I " disable startup message
 filetype indent on
 filetype on "file specific goodness
 filetype plugin on
@@ -344,10 +178,10 @@ set undodir=~/.vimdid "permanent undo
 set undofile
 " set scrolloff=2 "minimal number of lines to keep above/below the cursor
 set laststatus=2 "always show the status line
-set clipboard+=unnamedplus "use system clipboard
+" set clipboard+=unnamedplus "use system clipboard
 set timeoutlen=300 "time in ms to wait for a mapped sequence to complete
 set mouse=a "use mouse scrolling for vim instead tmux terminal
-
+set wildmode=longest,list
 
 
 " TEXT, TABS AND INDENTS
@@ -388,17 +222,13 @@ call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 " Make it clearly visible which argument we are at.
 call Base16hi("LspSignatureActiveParameter", g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
 
-
-
-" EXPLICIT FILE TYPING
-au BufNewFile,BufRead *.adoc set filetype=asciidoc
-autocmd BufRead *.tex set filetype=tex
-
+" ==============================================================================
 " KEYBOARD MAPPINGS
+" ==============================================================================
 inoremap jk <ESC>
 " stop search highlighting
-nnoremap <C-h> :nohlsearch<CR>
-vnoremap <C-h> :nohlsearch<CR>
+nnoremap <C-n> :nohlsearch<CR>
+vnoremap <C-n> :nohlsearch<CR>
 " quick save
 nmap <leader>w :w<CR>
 " quit
@@ -410,8 +240,8 @@ nnoremap <leader><leader> <c-^>
 " Y copies everything from cursor to end of line
 noremap Y y$
 " Jump to start and end of line using the home row keys
-map H ^
-map L $
+" map H ^
+" map L $
 " Keep the blog selected when moving right or left
 vmap < <gv
 vmap > >g
@@ -467,26 +297,6 @@ let g:lightline = {
      \}
 
 
-tnoremap <C-A-n> <cmd>NnnExplorer<CR>
-nnoremap <C-A-n> <cmd>NnnExplorer %:p:h<CR>
-tnoremap <C-A-p> <cmd>NnnPicker<CR>
-nnoremap <C-A-p> <cmd>NnnPicker<CR>
-
-
-" NERDTree
-" map <C-n> :NERDTreeToggle<CR>
-" map <C-f> :NERDTreeFocus<CR>
-" let NERDTreeShowHidden=1
-
-" NERTCommenter
-" press: 78GV88G <leader>c<space> -> comment lines 78-88
-" let g:NERDSpaceDelims = 1
-" let g:NERDTrimTrailingWhitespace = 1
-" let g:NERTCommentEmptyLines = 1
-" let g:NERDDefaultAlign = 'left'
-" let g:NERDCompactSexyComs = 1
-
-
 " Switch windows quickly with CTRL+{h,j,k,l}
 " This br:aks backspace in a terminal, but I never use backspace in
 " normal mode
@@ -511,15 +321,6 @@ autocmd FileType log
                 \   set colorcolumn=0 |
                 \   set nowrap
 
-" set filetype iptables. plugin needed
-autocmd BufEnter,WinEnter *
-    \ if getline(1) =~ "^# Generated by iptables-save" ||
-    \ getline(1) =~ "^# Firewall configuration written by" |
-        \ setfiletype iptables |
-        \ set commentstring=#%s |
-        \ set cc=0 |
-    \ endif
-
 
 
 """"" Programming Lanuages """""
@@ -530,16 +331,11 @@ let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'wlcopy'
 au Filetype rust set colorcolumn=100
 
-" Completion
-" Better completion
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
 
 " ### Python
 " Auto format on write
-autocmd BufWritePre *.py execute ':Black'
+" TODO: call Neoformat?
+" autocmd BufWritePre *.py execute ':Black'
 
 " Javascript
 let javaScript_fold=0
@@ -609,32 +405,19 @@ endfunction
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
-" insert mapping
-inoremap ;mfg Mit freundlichen gruessen<cr>/Max
-
-" turn off relativenumber for insert mode
-" augroup every
-"   autocmd!
-"   au InsertEnter * set norelativenumber
-"   au InsertLeave * set relativenumber
-" augroup END
-
 augroup md
   autocmd!
   au BufNewFile,BufRead *.md syntax keyword todo TODO
   au BufNewFile,BufRead *.md inoremap <buffer> ;` ```<cr>```<Up>
 augroup END
 
-" func URL_Decode()
-"    sub/%2C/,/ge
-"    sub/%3A/:/ge
-"    sub/%5B/[/ge
-"    sub/%5D/]/ge
-" endfunc
-" TODO: create different mapping as this interferes with standard vim
-" movements.
+func URL_Decode()
+   sub/%2C/,/ge
+   sub/%3A/:/ge
+   sub/%5B/[/ge
+   sub/%5D/]/ge
+endfunc
 " nmap c :call URL_Decode()<CR>
-
 
 " let's see if auto format annoys me at some point
 "augroup fmt
@@ -645,7 +428,30 @@ augroup END
 
 " when telescope find_files does not show hidden files, either use
 " <leader>fff which will include .the .git dir or use C-p below
- map <C-p> :FZF<CR>
+map <C-p> :FZF<CR>
+
+" use 'git ls-files' as source for fzf. in terminal: git ls-files | fzf 
+" to map: call fzf#run({'source': 'git ls-files', 'sink': 'e'})
+
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
+
+
+" does not work yet
+" <leader>s for Rg search
+noremap <leader>s :Rg
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+
+
 " Find files using Telescope command-line sugar.
 " e.g. manual call:
 " :Telescope git_commits
@@ -674,7 +480,162 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 " nnoremap / /\v
 " cnoremap %s/ %sm/
 
+" if only one window in vim on big screen, ~center it.
 nnoremap <leader>co :aboveleft vnew +vertical\ resize\ 85<CR><C-W>l
 nnoremap <leader>cc <C-W>h:q!<CR>
 
 au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }
+
+
+" local customizations in ~/.vimrc_local
+let $LOCALFILE=expand("~/.vimrc_local")
+if filereadable($LOCALFILE)
+    source $LOCALFILE
+endif
+
+
+" Move to the end as if messes up syntax highlighting for vim
+" see: https://stackoverflow.com/questions/74448018/neovim-broken-syntax-highlighting-after-heredoc-lua-eof-in-vimscript
+" LSP configuration
+lua << END
+local cmp = require('cmp')
+
+cmp.setup({
+  snippet = {
+    -- REQUIRED by nvim-cmp. get rid of it once we can
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+--  window = {
+--    completion = cmp.config.window.bordered(),
+--    documentation = cmp.config.window.bordered(),
+--  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    -- maybe change abvoe to <CR>
+  }),
+  sources = cmp.config.sources({
+    -- order specifies priority
+    { name = 'nvim_lsp' },
+    --  { name = 'vsnip' }, -- For vsnip users.
+    { name = 'path' },
+  }, {
+    --  { name = 'buffer' },
+  }),
+--  experimental = {
+--    ghost_text = true,
+--  },
+})
+
+
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  -- TODO: formatting is done by Neoformat.
+  -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<leader>t', '<cmd>Telescope diagnostics<cr>', {buffer=0})
+
+  -- Get signatures (and _only_ signatures) when in argument lists.
+  require("lsp_signature").on_attach({
+    doc_lines = 0,
+    handler_opts = {
+      border = "none"
+    },
+  })
+end
+
+-- Set up lspconfig with new capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+
+
+-- for every language server, do
+-- require('lspconfig').<LS>.setup{}
+require('lspconfig').pyright.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require('lspconfig').rust_analyzer.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+-- documentation: https://github.com/fannheyward/coc-rust-analyzer/blob/master/README.md#configurations
+-- inlay hints: rust-analyzer.inlayHints.enable
+-- postfix enable: rust-analyzer.completion.postfix.enable
+-- rust-analyzer.inlayHints.closureReturnTypeHints.enable
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+        },
+         completion = {
+-- l = var.len().ok() <- postfix snippet which will wrap expression in Ok() -> Ok(var.len())
+           postfix = {
+             enable = false,
+           },
+         },
+         inlayHints = {
+            enable = false,
+            closureReturnTypeHints = true;
+         }
+       }
+    }
+}
+
+require('lspconfig').ccls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    compilationDatabaseDirectory = "build";
+    index = {
+      threads = 0;
+    };
+    clang = {
+      excludeArgs = { "-frounding-math"} ;
+    };
+  }
+}
+
+
+-- TODO: check what this is doing
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     virtual_text = true,
+--     signs = true,
+--     update_in_insert = true,
+--   }
+-- )
+
+require("nnn").setup()
+END
+

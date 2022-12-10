@@ -12,9 +12,6 @@ font:
 
 mouse:
     hide_when_typing: true
-key_bindings:
-    - { key: V, mods: Alt, action: Paste }
-    - { key: C, mods: Alt, action: Copy }
 
 colors:
     primary:

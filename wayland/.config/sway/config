@@ -50,28 +50,15 @@ exec swayidle -w \
 	 before-sleep "playerctl pause" \
          before-sleep "$locker"
 
-# Input configuration: man 5 sway-input
 # You can get the names of your inputs by running: swaymsg -t get_inputs
-input * {
-    xkb_layout "us,de"
-    xkb_variant ",nodeadkeys"
-    xkb_options "grp:switch"
-    # swap esc and CapsLock key
-    # xkb_options "caps:swapescape"
-}
-
-input "type:keyboard" xkb_model "pc105"
-
-# thinkpad
-input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
-
-# frame
 # show xkb_options with `xkbcli list`
-input "1:1:AT_Translated_Set_2_keyboard" {
+input * {
+    xkb_model pc105
+    xkb_layout us,de
+    xkb_variant ,nodeadkeys
     # make capslock an aditional escape
-    xkb_options caps:escape
+    xkb_options grp:switch,caps:escape
 }
-
 
 # diable mouse accerlation
 input "type:pointer" {

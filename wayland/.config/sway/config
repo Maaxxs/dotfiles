@@ -59,12 +59,19 @@ input * {
     # swap esc and CapsLock key
     # xkb_options "caps:swapescape"
 }
-# swap escape key with capslock key
-# input "type:keyboard" xkb_options caps:swapescape
+
+input "type:keyboard" xkb_model "pc105"
 
 # thinkpad
 input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
-input "type:keyboard" xkb_model "pc105"
+
+# frame
+# show xkb_options with `xkbcli list`
+input "1:1:AT_Translated_Set_2_keyboard" {
+    # make capslock an aditional escape
+    xkb_options caps:escape
+}
+
 
 # diable mouse accerlation
 input "type:pointer" {

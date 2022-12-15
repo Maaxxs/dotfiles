@@ -176,12 +176,13 @@ set cmdheight=2 "height of cmd height to show hints/errors
 set updatetime=500 "time of no cursor movment to trigger CursorHold
 set undodir=~/.vimdid "permanent undo
 set undofile
-" set scrolloff=2 "minimal number of lines to keep above/below the cursor
+set scrolloff=2 "minimal number of lines to keep above/below the cursor
 set laststatus=2 "always show the status line
 " set clipboard+=unnamedplus "use system clipboard
 set timeoutlen=300 "time in ms to wait for a mapped sequence to complete
 set mouse=a "use mouse scrolling for vim instead tmux terminal
 set wildmode=longest,list
+set nofoldenable
 
 
 " TEXT, TABS AND INDENTS
@@ -485,6 +486,9 @@ nnoremap <leader>co :aboveleft vnew +vertical\ resize\ 85<CR><C-W>l
 nnoremap <leader>cc <C-W>h:q!<CR>
 
 au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }
+
+" Open new file adjacent to current file
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 
 " local customizations in ~/.vimrc_local

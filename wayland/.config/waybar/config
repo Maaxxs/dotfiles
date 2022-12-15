@@ -4,7 +4,8 @@
     "spacing": 0, // Gaps between modules (4px)
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": [""], //mpd is pissing me off in the logs
-    "modules-right": ["network#vpn", "network", "custom/pacman", "custom/notification", "idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "battery", "clock", "sway/scratchpad", "tray"],
+    // unused modules: keyboard-state
+    "modules-right": ["network#vpn", "network", "custom/pacman", "custom/notification", "idle_inhibitor", "pulseaudio", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "clock", "sway/scratchpad", "tray"],
 // Modules configuration
 //     "sway/workspaces": {
 //         "disable-scroll": true,

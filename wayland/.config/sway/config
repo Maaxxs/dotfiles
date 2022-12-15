@@ -57,7 +57,9 @@ input * {
     xkb_layout us,de
     xkb_variant ,nodeadkeys
     # make capslock an aditional escape
-    xkb_options grp:switch,caps:escape
+    # xkb_options grp:switch,caps:escape
+    # map caps to ctrl
+    xkb_options grp:switch,ctrl:nocaps
 }
 
 # diable mouse accerlation
@@ -83,14 +85,13 @@ bindsym $mod+Shift+c exec gnome-calculator
 bindsym $mod+g exec thunar
 bindsym $mod+n exec $HOME/.local/bin/sway_next_empty_workspace.sh new
 bindsym $mod+Shift+n exec $HOME/.local/bin/sway_next_empty_workspace.sh move
-bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
 bindsym $mod+ctrl+l output eDP-1 toggle
 bindsym $mod+m exec env MOZ_ENABLE_WAYLAND=1 thunderbird
 
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+r reload
-
+bindsym Mod4+d exec rofi -show run
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
@@ -250,6 +251,8 @@ client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 for_window [app_id="^firefox$" title="^Pinboard - Save a Bookmark — Mozilla Firefox$"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
 for_window [app_id="^thunderbird$" title="^New Event:$"] floating enable
+for_window [app_id="^blueman-manager$"] floating enable
+for_window [app_id="^thunar$" title="^File Operation Progress$"] floating enable
 
 bar {
     position top

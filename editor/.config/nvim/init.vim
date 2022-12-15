@@ -408,7 +408,7 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 augroup md
   autocmd!
   au BufNewFile,BufRead *.md syntax keyword todo TODO
-  au BufNewFile,BufRead *.md inoremap <buffer> ;` ```<cr>```<Up>
+  au BufNewFile,BufRead *.md inoremap <buffer> ;c ```<cr>```<Up>
 augroup END
 
 func URL_Decode()

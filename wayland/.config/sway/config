@@ -209,7 +209,9 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Search exec pavucontrol
-
+bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
+# setting key on framework
+bindsym XF86AudioMedia              exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Lock, logout, suspend, hibernate, reboot, shutdown options
 # suspend-then-hibernate default delay: 120min. specify in /etc/systemd/sleep.conf

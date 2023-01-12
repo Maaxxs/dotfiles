@@ -5,7 +5,7 @@
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": [""],
     // unused modules: keyboard-state, sway/language, mpd
-    "modules-right": ["network#vpn", "network", "cpu", "temperature", "memory", "custom/pacman", "idle_inhibitor", "custom/notification", "backlight", "pulseaudio", "battery", "clock", "sway/scratchpad", "tray"],
+    "modules-right": ["network#vpn", "network", "cpu", "temperature", "memory", "custom/pacman", "idle_inhibitor", "custom/notification", "backlight", "bluetooth", "pulseaudio", "battery", "clock", "sway/scratchpad", "tray"],
 // Modules configuration
 //     "sway/workspaces": {
 //         "disable-scroll": true,
@@ -203,17 +203,13 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "bluetooth": {
-        // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
-        "format": " {status}",
-        "format-disabled": "", // an empty format will hide the module
-        "format-connected": " {num_connections} connected",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-    },
-    "bluetooth#bt2": {
          "format": " {status}",
-         "format-connected": " {device_alias}",
+         // "format-on": " on",
+         // "format-off": " off",
+         "format-disabled": " off",
+         "on-click": "rfkill toggle bluetooth",
+         // "format-connected": " {device_alias}",
+         "format-connected": " {num_connections}",
          "format-connected-battery": " {device_alias} {device_battery_percentage}%",
          // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
          "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",

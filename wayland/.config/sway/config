@@ -32,8 +32,14 @@ set $locker swaylock -Kfc ff0000
 
 # frame
 output eDP-1 scale 1.3
-output eDP-1 mode 2256x1504 pos 2137,1440
-output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 1735,0
+
+# horizontal
+output eDP-1 mode 2256x1504 pos 2137,1440 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
+output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 1735,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+
+# vertical
+# output eDP-1 mode 2256x1504 pos 3737,4000 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
+# output "Dell Inc. DELL U2719DC CRKNTS2" transform 90 pos 3872,1440
 
 
 # Autostart applications
@@ -87,6 +93,7 @@ bindsym $mod+n exec $HOME/.local/bin/sway_next_empty_workspace.sh new
 bindsym $mod+Shift+n exec $HOME/.local/bin/sway_next_empty_workspace.sh move
 bindsym $mod+ctrl+l output eDP-1 toggle
 bindsym $mod+m exec env MOZ_ENABLE_WAYLAND=1 thunderbird
+bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 firefox
 
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu

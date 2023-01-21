@@ -3,6 +3,7 @@ abbr -a e nvim
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open
+abbr -a c cargo
 
 
 alias rgi='rg -i'
@@ -23,9 +24,10 @@ alias gc='git commit -v'
 alias gapa='git add -p'
 alias gl='git pull'
 alias grv='git remote -v'
-alias gcm='git checkout main'
+alias gcm='git checkout main || git checkout master'
 alias gco='git checkout'
 alias gcb='git checkout -b'
+alias glodse='git log --graph --date=short --pretty=\'%Cred%h%C(auto)%d %s %C(blue)(%ad) %C(yellow)[%an]\''
 
 
 if command -v ip  > /dev/null

@@ -89,8 +89,8 @@ bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+c exec rofi -show calc
 bindsym $mod+Shift+c exec gnome-calculator
 bindsym $mod+g exec thunar
-bindsym $mod+n exec $HOME/.local/bin/sway_next_empty_workspace.sh new
-bindsym $mod+Shift+n exec $HOME/.local/bin/sway_next_empty_workspace.sh move
+bindsym $mod+n exec $HOME/.local/bin/next_empty_workspace.sh new
+bindsym $mod+Shift+n exec $HOME/.local/bin/next_empty_workspace.sh move
 bindsym $mod+ctrl+l output eDP-1 toggle
 bindsym $mod+m exec env MOZ_ENABLE_WAYLAND=1 thunderbird
 bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 firefox

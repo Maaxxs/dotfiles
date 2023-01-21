@@ -2,6 +2,13 @@
 
 set -euo pipefail
 
+# set window manager
+if ! [ -z $I3SOCK ]; then
+    wm='i3-msg'
+else
+    wm='swaymsg'
+fi
+
 # new: create new workspace (default)
 # move: move container to new workspace
 opt="new"
@@ -24,7 +31,7 @@ found_ws=false
 
 # get sorted string of workspaces.
 # may look like "1 2 3 4" or "2 4 6 9 10" (workspace number 10)
-used_ws=$(swaymsg -t get_workspaces | jq '.[].num' | sort -n | tr '\n' ' ')
+used_ws=$($wm -t get_workspaces | jq '.[].num' | sort -n | tr '\n' ' ')
 #echo "workspace string: $used_ws"
 
 # create workspace with lowest available number
@@ -33,8 +40,8 @@ for ws in {1..10}; do
 
     found_ws=true
     case $opt in
-        "new") swaymsg workspace number "$ws" ;;
-        "move") swaymsg move container to workspace number "$ws"; swaymsg workspace number "$ws" ;;
+        "new") $wm workspace number "$ws" ;;
+        "move") $wm move container to workspace number "$ws"; $wm workspace number "$ws" ;;
     esac
     break
 done

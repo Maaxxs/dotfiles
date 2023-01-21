@@ -245,7 +245,7 @@ mode "$mode_system" {
 bindsym $mod+Shift+e mode "$mode_system"
 
 # use polybar
-# exec_always --no-startup-id $HOME/.dotfiles/.config/polybar/launch_polybar.sh
+#exec_always --no-startup-id $HOME/.dotfiles/x11/.config/polybar/launch_polybar.sh
 #
 #######
 # BAR #

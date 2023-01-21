@@ -8,16 +8,64 @@ window:
 font:
     normal:
         family: "Roboto Mono"
-    size: 11.0
+    # wayland: 11.0
+    # x: 8.0
+    size: 6.0
 
 mouse:
     hide_when_typing: true
 
+#colors:
+#    primary:
+#        #background: "#000000"
+#        background: "#16161d"
+#        foreground: "0xcabcb1"
+
+# Base16 Gruvbox dark, hard 256 - alacritty color config
+# https://github.com/aarowill/base16-alacritty/blob/master/colors/base16-gruvbox-dark-hard-256.yml
 colors:
-    primary:
-        #background: "#000000"
-        background: "#16161d"
-        foreground: "0xcabcb1"
+  # Default colors
+  primary:
+    background: '0x1d2021'
+    foreground: '0xd5c4a1'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x1d2021'
+    cursor: '0xd5c4a1'
+
+  # Normal colors
+  normal:
+    black:   '0x1d2021'
+    red:     '0xfb4934'
+    green:   '0xb8bb26'
+    yellow:  '0xfabd2f'
+    blue:    '0x83a598'
+    magenta: '0xd3869b'
+    cyan:    '0x8ec07c'
+    white:   '0xd5c4a1'
+
+  # Bright colors
+  bright:
+    black:   '0x665c54'
+    red:     '0xfb4934'
+    green:   '0xb8bb26'
+    yellow:  '0xfabd2f'
+    blue:    '0x83a598'
+    magenta: '0xd3869b'
+    cyan:    '0x8ec07c'
+    white:   '0xfbf1c7'
+
+  indexed_colors:
+    - { index: 16, color: '0xfe8019' }
+    - { index: 17, color: '0xd65d0e' }
+    - { index: 18, color: '0x3c3836' }
+    - { index: 19, color: '0x504945' }
+    - { index: 20, color: '0xbdae93' }
+    - { index: 21, color: '0xebdbb2' }
+
+
+
 # Base16 Woodland 256 - alacritty color config
 # Jay Cornwall (https://jcornwall.com)
 # https://github.com/aarowill/base16-alacritty/tree/master/colors
@@ -57,6 +105,8 @@ colors:
 #        - { index: 19, color: "0x48413a" }
 #        - { index: 20, color: "0xb4a490" }
 #        - { index: 21, color: "0xd7c8bc" }
+
+### Light Theme
 # Base16 Atelier Dune Light 256 - alacritty color config
 # Bram de Haan (http://atelierbramdehaan.nl)
 # colors:

@@ -230,6 +230,15 @@ exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/nextcloud --background
 exec --no-startup-id easyeffects --gapplication-service
 
+# keyboard settings. Look up codes here:
+# nvim /usr/share/X11/xkb/rules/base.lst
+# reset mappings to default: setxkbmap -layout us -option
+# make capslock an additional ctrl key
+exec --no-startup-id /usr/bin/setxkbmap -option caps:ctrl_modifier
+# capslock tapped: ESC, capslock pressed + other_key: CTRL
+exec --no-startup-id /usr/bin/xcape -e 'Caps_Lock=Escape'
+
+
 # Menu: lock, logout, suspend, hibernate, reboot, shutdown
 set $Locker convert $HOME/Pictures/wallpapers/large/universe.jpg RGB:- | i3lock -t --raw 5120x1440:rgb --image /dev/stdin && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown

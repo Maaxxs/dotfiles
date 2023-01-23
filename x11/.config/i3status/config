@@ -10,9 +10,11 @@ order += "ethernet _first_"
 order += "path_exists VPN"
 order += "disk /"
 order += "disk /home"
-# order += "load"
 order += "memory"
+# order += "load"
+order += "cpu_usage"
 order += "cpu_temperature 0"
+order += "read_file brightness"
 order += "volume master"
 order += "battery all"
 order += "tztime local"
@@ -24,21 +26,28 @@ read_file pkg_updates {
     path = "~/.config/i3status/pkg_updates"
 }
 
+read_file brightness {
+    format = " %content"
+    path = "~/.config/i3status/brightness"
+}
+
 wireless _first_ {
-        format_up = "W: (%quality at %essid) %ip"
+        format_up = "wlan %quality %essid"
         format_down = ""
 }
 
 ethernet _first_ {
-        # format_up = "E: %ip (%speed)"
         format_up = "⇆ %ip"
-        format_down = "⛔E: down"
+        format_down = ""
+
+        # format_up = "E: %ip (%speed)"
+        #format_down = "⛔E: down"
 }
 
 path_exists VPN {
-    format = "VPN: %status"
+    format = "vpn on"
     format_down = ""
-    path = "/proc/sys/net/ipv4/conf/tun0"
+    path = "/proc/sys/net/ipv4/conf/wg0"
 }
 
 battery all {
@@ -79,9 +88,13 @@ memory {
     format_degraded = "MEMORY < %free"
 }
 
+cpu_usage {
+    format = "cpu %usage"
+}
+
 cpu_temperature 0 {
-    format = "T: %degrees°C"
-    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+    format = "cpu %degrees°C"
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
 }
 
 volume master {

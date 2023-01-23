@@ -18,8 +18,8 @@ bindsym XF86AudioPlay exec --no-startup-id $HOME/.local/bin/playerctl_wrapper pl
 bindsym XF86AudioNext exec --no-startup-id $HOME/.local/bin/playerctl_wrapper next
 bindsym XF86AudioPrev exec --no-startup-id $HOME/.local/bin/playerctl_wrapper previous
 
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%- && brightnessctl | rg -o '\d\d%' > ~/.config/i3status/brightness && killall -USR1 i3status
+bindsym XF86MonBrightnessUp   exec brightnessctl set +5% && brightnessctl | rg -o '\d\d%' > ~/.config/i3status/brightness && killall -USR1 i3status
 
 # Switch audio devices
 bindsym $mod+o exec --no-startup-id /home/max/.local/bin/switch_audio.sh
@@ -274,25 +274,24 @@ bar {
         inactive_workspace $bg_color $bg_color #aaaaaa
     }
     # status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
-
     separator_symbol ":|:"
     status_command i3status
 }
 
-bar {
-    output nonprimary
-    tray_output none
-    position top
-    # font pango:DejaVu Sans Mono 10
-    font pango:Noto Sans Mono 10
-    colors {
-        statusline $font_color
-        background $bg_color
-        # focused_workspace <border> <background> <text>
-        focused_workspace $blue $blue #ffffff
-        inactive_workspace $bg_color $bg_color #aaaaaa
-    }
-}
+# bar {
+#     output nonprimary
+#     tray_output none
+#     position top
+#     # font pango:DejaVu Sans Mono 10
+#     font pango:Noto Sans Mono 10
+#     colors {
+#         statusline $font_color
+#         background $bg_color
+#         # focused_workspace <border> <background> <text>
+#         focused_workspace $blue $blue #ffffff
+#         inactive_workspace $bg_color $bg_color #aaaaaa
+#     }
+# }
 ###########
 # BAR END #
 ###########

@@ -29,8 +29,8 @@ floating_modifier $mod
 
 # Automatically change back to workspace
 workspace_auto_back_and_forth yes
-bindsym $mod+n exec $HOME/.local/bin/next_empty_workspace.sh new
-bindsym $mod+Shift+n exec $HOME/.local/bin/next_empty_workspace.sh move
+bindsym $mod+n exec --no-startup-id $HOME/.local/bin/next_empty_workspace.sh new
+bindsym $mod+Shift+n exec --no-startup-id $HOME/.local/bin/next_empty_workspace.sh move
 bindsym $mod+grave workspace back_and_forth
 
 

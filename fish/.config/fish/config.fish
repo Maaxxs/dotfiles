@@ -1,5 +1,6 @@
 # abbreviations
 abbr -a e nvim
+abbr -a h helix
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open
@@ -15,6 +16,10 @@ alias dl3='yt-dlp -f "ba" -x --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias duh='du -md1 2>/dev/null | sort -g'
 alias digx='dig +short -x'
 alias tcplisten='netstat -ap tcp | grep LISTEN'
+alias cvpn='sudo systemctl start wg-quick@wg0'
+alias dvpn='sudo systemctl stop wg-quick@wg0'
+alias cair='bluetoothctl connect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
+alias dair='bluetoothctl disconnect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
 
 # git
 alias gss='git status -s'

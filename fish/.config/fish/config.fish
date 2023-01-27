@@ -1,6 +1,5 @@
 # abbreviations
-abbr -a e nvim
-abbr -a h helix
+abbr -a e helix
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open

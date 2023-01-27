@@ -52,6 +52,7 @@ path_exists VPN {
 
 battery all {
         format = "%status %percentage %remaining"
+        format_percentage = "%2.f%s"
         format_down = ""
         # format = "%percentage %remaining"
         status_chr = "⚡"
@@ -59,6 +60,8 @@ battery all {
         status_bat = "🔋"
         # status_unk = "?"
         status_full = "☻"
+        threshold_type = "percentage"
+        low_threshold = "10"
 }
 
 

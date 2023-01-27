@@ -221,6 +221,8 @@ exec_always --no-startup-id ~/.dotfiles/scripts/set_wallpaper.sh
 # Update number of upgradable packages
 exec_always --no-startup-id checkupdates | wc -l > ~/.config/i3status/pkg_updates
 exec --no-startup-id systemd-run --user --on-calendar=hourly /bin/sh -c 'checkupdates | wc -l > ~/.config/i3status/pkg_updates'
+# run battery check every 5 minutes
+exec --no-startup-id systemd-run --user --unit=low_battery --on-calendar='*-*-* *:*:05' ~/.local/bin/low_battery_warning.sh
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

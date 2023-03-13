@@ -159,6 +159,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [title="Easy Effects"] floating enable
 for_window [title="Pinboard - Save a Bookmark — Mozilla Firefox"] floating enable
+for_window [title="linkding — Mozilla Firefox"] floating enable
 
 # popup windows don't get automatic focus
 no_focus [window_role="pop-up"]

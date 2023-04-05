@@ -12,6 +12,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-commentary'
 " maybe use automatic indent detection based on heuristics too
 Plug 'tpope/vim-sleuth'
+" Plug 'easymotion/vim-easymotion'
 
 " required for telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -68,7 +69,7 @@ Plug 'simrat39/rust-tools.nvim'
 
 " Markdown
 Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " RestructeredText
 " Plug 'Rykka/riv.vim'
@@ -105,18 +106,24 @@ call plug#end()
 " sneak: use s/S to jump forward/backward
 let g:sneak#s_next = 1
 " neoformat
+" https://github.com/sbdchd/neoformat#supported-filetypes
 let g:shfmt_opt='-ci'
 let g:neoformat_enabled_python = ['black', 'autopep8', 'yapf', 'docformatter']
 let g:neoformat_only_msg_on_error = 1
 
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.py undojoin | Neoformat
+augroup END
+
 " color to highlight extra whitespace
 let g:better_whitespace_guicolor='green'
 let g:better_whitespace_enabled=0
-autocmd FileType markdown EnableWhitespace
+" autocmd FileType markdown EnableWhitespace
 
-" let g:vim_markdown_new_list_item_indent = 0
-" let g:vim_markdown_auto_insert_bullets = 0
-" let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_frontmatter = 1
 
 " Vim Rooter
 "do not echo project directory
@@ -267,7 +274,7 @@ imap <leader><leader>d <C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR>
 map <leader>r :source $MYVIMRC<CR>
 " search for highlighted text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-map <leader>md :set ft=markdown<CR>
+nnoremap S :%s//g<LEFT><LEFT>
 
 
 " AUTOCMDS
@@ -431,7 +438,7 @@ endfunc
 " <leader>fff which will include .the .git dir or use C-p below
 map <C-p> :FZF<CR>
 
-" use 'git ls-files' as source for fzf. in terminal: git ls-files | fzf 
+" use 'git ls-files' as source for fzf. in terminal: git ls-files | fzf
 " to map: call fzf#run({'source': 'git ls-files', 'sink': 'e'})
 
 if executable('rg')
@@ -482,6 +489,7 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 " cnoremap %s/ %sm/
 
 " if only one window in vim on big screen, ~center it.
+" CenterOpen | CenterClose
 nnoremap <leader>co :aboveleft vnew +vertical\ resize\ 85<CR><C-W>l
 nnoremap <leader>cc <C-W>h:q!<CR>
 
@@ -490,6 +498,13 @@ au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
+" Clipboard integration
+" paste content in system clipboard
+noremap <leader>p "*P<cr>
+" copy whole buffer to system clipboard
+noremap <leader>ca :w !wl-copy -t UTF8_STRING<cr><cr>
+" prefix my yank command so that it will be copied to system clipboard
+
 
 " local customizations in ~/.vimrc_local
 let $LOCALFILE=expand("~/.vimrc_local")
@@ -497,6 +512,9 @@ if filereadable($LOCALFILE)
     source $LOCALFILE
 endif
 
+let g:LanguageClient_serverCommands = {
+\ 'rust': ['rust-analyzer'],
+\ }
 
 " Move to the end as if messes up syntax highlighting for vim
 " see: https://stackoverflow.com/questions/74448018/neovim-broken-syntax-highlighting-after-heredoc-lua-eof-in-vimscript
@@ -590,31 +608,37 @@ require('lspconfig').pyright.setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
-require('lspconfig').rust_analyzer.setup{
+
+
+local opts = {
+  tools = {
+    runnables = {
+      use_telescope = true,
+    },
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+  server = {
     on_attach = on_attach,
-    capabilities = capabilities,
--- documentation: https://github.com/fannheyward/coc-rust-analyzer/blob/master/README.md#configurations
--- inlay hints: rust-analyzer.inlayHints.enable
--- postfix enable: rust-analyzer.completion.postfix.enable
--- rust-analyzer.inlayHints.closureReturnTypeHints.enable
     settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
       ["rust-analyzer"] = {
-        cargo = {
-          allFeatures = true,
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy",
         },
-         completion = {
--- l = var.len().ok() <- postfix snippet which will wrap expression in Ok() -> Ok(var.len())
-           postfix = {
-             enable = false,
-           },
-         },
-         inlayHints = {
-            enable = false,
-            closureReturnTypeHints = true;
-         }
-       }
-    }
+      },
+    },
+  },
 }
+
+require('rust-tools').setup{opts}
+
 
 require('lspconfig').ccls.setup{
   on_attach = on_attach,
@@ -642,4 +666,7 @@ require('lspconfig').ccls.setup{
 
 require("nnn").setup()
 END
+
+" open grep result in new tab buffer
+" tabe | 0r!grep completion #
 

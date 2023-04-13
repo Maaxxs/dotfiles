@@ -46,6 +46,37 @@ function checkout_pr -a pr
     git checkout pr/"$pr"
 end
 
+# Usage:
+# $ reminder 'Tue 14:00' "some message"
+function reminder -a message time -d "Sets up a one timer reminder that displays a notification"
+    # if time starts with a number, prepend today's day before the time
+    # "14:00" -> "Sat 14:00" to make it a valid system calendar time
+    if string match -qr '^[0-9]' "$time"
+        # get week day of today. e.g. Sat, Sun, ...
+        set time "$(date +%a) $time"
+    end
+
+    set random_str (head -c10 /dev/urandom | base64 | tr -d '/+=')
+    set unit "remind-me-$random_str"
+
+    systemd-run --user \
+        --unit="$unit" \
+        --on-calendar="$time" \
+        /usr/bin/sh -c "notify-send --urgency critical \"Reminder\" \""$message"\" && systemctl --user stop $unit.timer"
+end
+
+# list reminders
+function reminder-ls
+    systemctl --user list-timers | rg 'remind-me-[^\s]+\.service'
+end
+
+function reminder-stop-all
+    for reminder in (systemctl --user list-timers | rg -o 'remind-me-[^\s]+\.timer')
+        systemctl --user stop $reminder
+    end
+end
+
+
 if command -v ip  > /dev/null
     alias ipa='ip -c addr'
     alias ipr='ip -c route'

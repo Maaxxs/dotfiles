@@ -5,7 +5,7 @@
 # export SWAYSOCK=$(find /run/user/1000/ -name 'sway-ipc.1000.*.sock' -print -quit
 #
 # Logo key is Mod4. Use Mod1 for Alt.
-set $mod Mod1
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j

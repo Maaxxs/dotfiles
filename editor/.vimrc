@@ -16,6 +16,7 @@ set relativenumber
 set incsearch
 set ignorecase
 set smartcase
+set mouse=a
 " set nohlsearch
 
 " Tab settings

@@ -278,13 +278,16 @@ set $bg_color #323232
 set $font_color #eeeeee
 
 bar {
-    output primary
+    # output primary
     # strip_workspace_numbers yes
     tray_output primary
     tray_padding 4
     position top
     # font pango:DejaVu Sans Mono 11
     font pango:Noto Sans Mono 10
+    separator_symbol ":|:"
+    status_command i3status
+    # status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
     colors {
         statusline $font_color
         background $bg_color
@@ -292,10 +295,7 @@ bar {
         # focused_workspace <border> <background> <text>
         focused_workspace $blue $blue #ffffff
         inactive_workspace $bg_color $bg_color #aaaaaa
-    }
-    # status_command while ~/.dotfiles/.config/i3/status.sh; do sleep 1; done
-    separator_symbol ":|:"
-    status_command i3status
+    },
 }
 
 # bar {

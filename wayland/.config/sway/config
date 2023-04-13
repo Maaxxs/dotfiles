@@ -15,7 +15,7 @@ set $right l
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu 'rofi -show drun -modes drun,run'
-set $locker swaylock -Kfc ff0000
+set $locker swaylock -Kfc 000000
 
 ### Output configuration
 # mode: fill, stretch, fit, center, tile

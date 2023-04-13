@@ -1,11 +1,13 @@
 # abbreviations
-abbr -a e helix
+abbr -a e nvim
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open
 abbr -a c cargo
 
 
+alias hx="~/.cargo/bin/hx"
+alias hxconf="hx ~/.config/helix/config.toml"
 alias rgi='rg -i'
 alias fishconf='nvim ~/.config/fish/config.fish'
 alias sshconf='nvim ~/.ssh/config'
@@ -19,6 +21,12 @@ alias cvpn='sudo systemctl start wg-quick@wg0'
 alias dvpn='sudo systemctl stop wg-quick@wg0'
 alias cair='bluetoothctl connect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
 alias dair='bluetoothctl disconnect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
+alias csony='bluetoothctl connect (bluetoothctl devices | rg WH-1000XM3 | cut -d" " -f2)'
+alias dsony='bluetoothctl disconnect (bluetoothctl devices | rg WH-1000XM3 | cut -d" " -f2)'
+alias cls="clear && printf '\e[3J'"
+alias dn='nvim ~/notes/daily-notes/(date +%Y-%m-%d).md'
+alias fixme='nvim ~/notes/fm/fixme.md'
+alias lg='lazygit'
 
 # git
 alias gss='git status -s'
@@ -28,11 +36,15 @@ alias gc='git commit -v'
 alias gapa='git add -p'
 alias gl='git pull'
 alias grv='git remote -v'
-alias gcm='git checkout main || git checkout master'
+alias gcm='git checkout main 2>/dev/null || git checkout master 2>/dev/null || sh -c ">&2 echo Could not find branch main or master"'
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias glodse='git log --graph --date=short --pretty=\'%Cred%h%C(auto)%d %s %C(blue)(%ad) %C(yellow)[%an]\''
+alias gcpr='git fetch upstream && checkout_pr '
 
+function checkout_pr -a pr
+    git checkout pr/"$pr"
+end
 
 if command -v ip  > /dev/null
     alias ipa='ip -c addr'

@@ -131,6 +131,7 @@ set -gx EDITOR nvim
 # R = raw terminal characters (fixes git diff)
 #     see http://jugglingbits.wordpress.com/2010/03/24/a-better-less-playing-nice-with-git/
 set -gx LESS '-FXR'
+set -gx DIRENV_LOG_FORMAT ''
 
 # Fish git prompt
 set __fish_git_prompt_showuntrackedfiles 'yes'

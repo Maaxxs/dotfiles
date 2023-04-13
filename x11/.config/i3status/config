@@ -101,7 +101,7 @@ cpu_usage {
 
 cpu_temperature 0 {
     format = "cpu %degrees°C"
-    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input"
 }
 
 volume master {
@@ -113,3 +113,5 @@ volume master {
 tztime local {
         format = "%a %Y-%m-%d %H:%M"
 }
+
+# vim: ft=config

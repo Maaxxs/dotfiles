@@ -1,6 +1,7 @@
-let mapleader = ","
+let mapleader="\<Space>"
 
 call plug#begin()
+Plug 'norcalli/nvim-colorizer.lua'
 " VIM enhancments
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
@@ -97,6 +98,7 @@ Plug 'chriskempson/base16-vim'
 
 " iptables highlighting
 " Plug 'vim-scripts/iptables'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
 
 
@@ -190,6 +192,11 @@ set timeoutlen=300 "time in ms to wait for a mapped sequence to complete
 set mouse=a "use mouse scrolling for vim instead tmux terminal
 set wildmode=longest,list
 set nofoldenable
+" make options popup transparent
+set wildoptions=pum
+set pumblend=20
+" also something with transparency
+set winblend=30
 
 
 " TEXT, TABS AND INDENTS
@@ -201,6 +208,7 @@ set linebreak "do not break in the middle of words
 " set smarttab
 
 " WRAPPING OPTIONS
+" default: "tcqj"  :: neovim: jcroql
 set formatoptions=tc "wrap text and comments using textwidth
 set formatoptions+=r "continue comments when pressing ENTER in I mode
 set formatoptions+=q "enable formatting of comments with gq
@@ -274,7 +282,8 @@ imap <leader><leader>d <C-R>=strftime("%Y-%m-%d %H:%M:%S+11:00")<CR>
 map <leader>r :source $MYVIMRC<CR>
 " search for highlighted text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-nnoremap S :%s//g<LEFT><LEFT>
+" nnoremap S :%s//g<LEFT><LEFT>
+" nnoremap S z=1<cr>
 
 
 " AUTOCMDS
@@ -312,7 +321,6 @@ let g:lightline = {
 " map <C-j> <C-W>j
 " map <C-k> <C-W>k
 " map <C-l> <C-W>l
-
 
 
 " Remember cursor position between vim sessions
@@ -463,8 +471,8 @@ command! -bang -nargs=* Rg
 " Find files using Telescope command-line sugar.
 " e.g. manual call:
 " :Telescope git_commits
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fff <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>gf <cmd>Telescope git_files<cr>
 nnoremap <leader>lg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -493,7 +501,7 @@ autocmd BufRead *.xlsx.axlsx set filetype=ruby
 nnoremap <leader>co :aboveleft vnew +vertical\ resize\ 85<CR><C-W>l
 nnoremap <leader>cc <C-W>h:q!<CR>
 
-au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }
+au TextYankPost * silent! lua vim.highlight.on_yank { timeout=400 }
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -502,7 +510,8 @@ nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 " paste content in system clipboard
 noremap <leader>p "*P<cr>
 " copy whole buffer to system clipboard
-noremap <leader>ca :w !wl-copy -t UTF8_STRING<cr><cr>
+" noremap <leader>ca :w !wl-copy -t UTF8_STRING<cr><cr>
+noremap <leader>ca :w !xclip -sel clipboard<cr><cr>
 " prefix my yank command so that it will be copied to system clipboard
 
 
@@ -519,154 +528,8 @@ let g:LanguageClient_serverCommands = {
 " Move to the end as if messes up syntax highlighting for vim
 " see: https://stackoverflow.com/questions/74448018/neovim-broken-syntax-highlighting-after-heredoc-lua-eof-in-vimscript
 " LSP configuration
-lua << END
-local cmp = require('cmp')
-
-cmp.setup({
-  snippet = {
-    -- REQUIRED by nvim-cmp. get rid of it once we can
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
---  window = {
---    completion = cmp.config.window.bordered(),
---    documentation = cmp.config.window.bordered(),
---  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    -- maybe change abvoe to <CR>
-  }),
-  sources = cmp.config.sources({
-    -- order specifies priority
-    { name = 'nvim_lsp' },
-    --  { name = 'vsnip' }, -- For vsnip users.
-    { name = 'path' },
-  }, {
-    --  { name = 'buffer' },
-  }),
---  experimental = {
---    ghost_text = true,
---  },
-})
-
-
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  -- TODO: formatting is done by Neoformat.
-  -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-  vim.keymap.set('n', '<leader>t', '<cmd>Telescope diagnostics<cr>', {buffer=0})
-
-  -- Get signatures (and _only_ signatures) when in argument lists.
-  require("lsp_signature").on_attach({
-    doc_lines = 0,
-    handler_opts = {
-      border = "none"
-    },
-  })
-end
-
--- Set up lspconfig with new capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-
-
--- for every language server, do
--- require('lspconfig').<LS>.setup{}
-require('lspconfig').pyright.setup{
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-
-local opts = {
-  tools = {
-    runnables = {
-      use_telescope = true,
-    },
-    inlay_hints = {
-      auto = true,
-      show_parameter_hints = false,
-      parameter_hints_prefix = "",
-      other_hints_prefix = "",
-    },
-  },
-  server = {
-    on_attach = on_attach,
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = "clippy",
-        },
-      },
-    },
-  },
-}
-
-require('rust-tools').setup{opts}
-
-
-require('lspconfig').ccls.setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    compilationDatabaseDirectory = "build";
-    index = {
-      threads = 0;
-    };
-    clang = {
-      excludeArgs = { "-frounding-math"} ;
-    };
-  }
-}
-
-
--- TODO: check what this is doing
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics, {
---     virtual_text = true,
---     signs = true,
---     update_in_insert = true,
---   }
--- )
-
-require("nnn").setup()
-END
 
 " open grep result in new tab buffer
 " tabe | 0r!grep completion #
 
+"lua require('init')

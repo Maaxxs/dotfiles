@@ -45,7 +45,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec "rofi -show drun"
 
 # Open file manager thunar
-bindsym $mod+g exec thunar
+# bindsym $mod+g exec thunar
+bindsym $mod+g exec --no-startup-id alacritty -e lf
 bindsym $mod+y exec chromium --user-data-dir=~/.config/chromium-profile-yt
 bindsym $mod+o exec librewolf
 

@@ -246,6 +246,8 @@ exec_always --no-startup-id easyeffects --gapplication-service
 exec_always --no-startup-id /usr/bin/setxkbmap -option caps:ctrl_modifier
 # capslock tapped: ESC, capslock pressed + other_key: CTRL
 exec --no-startup-id /usr/bin/xcape -e 'Caps_Lock=Escape'
+# xset r rate <delay> <repeats per second>
+exec_always --no-startup-id xset r rate 300 40
 
 
 # Menu: lock, logout, suspend, hibernate, reboot, shutdown

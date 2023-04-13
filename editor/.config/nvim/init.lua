@@ -27,12 +27,34 @@ require('packer').startup(function(use)
     use 'mhinz/vim-signify' -- show git changes in sign column
     use 'LnL7/vim-nix' -- nix syntax
     use 'simrat39/rust-tools.nvim' -- expands and inits rust-analyzer
+    use 'folke/which-key.nvim' -- create key bindings and show popup for them
+    use 'norcalli/nvim-colorizer.lua' -- blazing fast colorizer
     use {
-        'ldelossa/gh.nvim',
-        requires = { { 'ldelossa/litee.nvim' } }
-  }
+        'pwntester/octo.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+            'kyazdani42/nvim-web-devicons',
+        }
+    }
 end)
 
+-- LSP Markdown
+require('lspconfig').marksman.setup{}
+
+-- GitHub interaction
+require('octo').setup {}
+
+local wk = require("which-key")
+wk.register({
+    o = {
+        name = '+Octo',
+        p = {
+            name = '+pr',
+            l = { "<cmd>Octo pr list<cr>", "List PRs" },
+        }
+    }
+}, { prefix = "<leader>" })
 
 -- Luasnip
 local luasnip = require 'luasnip'
@@ -212,8 +234,8 @@ o.smartcase = true
 -- o.winminheight = 2 -- min number of lines for any window
 -- o.winheight = 2  -- min number of lines for current window
 -- o.winwidth = 84 -- min number of columns used for the current window
-o.undodir = '~/.vimdid'
-o.undofile = true
+-- o.undodir = '~/.vimdid' -- use vim.fn.expand('~'); default: ~/.local/data/nvim/undo
+o.undofile = true -- keep undo history for files
 o.scrolloff = 2 -- mininum lines above/below the cursor
 o.laststatus = 2 -- always show status line
 o.mouse:append('a') -- use mouse scrooling in nvim instead tmux
@@ -221,6 +243,7 @@ o.splitright = true
 o.splitbelow = true
 o.swapfile = false
 o.formatoptions:append('np') -- :help fo-table
+o.linebreak = true -- do not break in the middle of words
 o.list = false -- show invisible characters defined below
 --o.listchars = { extends = '»' ,precedes='«' ,tab='▸' ,nbsp= '⋅',trail='⋅' }
 o.termguicolors = true
@@ -276,6 +299,17 @@ vim.keymap.set('n', '<leader>p', '"*P<cr>') -- paste from system clipboard
 vim.keymap.set('v', '<leader>y', '"+y') -- copy highlight to system clipboard
 vim.keymap.set('n', '<leader>Y', 'ggvG"+y<C-o>') -- copy buffer to system clipboard
 
+function ToggleTheme()
+    if vim.g.colors_name == "habamax" then
+        vim.cmd('colo zellner')
+    else
+        vim.cmd('colo habamax')
+    end
+end
+vim.keymap.set('n', '<leader>tt', ToggleTheme)
+
+
+
 ---------------------
 -- Plugin Mappings --
 ---------------------
@@ -328,3 +362,4 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     command = 'inoremap <buffer> ;c ```<cr>```<Up>'
 })
 
+require('colorizer').setup {}

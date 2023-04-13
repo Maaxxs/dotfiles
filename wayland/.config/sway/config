@@ -98,7 +98,7 @@ bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 firefox
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+r reload
-bindsym Mod4+d exec rofi -show run
+#bindsym $mod+d exec rofi -show run
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.

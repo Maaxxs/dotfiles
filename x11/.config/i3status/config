@@ -48,6 +48,7 @@ ethernet _first_ {
 }
 
 path_exists VPN {
+    color_good = "#00FF00"
     format = "vpn on"
     format_down = ""
     path = "/proc/sys/net/ipv4/conf/wg0"

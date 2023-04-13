@@ -66,6 +66,8 @@ input * {
     # xkb_options grp:switch,caps:escape
     # map caps to ctrl
     xkb_options grp:switch,ctrl:nocaps
+    repeat_delay 300
+    repeat_rate 40
 }
 
 # diable mouse accerlation

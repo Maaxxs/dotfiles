@@ -274,9 +274,10 @@ bar {
     # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
     # status_command while ~/.config/sway/status.sh; do sleep 1; done
     # font pango:DejaVu Sans Mono 10
-    swaybar_command waybar
+    #swaybar_command waybar
     # swaybar_command swaybar
-    # status_command i3status
+    status_command i3status
+    separator_symbol ":|:"
     # font pango:Noto Sans Mono 10
 
     colors {

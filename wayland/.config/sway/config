@@ -4,9 +4,8 @@
 # OR:
 # export SWAYSOCK=$(find /run/user/1000/ -name 'sway-ipc.1000.*.sock' -print -quit
 #
-# Logo key is Mod4. Use Mod1 for Alt.
+# Logo key -> Mod4 || Alt -> Mod1
 set $mod Mod4
-# Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
@@ -288,4 +287,3 @@ bar {
 }
 
 include /etc/sway/config.d/*
-# vi: ft=conf

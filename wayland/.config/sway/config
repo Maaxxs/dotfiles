@@ -43,7 +43,8 @@ output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 1735,0 bg ~/Pictures/
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec wl-paste -t text --watch clipman store --no-persist
+# the following also stores your passwords on disk in that file
+#exec wl-paste -t text --watch clipman store --no-persist
 exec --no-startup-id /usr/bin/dunst
 # with transition period of 30 min (1800s)
 exec --no-startup-id wlsunset -S 05:00 -s 19:00 -d 1800

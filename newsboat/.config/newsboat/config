@@ -7,13 +7,13 @@ unbind-key H
 unbind-key L
 unbind-key c
 unbind-key ,
-browser "chromium %u"
+browser "firefox %u"
 
 # Feed settings
 prepopulate-query-feeds yes
-refresh-on-startup yes
+refresh-on-startup no
 text-width 80
-
+confirm-mark-feed-read no
 macro w set browser "mpv %u" ; open-in-browser ; set browser "firefox %u"
 
 # bind keys
@@ -26,6 +26,8 @@ bind-key l open
 bind-key H prev-feed
 bind-key L next-feed
 bind-key c toggle-show-read-feeds
+unbind-key END
+bind-key G end
 
 # color background default default
 # color listnormal default default
@@ -81,7 +83,7 @@ highlight article ":.*\\(embedded flash\\)$" magenta default
 
 
 # # Nord theme
-color background          color236   default
+color background          color248   default
 color listnormal          color248   default
 color listnormal_unread   color6     default
 color listfocus           yellow   default

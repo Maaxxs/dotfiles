@@ -49,6 +49,11 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /usr/bin/dunst
 # with transition period of 30 min (1800s)
 exec --no-startup-id wlsunset -S 05:00 -s 19:00 -d 1800
+# Update number of upgradable packages
+exec_always --no-startup-id checkupdates & | wc -l > ~/.config/i3status/pkg_updates
+exec --no-startup-id systemd-run --user --unit=pkg_updates --on-calendar=hourly /bin/sh -c 'checkupdates | wc -l > ~/.config/i3status/pkg_updates'
+# run battery check every 5 minutes
+exec --no-startup-id systemd-run --user --unit=low_battery --on-calendar='*-*-* *:*:05' ~/.local/bin/low_battery_warning.sh
 
 ### Idle configuration
 exec swayidle -w \

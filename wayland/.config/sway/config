@@ -42,6 +42,7 @@ output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 1735,0 bg ~/Pictures/
 
 
 # Autostart applications
+exec_always --no-startup-id easyeffects --gapplication-service
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # the following also stores your passwords on disk in that file
 #exec wl-paste -t text --watch clipman store --no-persist

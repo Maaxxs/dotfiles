@@ -115,11 +115,6 @@ bindsym $mod+Shift+r reload
 # mouse button for dragging.
 floating_modifier $mod normal
 
-
-# Moving around:
-
-workspace_auto_back_and_forth yes
-
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -135,9 +130,11 @@ bindsym $mod+Shift+$right move right
 # Cycle workspace forward/backward
 bindsym $mod+Shift+f workspace next_on_output
 bindsym $mod+Shift+d workspace prev_on_output
+# grave is the backtick
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
 
+workspace_auto_back_and_forth yes
 # Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -200,7 +197,6 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Resizing containers:
-
 mode "resize" {
     bindsym $left resize shrink width 40px
     bindsym $up resize grow height 40px
@@ -212,7 +208,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
 
 # practical keybinding for special keys
 bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -226,9 +221,9 @@ bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym XF86Search exec pavucontrol
 bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
-# setting key on framework
-bindsym XF86AudioMedia              exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86RFKill                  exec notify-send test 230
+# setting key on framework. need an indicator for microphone mute status
+bindsym XF86AudioMedia exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86RFKill exec ~/.local/bin/airplane.sh
 
 # Lock, logout, suspend, hibernate, reboot, shutdown options
 # suspend-then-hibernate default delay: 120min. specify in /etc/systemd/sleep.conf

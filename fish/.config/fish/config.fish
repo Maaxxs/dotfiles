@@ -11,7 +11,7 @@ alias hxconf="hx ~/.config/helix/config.toml"
 alias rgi='rg -i'
 alias fishconf='nvim ~/.config/fish/config.fish'
 alias sshconf='nvim ~/.ssh/config'
-alias nvimconf='nvim ~/.config/nvim/init.vim'
+alias nvimconf='nvim ~/.config/nvim/init.lua'
 alias dl4='yt-dlp -f mp4 -o "%(title)s.%(ext)s"'
 alias dl3='yt-dlp -f "ba" -x --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias duh='du -md1 2>/dev/null | sort -g'
@@ -27,6 +27,7 @@ alias cls="clear && printf '\e[3J'"
 alias dn='nvim ~/notes/daily-notes/(date +%Y-%m-%d).md'
 alias fixme='nvim ~/notes/fm/fixme.md'
 alias lg='lazygit'
+alias news='newsboat'
 
 # git
 alias gss='git status -s'

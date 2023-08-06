@@ -74,7 +74,7 @@ input * {
     # make capslock an aditional escape
     # xkb_options grp:switch,caps:escape
     # map caps to ctrl
-    xkb_options grp:switch,ctrl:nocaps
+    xkb_options grp:switch,ctrl:nocaps,altwin:swap_lalt_lwin
     repeat_delay 300
     repeat_rate 40
 }

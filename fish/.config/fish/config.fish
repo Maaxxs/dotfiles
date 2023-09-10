@@ -102,10 +102,10 @@ else
 end
 
 
-if command -v exa > /dev/null
-	alias l 'exa'
-	alias ll 'exa -lg'
-	alias la 'exa -lga --git'
+if command -v eza > /dev/null
+	alias l 'eza'
+	alias ll 'eza -lg'
+	alias la 'eza -lga --git'
 else
 	alias l 'ls'
 	alias ll 'ls -l'

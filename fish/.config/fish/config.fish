@@ -125,13 +125,14 @@ end
 
 
 # Environment variables
-set -gx PAGER less
+set -gx MOAR "--style=gruvbox"
+set -gx PAGER moar
 set -gx EDITOR nvim
 # X = leave content on-screen
 # F = quit automatically if less than one screenfull
 # R = raw terminal characters (fixes git diff)
 #     see http://jugglingbits.wordpress.com/2010/03/24/a-better-less-playing-nice-with-git/
-set -gx LESS '-FXR'
+set -gx LESS '-R'
 set -gx DIRENV_LOG_FORMAT ''
 
 # Fish git prompt
@@ -143,17 +144,18 @@ set __fish_git_prompt_showupstream 'none'
 
 # Color manpage
 # 30 = black
-# 31m = red
-# 32m = green
-# 33m = yellow
+# 31 = red
+# 32 = green
+# 33 = yellow
 # 34 = blue
 # 35 = Magenta
 # 36 = cyan
+# 43 = yellow
 setenv LESS_TERMCAP_mb \e'[1;32m'               # begin blinking
 setenv LESS_TERMCAP_md \e'[1;32m'               # begin bold
 setenv LESS_TERMCAP_me \e'[0m'                  # end mode
 setenv LESS_TERMCAP_se \e'[0m'                  # end standout-mode
-setenv LESS_TERMCAP_so \e'[01;33m'              # begin standout-mode - info box
+setenv LESS_TERMCAP_so \e'[01;30;43m' # black text, yellow background. search results
 setenv LESS_TERMCAP_ue \e'[0m'                  # end underline
 setenv LESS_TERMCAP_us \e'[1;36m'               # begin underline
 

@@ -277,9 +277,9 @@ for_window [app_id="^org.gnome.Calculator$"] floating enable
 for_window [app_id="^thunderbird$" title="^New Event:$"] floating enable
 for_window [app_id="^blueman-manager$"] floating enable
 for_window [app_id="^thunar$" title="^File Operation Progress$"] floating enable
-for_window [title="^linkding - add bookmark — Mozilla Firefox$"] floating enable
-for_window [title="^linkding - add bookmark — Mozilla Firefox$"] resize set 640 1300
 for_window [title="^linkding - add bookmark — Mozilla Firefox$"] move position 1600 100
+for_window [title="^linkding - add bookmark — .*$"] floating enable
+for_window [title="^linkding - add bookmark — .*$"] resize set 640 1300
 
 bar {
     position top

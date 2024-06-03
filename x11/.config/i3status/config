@@ -4,6 +4,7 @@ general {
         color_degraded = "#FFFFFF"
         color_bad = "#FF0000"
         interval = 5
+        markup = pango
 }
 
 # order += "ipv6"
@@ -107,7 +108,7 @@ cpu_temperature 0 {
 volume master {
    device = "pulse"
    format = "🔊 %volume"
-   format_muted = "🔇 %volume"
+   format_muted = "<span color='red'>🔇 MUTED %volume</span>"
 }
 
 tztime local {

@@ -223,7 +223,7 @@ client.background       #ffffff
 exec --no-startup-id ~/.screenlayout/normal-rotated-right.sh
 # set background
 #exec_always --no-startup-id ~/.dotfiles/scripts/set_wallpaper.sh
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-2256x1504.png
+#exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/forest-2256x1504.png
 
 # Update number of upgradable packages
 exec_always --no-startup-id checkupdates & | wc -l > ~/.config/i3status/pkg_updates
@@ -234,9 +234,9 @@ exec --no-startup-id systemd-run --user --unit=low_battery --on-calendar='*-*-* 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /home/max/.local/bin/screensaver.sh
-exec --no-startup-id /usr/bin/pasystray
-exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/nextcloud --background
+#exec --no-startup-id /usr/bin/pasystray
+#exec --no-startup-id /usr/bin/nm-applet
+#exec --no-startup-id /usr/bin/nextcloud --background
 exec_always --no-startup-id easyeffects --gapplication-service
 
 # keyboard settings. Look up codes here:
@@ -295,7 +295,7 @@ bar {
         # focused_workspace <border> <background> <text>
         focused_workspace $blue $blue #ffffff
         inactive_workspace $bg_color $bg_color #aaaaaa
-    },
+    }
 }
 
 # bar {

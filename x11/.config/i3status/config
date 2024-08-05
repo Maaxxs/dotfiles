@@ -8,10 +8,12 @@ general {
 }
 
 # order += "ipv6"
+order += "read_file reboot_required"
 order += "read_file pkg_updates"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "path_exists VPN"
+order += "path_exists hses"
 order += "disk /"
 order += "disk /home"
 order += "memory"
@@ -22,11 +24,18 @@ order += "read_file brightness"
 order += "volume master"
 order += "battery all"
 order += "tztime local"
+order += "read_file scratchpad"
 
+
+read_file reboot_required {
+	format = "%content"
+	path = "~/.config/i3status/reboot_required"
+}
 
 read_file pkg_updates {
     # format = "%title: %content"
-    format = " %content"
+    # format = " %content"
+    format = "📦 %content"
     path = "~/.config/i3status/pkg_updates"
 }
 
@@ -36,7 +45,7 @@ read_file brightness {
 }
 
 wireless _first_ {
-        format_up = "wlan %quality %essid"
+        format_up = " %quality %essid"
         format_down = ""
 }
 
@@ -50,23 +59,32 @@ ethernet _first_ {
 
 path_exists VPN {
     color_good = "#00FF00"
-    format = "vpn on"
+    format = "vpn wg"
     format_down = ""
     path = "/proc/sys/net/ipv4/conf/wg0"
 }
 
+path_exists hses {
+    color_good = "#00FF00"
+    format = "vpn hses"
+    format_down = ""
+    path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
 battery all {
-        format = "%status %percentage %remaining"
-        format_percentage = "%2.f%s"
-        format_down = ""
-        # format = "%percentage %remaining"
-        status_chr = "⚡"
-        status_unk = "⚡"
-        status_bat = "🔋"
-        # status_unk = "?"
-        status_full = "☻"
-        threshold_type = "percentage"
-        low_threshold = "10"
+    # 2023-09-06: "full battery" meant 88%
+    last_full_capacity = true
+    format = "%status %percentage %remaining"
+    format_percentage = "%2.f%s"
+    format_down = ""
+    # format = "%percentage %remaining"
+    status_chr = "⚡"
+    status_unk = "⚡"
+    status_bat = "🔋"
+    # status_unk = "?"
+    status_full = "☻"
+    threshold_type = "percentage"
+    low_threshold = "10"
 }
 
 
@@ -108,11 +126,18 @@ cpu_temperature 0 {
 volume master {
    device = "pulse"
    format = "🔊 %volume"
-   format_muted = "<span color='red'>🔇 MUTED %volume</span>"
+   format_muted = "<span color='orange'>🔇 MUTED %volume</span>"
 }
 
 tztime local {
         format = "%a %Y-%m-%d %H:%M"
+}
+
+read_file scratchpad {
+    # format = "%title: %content"
+    format = " %content"
+    # format_bad = ""
+    path = "~/.config/i3status/scratchpad"
 }
 
 # vim: ft=config

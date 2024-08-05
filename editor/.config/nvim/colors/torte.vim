@@ -25,7 +25,7 @@ endif
 hi! link Terminal Normal
 hi! link LineNrAbove LineNr
 hi! link LineNrBelow LineNr
-hi! link CurSearch Search
+hi! link CurSearch IncSearch
 hi! link CursorLineFold CursorLine
 hi! link CursorLineSign CursorLine
 hi! link StatusLineTerm StatusLine
@@ -47,8 +47,8 @@ hi Todo guifg=#ffff00 guibg=#000000 gui=reverse cterm=reverse
 hi Folded guifg=#00cdcd guibg=#3a3a3a gui=NONE cterm=NONE
 hi Visual guifg=#000000 guibg=#a9a9a9 gui=bold cterm=NONE
 hi CursorColumn guifg=NONE guibg=#666666 gui=NONE cterm=NONE
-hi CursorLine guifg=NONE guibg=#666666 gui=NONE cterm=NONE
-hi CursorLineNr guifg=#ffff00 guibg=#666666 gui=NONE cterm=NONE
+hi CursorLine guifg=NONE guibg=#16161d gui=NONE cterm=NONE
+hi CursorLineNr guifg=NONE guibg=#16161d gui=NONE cterm=NONE
 hi SignColumn guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
 hi FoldColumn guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=#cccccc guibg=#8b0000 gui=NONE cterm=NONE
@@ -58,10 +58,10 @@ hi lCursor guifg=#000000 guibg=#e5e5e5 gui=NONE cterm=NONE
 hi CursorIM guifg=NONE guibg=fg gui=NONE cterm=NONE
 hi Title guifg=#ff00ff guibg=NONE gui=bold cterm=bold
 hi Directory guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
-hi Search guifg=#ff0000 guibg=#000000 gui=reverse cterm=reverse
-hi IncSearch guifg=#00cd00 guibg=#000000 gui=reverse cterm=reverse
-hi NonText guifg=#0000ff guibg=NONE gui=bold cterm=NONE
-hi EndOfBuffer guifg=#0000ff guibg=NONE gui=bold cterm=NONE
+hi Search guifg=#ffff00 guibg=#000000 gui=reverse cterm=reverse
+hi IncSearch guifg=#ffa500 guibg=#000000 gui=reverse cterm=reverse
+hi NonText guifg=#7f7f7f guibg=NONE gui=bold cterm=NONE
+hi EndOfBuffer guifg=#00ffff guibg=NONE gui=bold cterm=NONE
 hi ErrorMsg guifg=#ffffff guibg=#cd0000 gui=NONE cterm=NONE
 hi WarningMsg guifg=#ff0000 guibg=NONE gui=NONE cterm=NONE
 hi LineNr guifg=#7f7f7f guibg=NONE gui=NONE cterm=NONE
@@ -69,7 +69,7 @@ hi MatchParen guifg=NONE guibg=#008b8b gui=NONE cterm=NONE
 hi ModeMsg guifg=NONE guibg=NONE gui=bold ctermfg=NONE ctermbg=NONE cterm=bold
 hi MoreMsg guifg=#2e8b57 guibg=NONE gui=bold cterm=bold
 hi Question guifg=#00ff00 guibg=NONE gui=bold cterm=bold
-hi SpecialKey guifg=#00ffff guibg=NONE gui=NONE cterm=NONE
+hi SpecialKey guifg=#7f7f7f guibg=NONE gui=NONE cterm=NONE
 hi VisualNOS guifg=NONE guibg=#000000 gui=bold,underline cterm=underline
 hi WildMenu guifg=#000000 guibg=#ffff00 gui=NONE cterm=NONE
 hi QuickFixLine guifg=#000000 guibg=#cdcd00 gui=NONE cterm=NONE
@@ -98,7 +98,7 @@ if s:t_Co >= 256
   hi! link Terminal Normal
   hi! link LineNrAbove LineNr
   hi! link LineNrBelow LineNr
-  hi! link CurSearch Search
+  hi! link CurSearch IncSearch
   hi! link CursorLineFold CursorLine
   hi! link CursorLineSign CursorLine
   hi! link StatusLineTerm StatusLine

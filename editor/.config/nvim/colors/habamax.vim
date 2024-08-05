@@ -100,7 +100,7 @@ hi MoreMsg guifg=#87af87 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=#afaf87 guibg=NONE gui=NONE cterm=NONE
 hi WarningMsg guifg=#d7875f guibg=NONE gui=NONE cterm=NONE
 hi Todo guifg=#d7d787 guibg=#1c1c1c gui=reverse cterm=reverse
-hi MatchParen guifg=#1c1c1c guibg=#5f8787 gui=reverse cterm=reverse
+hi MatchParen guifg=#ff00af guibg=NONE gui=bold cterm=bold
 hi Search guifg=#1c1c1c guibg=#87af87 gui=NONE cterm=NONE
 hi IncSearch guifg=#1c1c1c guibg=#ffaf5f gui=NONE cterm=NONE
 hi CurSearch guifg=#1c1c1c guibg=#afaf87 gui=NONE cterm=NONE

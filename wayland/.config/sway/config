@@ -13,8 +13,15 @@ set $right l
 # Note: pass the final command to swaymsg so that the resulting window can be
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu 'rofi -show drun -modes drun,run'
-set $locker swaylock -Kfc 000000
+set $menu rofi -show drun -modes drun,run | xargs swaymsg exec --
+set $locker swaylock -Kfc 16161D
+
+font pango:Iosevka Bold 10
+
+focus_follows_mouse always
+## always move mouse to active container/window (also on same output)
+## mouse_warping output|container|none  (default: output)
+#mouse_warping container
 
 ### Output configuration
 # mode: fill, stretch, fit, center, tile
@@ -29,17 +36,30 @@ set $locker swaylock -Kfc 000000
 # output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/forest-2560-x1440.png fit
 # output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/simple-creative.jpg fit
 
+# only background
+#output "Dell Inc. DELL U2719DC CRKNTS2" bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+output "Dell Inc. DELL U2719DC CRKNTS2" bg ~/Pictures/wallpapers/new/gargantua-black-2560x1440-9621.jpg center
+output "Dell Inc. DELL U2719D BPSLSS2" bg ~/Pictures/wallpapers/simple-creative.jpg fill
+output eDP-1 bg ~/Pictures/wallpapers/new/gargantua-black-2560x1440-9621.jpg fill
+
 # frame
+#output eDP-1 scale 1.25
 output eDP-1 scale 1
+#output eDP-1 mode 2256x1504 pos 0,0 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
+#output eDP-1 power off
 
 # horizontal
-output eDP-1 mode 2256x1504 pos 2137,1440 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
-output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 1735,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+# output eDP-1 mode 2256x1504 pos 167,1440 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
+# output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
 
 # vertical
 # output eDP-1 mode 2256x1504 pos 3737,4000 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
 # output "Dell Inc. DELL U2719DC CRKNTS2" transform 90 pos 3872,1440
 
+# franz
+#output eDP-1 mode 2256x1504 pos 4576,2880 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
+#output eDP-1 disable
+#output "Dell Inc. DELL U2719D BPSLSS2" mode 2560x1440 pos 4393,1440 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
@@ -50,31 +70,48 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # the following also stores your passwords on disk in that file
 #exec wl-paste -t text --watch clipman store --no-persist
 exec --no-startup-id /usr/bin/dunst
+exec --no-startup-id /usr/bin/nextcloud --background
+exec --no-startup-id /usr/bin/kanshi
 # with transition period of 30 min (1800s)
-exec --no-startup-id wlsunset -S 05:00 -s 19:00 -d 1800
+exec --no-startup-id wlsunset -S 05:00 -s 17:00 -d 1800 2>&1 >~/.wlsunset.log
 # Update number of upgradable packages
-exec_always --no-startup-id checkupdates & | wc -l > ~/.config/i3status/pkg_updates
+exec_always --no-startup-id checkupdates | wc -l > ~/.config/i3status/pkg_updates
 exec --no-startup-id systemd-run --user --unit=pkg_updates --on-calendar=hourly /bin/sh -c 'checkupdates | wc -l > ~/.config/i3status/pkg_updates'
 # run battery check every 5 minutes
-exec --no-startup-id systemd-run --user --unit=low_battery --on-calendar='*-*-* *:*:05' ~/.local/bin/low_battery_warning.sh
+exec --no-startup-id systemd-run --user --unit=low_battery --on-calendar='*-*-* *:00,05,10,15,20,25,30,35,40,45,50,55:00' ~/.local/bin/low_battery_warning.sh
+exec --no-startup-id /usr/bin/planify --background
+
+# TODO remove. moved to user systemd file
+# check mail every 15 min
+#exec --no-startup-id systemd-run --user --unit=check-mail --on-calendar='*-*-* *:00,15,30,45:00' ~/.local/bin/mailsync.sh
 
 ### Idle configuration
 exec swayidle -w \
+         timeout 595 'notify-send "Going to lock in 5 seconds" "Screen will be locked in 5 seconds"' \
          timeout 600 "$locker" \
          timeout 630 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep "playerctl pause" \
-         before-sleep "$locker"
+         before-sleep "$locker" \
+
+#          idlehint "10"
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # show xkb_options with `xkbcli list`
 input * {
     xkb_model pc105
-    xkb_layout us,de
-    xkb_variant ,nodeadkeys
+    xkb_layout us
+    xkb_variant altgr-intl
+    xkb_options altwin:swap_lalt_lwin
+
+    # xkb_layout us,de
+    # xkb_variant ,nodeadkeys
+
     # make capslock an aditional escape
     # xkb_options grp:switch,caps:escape
     # map caps to ctrl
-    xkb_options grp:switch,ctrl:nocaps,altwin:swap_lalt_lwin
+    #xkb_options grp:switch,ctrl:nocaps,altwin:swap_lalt_lwin
+
+    # xkb_options grp:switch,altwin:swap_lalt_lwin
     repeat_delay 300
     repeat_rate 40
 }
@@ -90,26 +127,49 @@ input "type:touchpad" {
     tap enabled
     # disable while typing
     dwt enabled
-    pointer_accel 0.2
+    pointer_accel 1
     accel_profile flat
+    scroll_factor 0.2
 }
 
 
+bindsym $mod+Shift+p exec $HOME/.local/bin/sway-move-to.sh mid-right
 ### Key bindings
 bindsym $mod+Return exec alacritty -e tmux
-bindsym $mod+c exec rofi -show calc
+bindsym $mod+Shift+Return exec foot tmux
+#bindsym $mod+c exec rofi -show calc
+bindsym $mod+c exec gnome-calendar
+bindsym $mod+i exec firefox-nightly
+bindsym $mod+Shift+i exec firefox
 bindsym $mod+Shift+c exec gnome-calculator
-bindsym $mod+g exec alacritty -e lf
+bindsym $mod+g exec EDITOR=nvim alacritty -e lf
+bindsym $mod+Shift+g exec thunar
 bindsym $mod+n exec $HOME/.local/bin/next_empty_workspace.sh new
 bindsym $mod+Shift+n exec $HOME/.local/bin/next_empty_workspace.sh move
 bindsym $mod+t exec $HOME/.local/bin/toggle_theme.sh
-bindsym $mod+ctrl+l output eDP-1 toggle
-bindsym $mod+m exec env MOZ_ENABLE_WAYLAND=1 thunderbird
-bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 firefox
+bindsym $mod+m exec $HOME/.local/bin/toggle_notifications.sh
+bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 librewolf
+bindsym $mod+Alt+d exec rofimoji --skin-tone neutral --clipboarder wl-copy --typer wtype
+# bindsym $mod+f1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "it sends"
+# bindsym $mod+f2 exec notify-send "it sends"
+bindsym $mod+p exec ~/.local/bin/fuzzy_open.sh pdf
+bindsym $mod+u exec ~/.local/bin/fuzzy_open.sh uni
+bindsym $mod+Shift+u exec ~/.local/bin/fuzzy_open.sh rfc
+bindsym $mod+ctrl+k exec ~/.local/bin/kill_process.sh
+bindsym $mod+q exec "~/.local/bin/translate.sh $(wl-paste --primary --type text)"
+bindsym $mod+ctrl+m exec ~/.local/bin/monitor.sh
+
+#bindsym $mod+ctrl+l exec swaymsg output eDP-1 power toggle
+bindsym $mod+ctrl+l exec kanshictl switch laptop
+bindsym $mod+ctrl+1 exec kanshictl switch single
+bindsym $mod+ctrl+2 exec kanshictl switch double
+bindsym $mod+ctrl+3 exec kanshictl switch vertical
+bindsym $mod+ctrl+4 exec kanshictl switch vertical3
+bindsym $mod+ctrl+5 exec kanshictl switch horver
 
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+r exec swaymsg reload && killall -SIGHUP kanshi
 #bindsym $mod+d exec rofi -show run
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -164,11 +224,17 @@ bindsym $mod+Shift+0 move container to workspace number 10
 # We just use 1-10 as the default.
 
 # bind workspace 1-5 to primary monitor
-# workspace 1 output DP-4
-# workspace 2 output DP-4
-# workspace 3 output DP-4
-# workspace 4 output DP-4
-# workspace 5 output DP-4
+# set $primary_mon "Dell Inc. DELL U2719DC CRKNTS2"
+# workspace 1 output $primary_mon
+# workspace 2 output $primary_mon
+# workspace 3 output $primary_mon
+# workspace 4 output $primary_mon
+# workspace 5 output $primary_mon
+# workspace 6 output $primary_mon
+# workspace 7 output $primary_mon
+# workspace 8 output eDP-1
+# workspace 9 output eDP-1
+# workspace 0 output eDP-1
 
 # Layout stuff:
 bindsym $mod+b splith
@@ -184,6 +250,7 @@ bindsym $mod+f fullscreen
 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+ctrl+d floating toggle
 
 # Swap focus between the tiling area and the floating area
 bindsym $mod+space focus mode_toggle
@@ -193,11 +260,13 @@ bindsym $mod+a focus parent
 
 # Scratchpad:
 # Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus exec swaymsg move scratchpad && swaymsg -r -t get_tree | jq -r 'recurse(.nodes[]) | first(select(.name == "__i3_scratch") | .floating_nodes | length)' > ~/.config/i3status/scratchpad && $refresh_i3status
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+#bindsym $mod+minus scratchpad show
+bindsym $mod+minus exec swaymsg scratchpad show && swaymsg -r -t get_tree | jq -r 'recurse(.nodes[]) | first(select(.name == "__i3_scratch") | .floating_nodes | length)' > ~/.config/i3status/scratchpad && $refresh_i3status
+#bindsym $mod+u exec swaymsg scratchpad shw && notify-send "hello" "world"
 
 # Resizing containers:
 mode "resize" {
@@ -205,6 +274,10 @@ mode "resize" {
     bindsym $up resize grow height 40px
     bindsym $down resize shrink height 40px
     bindsym $right resize grow width 40px
+    bindsym Shift+$left resize shrink width 10px
+    bindsym Shift+$up resize grow height 10px
+    bindsym Shift+$down resize shrink height 10px
+    bindsym Shift+$right resize grow width 10px
 
     # Return to default mode
     bindsym Return mode "default"
@@ -228,7 +301,16 @@ bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym XF86Search exec pavucontrol
-bindsym Print exec 'grim -g "$(slurp)" - | swappy -f -'
+
+# screenshots
+bindsym Print exec ~/.local/bin/screenshot.sh region
+bindsym Shift+Print exec ~/.local/bin/screenshot.sh window
+bindsym Ctrl+Print exec ~/.local/bin/screenshot.sh output
+bindsym Ctrl+Shift+Print exec ~/.local/bin/screenshot.sh all
+
+# grab color from screen to clipboard
+bindsym $mod+Insert exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:-
+
 # setting key on framework. need an indicator for microphone mute status
 bindsym XF86AudioMedia exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86RFKill exec ~/.local/bin/airplane.sh
@@ -248,11 +330,24 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+Shift+e mode "$mode_system"
 
+# Manual start applications
+set $applications Firefox (f), mail (m), Thunderbird (t)
+mode "$applications" {
+    bindsym f exec env MOZ_ENABLE_WAYLAND=1 firefox, mode "default"
+    bindsym t exec env MOZ_ENABLE_WAYLAND=1 thunderbird, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+#bindsym $mod+o mode "$applications"
+bindsym $mod+o exec /usr/bin/io.github.alainm23.planify.quick-add
+bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
+
 gaps inner 0
-default_border pixel 3
+default_border pixel 1
 
 # Colors
 # neo green: #19ff00
@@ -260,8 +355,12 @@ default_border pixel 3
 set $blue #33aadd
 set $darker_blue #1177cc
 set $dark_grey #111111
+set $orange #ffa500
+set $white #ffffff
+set $black #000000
 # class                 border  backgr. text    indicator child_border
-client.focused          $blue $blue $dark_grey $darker_blue $blue
+#client.focused          $blue $blue $black $orange $blue
+client.focused          $orange $orange $black $orange $blue
 client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 # client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 # client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -272,32 +371,55 @@ client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 # swaymsg -t get_tree | jq -r '..|try select(.focused == true)'
 for_window [window_type="dialog"] floating enable
 for_window [window_role="dialog"] floating enable
-for_window [app_id="^firefox$" title="^Pinboard - Save a Bookmark — Mozilla Firefox$"] floating enable
+#for_window [app_id="^firefox$" title="^Pinboard - Save a Bookmark — Mozilla Firefox$"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
 for_window [app_id="^thunderbird$" title="^New Event:$"] floating enable
+for_window [app_id="^thunderbird$" title="^New Task:$"] floating enable
 for_window [app_id="^blueman-manager$"] floating enable
 for_window [app_id="^thunar$" title="^File Operation Progress$"] floating enable
-for_window [title="^linkding - add bookmark — Mozilla Firefox$"] move position 1600 100
-for_window [title="^linkding - add bookmark — .*$"] floating enable
-for_window [title="^linkding - add bookmark — .*$"] resize set 640 1300
+# had the next 2 options turned on
+#for_window [title="^linkding - add bookmark — .*$"] floating enable
+#for_window [title="^linkding - add bookmark — .*$"] resize set 640 1300
+# next two maybe activate
+#for_window [title="^linkding - add bookmark — Mozilla Firefox$"] move position 1600 100
+#for_window [title="^linkding - add bookmark — Mozilla Firefox$"] exec $HOME/.local/bin/sway-move-to.sh mid-right
+for_window [app_id="^$" title="^$"] floating enable
+for_window [app_id="^firefox$" title="^Save As$"] resize set 1000 800
+for_window [app_id="^firefox$" title="^Picture-in-Picture$"] floating enable
+# popups from the notification tray, e.g. signal, element
+for_window [app_id="^$" title="^$"] exec $HOME/.local/bin/sway-move-to.sh top-right
+
+# no idle signal when full screen
+for_window [app_id="firefox"] inhibit_idle fullscreen
+
 
 bar {
     position top
+    # other bars:
+    # * swaystatus: https://github.com/NobodyXu/swaystatus
+    # * swayrbar: not sure exactly what this is. https://lib.rs/crates/swayrbar
+    # * ironbar: (Rust): https://github.com/JakeStanger/ironbar (looks promising)
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-    # status_command while ~/.config/sway/status.sh; do sleep 1; done
+    #status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+    #status_command while ~/.config/sway/status.sh; do sleep 1; done
     # font pango:DejaVu Sans Mono 10
-    #swaybar_command waybar
+    # font pango: Fira Code 10
+    # swaybar_command waybar
     # swaybar_command swaybar
+    # swaybar_command ironbar
     status_command i3status
     separator_symbol ":|:"
     # font pango:Noto Sans Mono 10
+    # font pango:Hermit 10
+    #font pango:Cousine Nerd Font 10 # last used
+    font pango:Iosevka 10
 
     colors {
         statusline #ffffff
-        background #323232
+        #background #323232
+        background #000000
         # inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }

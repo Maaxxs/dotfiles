@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+cd ~/notes
+
+if [ -z "$*" ]; then
+    PAGE="$(fd | fzf --print-query | tail -1)"
+else
+    PAGE="$*"
+fi
+
+if [ -n "$PAGE" ]; then
+    "$EDITOR" "$PAGE"
+fi
+
+# vim: ft=bash

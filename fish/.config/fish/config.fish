@@ -193,6 +193,7 @@ end
 set -gx EDITOR nvim
 set -gx DIFFPROG 'nvim -d'
 set -gx BROWSER firefox
+set -gx SUDO_PROMPT "$(tput setaf 2 bold)Say Please:$(tput sgr0) "
 # X = leave content on-screen
 # F = quit automatically if less than one screenfull
 # R = raw terminal characters (fixes git diff)

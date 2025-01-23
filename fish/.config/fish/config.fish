@@ -130,9 +130,9 @@ end
 
 
 if command -v ip  > /dev/null
-    alias ipa='ip -c addr'
-    alias ipr='ip -c route'
-    alias ipr6='ip -c -6 route'
+    alias ipa='ip -c addr show'
+    alias ipr='ip -c route show'
+    alias ipr6='ip -c -6 route show'
 end
 
 if command -v yay > /dev/null

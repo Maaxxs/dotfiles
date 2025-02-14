@@ -104,7 +104,8 @@ input "type:touchpad" {
 }
 
 
-bindsym $mod+Shift+p exec $HOME/.local/bin/sway-move-to.sh mid-right
+bindsym $mod+Shift+bracketright exec $HOME/.local/bin/sway-move-to.sh mid-right
+bindsym $mod+Shift+bracketleft exec $HOME/.local/bin/sway-move-to.sh mid-left
 ### Key bindings
 bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+Shift+Return exec foot tmux
@@ -318,20 +319,29 @@ bindsym $mod+o exec /usr/bin/io.github.alainm23.planify.quick-add
 bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
 
 gaps inner 0
-default_border pixel 1
+default_border pixel 2
 
 # Colors
 # neo green: #19ff00
 # set $dark_green #009a59
+
+set $green1 #33FF00
+set $green2 #00FF33
+set $green_apple #33FF33
+set $old_phosphor_black #282828
+
 set $blue #33aadd
 set $darker_blue #1177cc
 set $dark_grey #111111
 set $orange #ffa500
 set $white #ffffff
 set $black #000000
+set $grey_jet #131516
+set $grey_raven #373D3F
+
 # class                 border  backgr. text    indicator child_border
 #client.focused          $blue $blue $black $orange $blue
-client.focused          $orange $orange $black $orange $blue
+client.focused          $orange $orange $grey_raven $orange $blue
 client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 # client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 # client.urgent           #2f343a #900000 #ffffff #900000   #900000
@@ -346,6 +356,7 @@ for_window [window_role="dialog"] floating enable
 for_window [app_id="^org.gnome.Calculator$"] floating enable
 for_window [app_id="^thunderbird$" title="^New Event:$"] floating enable
 for_window [app_id="^thunderbird$" title="^New Task:$"] floating enable
+for_window [app_id="^thunderbird$" title="^Edit Event:"] floating enable
 for_window [app_id="^blueman-manager$"] floating enable
 for_window [app_id="^thunar$" title="^File Operation Progress$"] floating enable
 # had the next 2 options turned on
@@ -385,7 +396,7 @@ bar {
     # font pango:Noto Sans Mono 10
     # font pango:Hermit 10
     #font pango:Cousine Nerd Font 10 # last used
-    font pango:Iosevka 10
+    font pango:Iosevka Bold 11
 
     colors {
         statusline #ffffff

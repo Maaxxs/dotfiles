@@ -220,7 +220,10 @@ lspconfig.pyright.setup {}
 -- }
 
 -- lsp markdown
-lspconfig.marksman.setup {}
+-- Uninstalled this. not available in the AUR anymore.
+-- Not even sure if I want that F# blob: https://github.com/artempyanykh/marksman
+-- lspconfig.marksman.setup {}
+
 -- lsp lua
 lspconfig.lua_ls.setup {
     capabilities = capas,

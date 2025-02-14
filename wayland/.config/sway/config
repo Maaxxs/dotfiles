@@ -25,41 +25,10 @@ focus_follows_mouse always
 
 ### Output configuration
 # mode: fill, stretch, fit, center, tile
-
-# source: https://wall.alphacoders.com/big.php?i=866322
-#output * bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
-
-# Use `wdisplays` to position the displays and get the offsets.
-#output eDP-1 mode 1920x1080 pos 350,1440 bg ~/Pictures/wallpapers/forest-1920x1080.jpg fill
-#output DP-4 mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
-#output DP-5 mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
-# output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/forest-2560-x1440.png fit
-# output DP-5 mode 2560x1440 pos 2560,0 transform 90 bg ~/Pictures/wallpapers/simple-creative.jpg fit
-
-# only background
-#output "Dell Inc. DELL U2719DC CRKNTS2" bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
-output "Dell Inc. DELL U2719DC CRKNTS2" bg ~/Pictures/wallpapers/new/gargantua-black-2560x1440-9621.jpg center
-output "Dell Inc. DELL U2719D BPSLSS2" bg ~/Pictures/wallpapers/simple-creative.jpg fill
-output eDP-1 bg ~/Pictures/wallpapers/new/gargantua-black-2560x1440-9621.jpg fill
-
-# frame
-#output eDP-1 scale 1.25
-output eDP-1 scale 1
-#output eDP-1 mode 2256x1504 pos 0,0 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
-#output eDP-1 power off
-
-# horizontal
-# output eDP-1 mode 2256x1504 pos 167,1440 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
-# output "Dell Inc. DELL U2719DC CRKNTS2" mode 2560x1440 pos 0,0 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
-
-# vertical
-# output eDP-1 mode 2256x1504 pos 3737,4000 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
-# output "Dell Inc. DELL U2719DC CRKNTS2" transform 90 pos 3872,1440
-
-# franz
-#output eDP-1 mode 2256x1504 pos 4576,2880 bg ~/Pictures/wallpapers/forest-2256x1504.png fill
-#output eDP-1 disable
-#output "Dell Inc. DELL U2719D BPSLSS2" mode 2560x1440 pos 4393,1440 bg ~/Pictures/wallpapers/forest-2560-x1440.png fill
+# output * bg #030303 solid_color
+output eDP-1 scale 1 position 0 0
+output 'Dell Inc. DELL U2719DC CRKNTS2' position 2256 0
+output * bg ~/Pictures/wallpapers/firewatch.png fit
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob

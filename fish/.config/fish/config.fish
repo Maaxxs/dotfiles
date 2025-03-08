@@ -4,6 +4,9 @@ if status is-login
     [ "$TTY1" = /dev/tty1 ] && exec sway &>~/.Wsession.errors
 end
 
+function fish_user_key_bindings
+    bind \cc 'cancel-commandline'
+end
 # abbreviations
 abbr -a e nvim
 abbr -a g git

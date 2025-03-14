@@ -248,9 +248,10 @@ setenv FZF_DEFAULT_OPTS '--height 30%'
 set -g fish_prompt_pwd_dir_length 0
 
 function fish_prompt
+	set last_status $status
 	#set_color blue
 	#echo -n (hostname)
-	echo -ns (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (set_color red) ' | '
+	echo -ns (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
 end
 
 # function fish_greeting

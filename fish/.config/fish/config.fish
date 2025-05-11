@@ -249,9 +249,11 @@ set -g fish_prompt_pwd_dir_length 0
 
 function fish_prompt
 	set last_status $status
-	#set_color blue
-	#echo -n (hostname)
-	echo -ns (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
+	if set -q VIRTUAL_ENV
+	    set venv_name (basename "$VIRTUAL_ENV")
+	    set short_venv_name "("(string split -r -m1 '-' "$venv_name")[1]") "
+	end
+	echo -ns "$short_venv_name" (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
 end
 
 # function fish_greeting

@@ -249,7 +249,8 @@ set -g fish_prompt_pwd_dir_length 0
 
 function fish_prompt
 	set last_status $status
-	if set -q VIRTUAL_ENV
+	# VIRTUAL_ENV_PROMPT is set by `pipenv shell`. If set, the venv is already shown in the prompt.
+	if set -q VIRTUAL_ENV and not set -q VIRTUAL_ENV_PROMPT
 	    set venv_name (basename "$VIRTUAL_ENV")
 	    set short_venv_name "("(string split -r -m1 '-' "$venv_name")[1]") "
 	end

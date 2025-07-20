@@ -14,7 +14,7 @@ set $right l
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu rofi -show drun -modes drun,run | xargs swaymsg exec --
-set $locker swaylock -Kfc 16161D
+set $locker swaylock -Kfc 16161D --show-failed-attempts
 
 font pango:Iosevka Bold 10
 

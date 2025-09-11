@@ -38,6 +38,9 @@ exec_always kanshictl reload
 bindswitch --locked lid:on output eDP-1 disable, exec kanshictl reload
 bindswitch --locked lid:off output eDP-1 enable, exec kanshictl reload
 
+bindgesture swipe:3:right workspace prev_on_output
+bindgesture swipe:3:left workspace next_on_output
+
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 

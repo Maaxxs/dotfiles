@@ -26,9 +26,17 @@ focus_follows_mouse always
 ### Output configuration
 # mode: fill, stretch, fit, center, tile
 # output * bg #030303 solid_color
-output eDP-1 scale 1 position 0 0
-output 'Dell Inc. DELL U2719DC CRKNTS2' position 2256 0
-output * bg ~/Pictures/wallpapers/firewatch.png fit
+#output eDP-1 scale 1 position 0 437
+#output 'Dell Inc. DELL U2719DC CRKNTS2' position 1504 0
+#output * bg ~/Pictures/wallpaper/firewatch.png fit
+output * bg ~/Pictures/wallpaper/yosemite/el-capitan.jpg fit
+output eDP-1 bg ~/Pictures/wallpaper/firewatch.png center
+# make kanshi configuration take priority
+exec_always kanshictl reload
+
+# lid:on means laptop lid is closed.
+bindswitch --locked lid:on output eDP-1 disable, exec kanshictl reload
+bindswitch --locked lid:off output eDP-1 enable, exec kanshictl reload
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob

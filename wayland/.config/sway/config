@@ -335,7 +335,8 @@ bindsym $mod+o exec /usr/bin/io.github.alainm23.planify.quick-add
 bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
 
 gaps inner 0
-default_border pixel 2
+default_border pixel 3
+smart_borders on
 
 # Colors
 # neo green: #19ff00

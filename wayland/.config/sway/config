@@ -133,7 +133,8 @@ bindsym $mod+Shift+g exec thunar
 bindsym $mod+n exec $HOME/.local/bin/next_empty_workspace.sh new
 bindsym $mod+Shift+n exec $HOME/.local/bin/next_empty_workspace.sh move
 bindsym $mod+t exec $HOME/.local/bin/toggle_theme.sh
-bindsym $mod+m exec $HOME/.local/bin/toggle_notifications.sh
+bindsym $mod+ctrl+n exec $HOME/.local/bin/toggle_notifications.sh
+bindsym $mod+m exec $HOME/.local/bin/messenger.sh
 bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 librewolf
 bindsym $mod+Alt+d exec rofimoji --skin-tone neutral --clipboarder wl-copy --typer wtype
 # bindsym $mod+f1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "it sends"

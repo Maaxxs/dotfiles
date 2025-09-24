@@ -42,26 +42,33 @@ require('lazy').setup({
     'simrat39/rust-tools.nvim',    -- expands and inits rust-analyzer
     'norcalli/nvim-colorizer.lua', -- blazing fast colorizer
     -- 'ThePrimeagen/harpoon'
-    -- 'othree/html5.vim'           -- svelte dev
-    -- 'pangloss/vim-javascript'    -- svelte dev
-    -- 'evanleck/vim-svelte'        -- svelte dev
+    'othree/html5.vim',           -- svelte dev
+    'pangloss/vim-javascript',    -- svelte dev
+    'evanleck/vim-svelte',        -- svelte dev
     -- Writing
     'folke/zen-mode.nvim',
     'junegunn/limelight.vim',
     'preservim/vim-pencil',
-    'tpope/vim-markdown',
+--    'tpope/vim-markdown',
     'dag/vim-fish',
 
     'nvim-lualine/lualine.nvim',    -- status bar
     -- colorschemes
     'savq/melange-nvim',
-    -- 'p00f/alabaster.nvim',          -- minimal color theme
-    'chriskempson/base16-vim',
-    'catppuccin/nvim',
-    'sainnhe/sonokai',
+    'p00f/alabaster.nvim',          -- minimal color theme
+    -- 'chriskempson/base16-vim',
+    -- 'catppuccin/nvim',
+    -- 'sainnhe/sonokai',
     -- 'rafi/awesome-vim-colorschemes'
+    -- {
+    --     "vague2k/vague.nvim",
+    --     lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    --     priority = 1000, -- make sure to load this before all
+    -- },
     -- 'https://git.sr.ht/~romainl/vim-bruin'
     -- 'davidosomething/vim-colors-meh'
+    --
+    --
     -- 'freitass/todo.txt-vim'  -- also see extended fork of above project at
                                 -- https://gitlab.com/dbeniamine/todo.txt-vim
     {
@@ -80,14 +87,14 @@ require('lazy').setup({
     'junegunn/fzf',
     'junegunn/fzf.vim', -- fzf integration
     'folke/tokyonight.nvim',
-    'psf/black',
+    -- 'psf/black',
     -- does not work. supposed to be async black
     -- {
     --     'averms/black-nvim',
     --     run = ":UpdateRemotePlugins",
     -- }
     -- no thanks { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
-      {
+    -- {
     -- "nvimtools/none-ls.nvim",
     -- dependencies = {
     --   "nvimtools/none-ls-extras.nvim",
@@ -120,15 +127,25 @@ require('lazy').setup({
 
     {
         "lervag/vimtex",
-        lazy = false,     -- we don't want to lazy load VimTeX
+        -- lazy = false,     -- we don't want to lazy load VimTeX
         -- tag = "v2.15", -- uncomment to pin to a specific release
         init = function()
             -- VimTeX configuration goes here, e.g.
             vim.g.vimtex_view_method = "zathura"
         end
+    },
+
+    {
+        "amitds1997/remote-nvim.nvim",
+        version = "*", -- Pin to GitHub releases
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- For standard functions
+            "MunifTanjim/nui.nvim", -- To build the plugin UI
+            "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+        },
+        config = true,
     }
 
-  }
     -- 'nvimtools/none-ls.nvim',
 }, lazy_opts)
 
@@ -142,10 +159,10 @@ require('lazy').setup({
 --     },
 -- })
 
-require("vale").setup({
-  bin="/usr/bin/vale",
-  vale_config_path="$HOME/.config/vale/vale.ini",
-})
+-- require("vale").setup({
+--   bin="/usr/bin/vale",
+--   vale_config_path="$HOME/.config/vale/vale.ini",
+-- })
 
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
@@ -187,26 +204,68 @@ cmp.setup.cmdline(':', {
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- :help lspconfig-all
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig')
 local capas = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.ltex.setup({
-    -- on_attach = on_attach,
-    cmd = { "ltex-ls" },
-    -- filetypes = { "markdown", "text", "tex" },
-    filetypes = { "tex" },
-    flags = { debounce_text_changes = 300 },
+vim.lsp.enable({
+    "ltex",
+    "lua_ls",
+    "texlab",
+    "gopls",
+    "pyright",
+    "ccls",
+    "bashls",
 })
 
+-- lspconfig.ltex.setup({
+--     -- on_attach = on_attach,
+--     cmd = { "ltex-ls" },
+--     -- filetypes = { "markdown", "text", "tex" },
+--     filetypes = { "tex" },
+--     flags = { debounce_text_changes = 300 },
+-- })
+
+-- lspconfig.texlab.setup{}
+-- cmd = { "texlab" },
+-- filetypes = { "tex", "bib" },
+-- root_dir = function(filename)
+--     return util.path.dirname(filename)
+-- end,
+-- settings = {
+--     texlab = {
+--         auxDirectory = ".",
+--         bibtexFormatter = "texlab",
+--         build = {
+--             args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+--             executable = "latexmk",
+--             forwardSearchAfter = false,
+--             onSave = false
+--         },
+--         chktex = {
+--             onEdit = false,
+--             onOpenAndSave = false
+--         },
+--         diagnosticsDelay = 300,
+--         formatterLineLength = 80,
+--         forwardSearch = {
+--             args = {}
+--         },
+--         latexFormatter = "latexindent",
+--         latexindent = {
+--             modifyLineBreaks = false
+--         }
+--     }
+-- }
+
 -- Go
-lspconfig.gopls.setup{}
+-- lspconfig.gopls.setup{}
 
 -- lsp python
 -- lspconfig.pylsp.setup {
 --     capabilities = capas,
 -- }
 
-lspconfig.pyright.setup {}
+-- lspconfig.pyright.setup {}
 
 --
 -- NOTE: doesnt do shit
@@ -225,30 +284,42 @@ lspconfig.pyright.setup {}
 -- lspconfig.marksman.setup {}
 
 -- lsp lua
-lspconfig.lua_ls.setup {
-    capabilities = capas,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false, -- do not show "do you need to configure your work environment as luassert?"
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
+-- lspconfig.lua_ls.setup {
+--     capabilities = capas,
+--     settings = {
+--         Lua = {
+--             runtime = {
+--                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--                 version = 'LuaJIT',
+--             },
+--             diagnostics = {
+--                 -- Get the language server to recognize the `vim` global
+--                 globals = { 'vim' },
+--             },
+--             workspace = {
+--                 -- Make the server aware of Neovim runtime files
+--                 library = vim.api.nvim_get_runtime_file("", true),
+--                 checkThirdParty = false, -- do not show "do you need to configure your work environment as luassert?"
+--             },
+--             -- Do not send telemetry data containing a randomized but unique identifier
+--             telemetry = {
+--                 enable = false,
+--             },
+--         },
+--     },
+-- }
+
+-- lspconfig.eslint.setup({
+--   --- ...
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- })
+
+-- require'lspconfig'.djlsp.setup{}
 
 vim.g.rustfmt_autosave = 1
 -- vim.g.rustfmt_fail_silently = 1
@@ -277,33 +348,35 @@ require("rust-tools").setup({
 })
 
 -- css
-lspconfig.cssls.setup {
-  capabilities = capas,
-}
+-- lspconfig.cssls.setup {
+--   capabilities = capas,
+-- }
 
 -- lsp nix
-lspconfig.rnix.setup {}
+ -- I think this project is discontinued.
+ -- The Github repo is archived: https://github.com/nix-community/rnix-lsp
+-- lspconfig.rnix.setup {}
 
 -- lsp json
 -- lspconfig.jsonls.setup {
 --     capabilities = capas,
 -- }
 
--- lsp C, C++
-lspconfig.ccls.setup {
-    init_options = {
-        -- compilationDatabaseDirectory = "build";
-        index = {
-            threads = 1,
-        },
-        clang = {
-            excludeArgs = { "-frounding-math" },
-        },
-    }
-}
+-- -- lsp C, C++
+-- lspconfig.ccls.setup {
+--     init_options = {
+--         -- compilationDatabaseDirectory = "build";
+--         index = {
+--             threads = 1,
+--         },
+--         clang = {
+--             excludeArgs = { "-frounding-math" },
+--         },
+--     }
+-- }
 
 -- lsp bash
-lspconfig.bashls.setup{}
+-- lspconfig.bashls.setup{}
 --
 -- END OF LSP SETUP
 
@@ -388,6 +461,7 @@ vim.keymap.set('n', '<leader>s', tele.lsp_workspace_symbols, {})
 vim.keymap.set('n', '<leader>bs', tele.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>d', tele.diagnostics)
 vim.keymap.set('n', '<leader>h', tele.spell_suggest)
+vim.keymap.set('n', '<leader>tl', [[:s/\<\w/\u&/g<CR>:nohlsearch<CR>]])
 
 
 -- Harpoon
@@ -473,6 +547,7 @@ o.expandtab = false
 o.shiftwidth = 8
 o.tabstop = 8
 o.conceallevel=0
+vim.opt.winborder = 'rounded'
 -- b: only auto wrap if I started insert mode before textwidth was reached
 -- backup of files (:backup) is off by default but when overwriting a file a
 -- backup is made (turn off :nowritebackup)
@@ -497,8 +572,13 @@ o.conceallevel=0
 --vim.cmd.colorscheme("catppuccin-mocha")
 -- vim.cmd.colorscheme("habamax")
 -- vim.cmd.colorscheme("sonokai")
-vim.cmd.colorscheme("melange")
+-- vim.cmd.colorscheme("melange")
+-- LAST VALUE: vim.cmd.colorscheme("base16-woodland")
 -- vim.cmd.colorscheme("base16-gruvbox-dark-hard")
+-- vim.cmd.colorscheme("retrobox")
+-- vim.cmd.colorscheme("alabaster")
+vim.cmd.colorscheme("wildcharm")
+-- vim.cmd.colorscheme("vague")
 
 -- next 2 commands only for gruvbox. colors only exist there
 -- make comment color orange
@@ -575,8 +655,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- for recursive bindings set `remap=true` for actions created by plugins, for example.
@@ -608,6 +688,7 @@ vim.keymap.set('', 'C-p', 'FZF<cr>') -- no fzf integration yet TODO
 vim.keymap.set('t', '<esc>', '<C-\\><C-n>') -- goto normal mode in :terminal
 vim.keymap.set('n', '<leader>r', ':source $MYVIMRC<cr>:echo "nvim config reloaded"<cr>')
 vim.keymap.set('n', '<leader>w', ':w<cr>')
+vim.keymap.set('n', '<leader>q', ':q<cr>')
 vim.keymap.set('n', '<leader>x', ':x<cr>')
 vim.keymap.set('n', '<leader><leader>', '<c-^>')
 vim.keymap.set('n', '<leader>ee', [[:e <C-R>=expand("%:p:h") . "/" <CR>]]) -- open file adjacent to current file
@@ -616,9 +697,9 @@ vim.keymap.set('v', '<leader>y', '"+y')                                    -- co
 vim.keymap.set('n', '<leader>Y', 'ggVG"+y<C-o>')                           -- copy buffer to system clipboard
 vim.keymap.set('n', 'H', '^') -- move to first char in line
 vim.keymap.set('n', 'L', '$') -- move to last char in line
-vim.keymap.set('n', '<leader>z', '<cmd>ZenMode<cr>')
-vim.keymap.set('n', '<leader>t', ':set autoindent noexpandtab tabstop=8 shiftwidth=8<cr>')
-vim.keymap.set('n', '<leader>T', ':set autoindent expandtab tabstop=8 shiftwidth=8<cr>')
+-- vim.keymap.set('n', '<leader>z', '<cmd>ZenMode<cr>')
+vim.keymap.set('n', '<leader>t', ':set autoindent noexpandtab tabstop=4 shiftwidth=4<cr>')
+vim.keymap.set('n', '<leader>T', ':set autoindent expandtab tabstop=4 shiftwidth=4<cr>')
 vim.keymap.set('n', '*', ':keepjumps normal! mi*`i<CR>') -- do not jump directly to next match
 vim.keymap.set('n', '<C-m>', ':Man<cr>')
 -- vim.keymap.set('n', '<leader>l', [["ayiw<cmd>!lookup -f en -t de <C-R><cr>]])
@@ -679,6 +760,15 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
 })
 
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = '*.py',
+    callback = function()
+        vim.cmd("silent !black --quiet %")
+    end
+})
+
+
+
 
 -- vim -b : edit binary using xxd-format
 vim.cmd([[
@@ -709,15 +799,19 @@ for _, symbol in pairs({'-', '='}) do
 end
 
 -- datetime format: 2023-09-06T13:17+02:00
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+-- vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     -- pattern = '*',
     command = [[
-inoremap <buffer> ;d <C-R>=strftime('%Y-%m-%d')<CR>
+inoremap <buffer> ;d <C-R>=strftime('%Y.%m.%d')<CR>
+inoremap <buffer> ;D <C-R>=strftime('%Y-%m-%d')<CR>
 inoremap <buffer> ;dt <C-R>=strftime('%a %F %T%z')<CR>
 inoremap <buffer> ;md &mdash;
 inoremap <buffer> ;nd &ndash;
 inoremap <buffer> ;rev Reviewed-By: Max
 inoremap <buffer> ;mfg Mit freundlichen Grüßen,
+inoremap <buffer> ;g — Max
 inoremap <buffer> ;sho ¯\_(ツ)_/¯
 ]]})
 
@@ -779,3 +873,35 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 -- })
 vim.cmd([[set diffopt+=algorithm:histogram]])
 -- set diffopt+=indent-heuristic
+
+-- add closing html tag by pressing  ,/
+vim.cmd([[imap ,/ </<C-X><C-O>]])
+
+
+vim.api.nvim_create_autocmd({"BufRead", "BufEnter"}, {
+    pattern = "todo*.txt",
+    callback = function()
+        -- if vim.api.nvim_buf_get_name(0) == vim.fn.expand("~/nc/todo.txt") then
+            vim.cmd([[syntax match TODO /TODO/]])
+            vim.api.nvim_set_hl(0, "TODO", { bg = "khaki", fg="black" })
+            vim.cmd([[syntax match wait /WAIT/]])
+            vim.api.nvim_set_hl(0, "wait", { bg = "pink", fg="black" })
+        -- end
+    end
+})
+
+-- Zotero integration
+vim.cmd([[
+function! ZoteroCite()
+  " pick a format based on the filetype (customize at will)
+  " let format = &filetype =~ '.*tex' ? 'citep' : 'pandoc'
+  let format = 'citep'
+  let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format.'&brackets=1'
+  let ref = system('curl -s '.shellescape(api_call))
+  return ref
+endfunction
+
+noremap <leader>z "=ZoteroCite()<CR>p
+inoremap <C-z> <C-r>=ZoteroCite()<CR>
+]])
+

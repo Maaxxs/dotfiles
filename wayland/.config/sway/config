@@ -285,6 +285,8 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee  $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
 bindsym XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
+bindsym $mod+bracketright exec $HOME/.local/bin/dell-brightness.sh increase
+bindsym $mod+bracketleft exec $HOME/.local/bin/dell-brightness.sh decrease
 
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next

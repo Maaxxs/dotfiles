@@ -32,7 +32,7 @@ bounded_add() {
 if ! [ -e "$CONF_FILE" ]
 then
     # init with current brightness
-    VAL=$(ddcutil getvcp 10 | grep -Eo 'current value =[^,]+' | tr -d ' ' | cut -d '=' -f 2)
+    VAL=$(ddcutil --mfg DEL getvcp 10 | grep -Eo 'current value =[^,]+' | tr -d ' ' | cut -d '=' -f 2)
     echo "$VAL" | tee "$CONF_FILE"
 fi
 
@@ -44,7 +44,7 @@ case "$1" in
 
         echo "$VALUE" | tee "$CONF_FILE" | tee "$WOB_SOCK"
         debug "old=$CURRENT ; new=$VALUE"
-        ddcutil setvcp 10 "$VALUE"
+        ddcutil --mfg DEL setvcp 10 "$VALUE"
         ;;
     decrease|dec)
         CURRENT=$(cat "$CONF_FILE")
@@ -53,7 +53,7 @@ case "$1" in
 
         echo "$VALUE" | tee "$CONF_FILE" | tee "$WOB_SOCK"
         debug "old=$CURRENT ; new=$VALUE"
-        ddcutil setvcp 10 "$VALUE" &
+        ddcutil --mfg DEL setvcp 10 "$VALUE" &
         ;;
     set)
         CURRENT=$(cat "$CONF_FILE")
@@ -64,7 +64,7 @@ case "$1" in
         fi
         echo "$VALUE" | tee "$CONF_FILE" | tee "$WOB_SOCK"
         debug "old=$CURRENT ; new=$VALUE"
-        ddcutil setvcp 10 "$VALUE" &
+        ddcutil --mfg DEL setvcp 10 "$VALUE" &
         ;;
     *)
         # not implemented

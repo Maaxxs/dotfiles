@@ -147,14 +147,6 @@ bindsym $mod+ctrl+k exec ~/.local/bin/kill_process.sh
 bindsym $mod+q exec "~/.local/bin/translate.sh $(wl-paste --primary --type text)"
 bindsym $mod+ctrl+m exec ~/.local/bin/monitor.sh
 
-#bindsym $mod+ctrl+l exec swaymsg output eDP-1 power toggle
-bindsym $mod+ctrl+l exec kanshictl switch laptop
-bindsym $mod+ctrl+1 exec kanshictl switch single
-bindsym $mod+ctrl+2 exec kanshictl switch double
-bindsym $mod+ctrl+3 exec kanshictl switch vertical
-bindsym $mod+ctrl+4 exec kanshictl switch vertical3
-bindsym $mod+ctrl+5 exec kanshictl switch horver
-
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+r exec swaymsg reload && killall -SIGHUP kanshi

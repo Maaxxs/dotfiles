@@ -14,7 +14,8 @@ set $right l
 # opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu rofi -show drun -modes drun,run | xargs swaymsg exec --
-set $locker swaylock -Kfc 16161D --show-failed-attempts
+#set $locker swaylock -Kfc 16161D --show-failed-attempts
+set $locker swaylock --hide-keyboard-layout --daemonize --image eDP-1:$HOME/Pictures/wallpaper/2256x1504/2256x1504-mountain.jpg --color 16161D --show-failed-attempts
 
 font pango:Iosevka Bold 10
 

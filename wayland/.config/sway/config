@@ -104,8 +104,8 @@ bindsym $mod+Backspace input "type:keyboard" xkb_switch_layout next; exec $updat
 
 # diable mouse accerlation
 input "type:pointer" {
-    accel_profile flat
-    #pointer_accel 0.4
+    # accel_profile flat
+    pointer_accel -0.5
 }
 
 input "type:touchpad" {
@@ -113,9 +113,9 @@ input "type:touchpad" {
     tap enabled
     # disable while typing
     dwt enabled
-    pointer_accel 1
-    accel_profile flat
-    scroll_factor 0.3
+    # pointer_accel 1
+    # accel_profile flat
+    # scroll_factor 0.3
 }
 
 

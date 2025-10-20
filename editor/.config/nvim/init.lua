@@ -30,6 +30,7 @@ require('lazy').setup({
     'L3MON4D3/LuaSnip',                     -- Snippets plugin
     'tpope/vim-sleuth',                     -- automatic indent detection
     'tpope/vim-commentary',
+    'nvim-tree/nvim-tree.lua',
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         dependencies = { 'nvim-lua/plenary.nvim' }
@@ -134,35 +135,52 @@ require('lazy').setup({
             vim.g.vimtex_view_method = "zathura"
         end
     },
-
+    {
+        'chomosuke/typst-preview.nvim',
+        lazy = false, -- or ft = 'typst'
+        version = '1.*',
+        opts = {},    -- lazy.nvim will implicitly calls `setup {}`
+    },
     {
         "amitds1997/remote-nvim.nvim",
-        version = "*", -- Pin to GitHub releases
+        version = "*",                       -- Pin to GitHub releases
         dependencies = {
-            "nvim-lua/plenary.nvim", -- For standard functions
-            "MunifTanjim/nui.nvim", -- To build the plugin UI
+            "nvim-lua/plenary.nvim",         -- For standard functions
+            "MunifTanjim/nui.nvim",          -- To build the plugin UI
             "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
         },
         config = true,
-    }
-
-    -- 'nvimtools/none-ls.nvim',
+    },
+    { "shortcuts/no-neck-pain.nvim", version = "*" },
+    {
+        'notjedi/nvim-rooter.lua',
+        config = function()
+            require('nvim-rooter').setup()
+        end
+    },
 }, lazy_opts)
 
--- local null_ls = require("null-ls")
-
--- null_ls.setup({
---     sources = {
---         null_ls.builtins.formatting.stylua,
---         null_ls.builtins.completion.spell,
---         require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
---     },
+-- nvim-tree lua setup
+-- Disable builtin netrw
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup()
+-- require("nvim-tree").setup({
+--   sort = {
+--     sorter = "case_sensitive",
+--   },
+--   view = {
+--     width = 30,
+--   },
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = true,
+--   },
 -- })
 
--- require("vale").setup({
---   bin="/usr/bin/vale",
---   vale_config_path="$HOME/.config/vale/vale.ini",
--- })
+
 
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
@@ -442,9 +460,10 @@ require('telescope').setup{
 }
 
 -- fzf mappings
-vim.keymap.set('n', '<leader>f', ":GFiles<cr>", {})
+vim.keymap.set('n', '<leader>f', ":NoNeckPain<cr>", {})
 vim.keymap.set('n', '<c-p>', ":Files<cr>", {})
-vim.keymap.set('n', '<leader>o', ":Files<cr>", {})
+-- vim.keymap.set('n', '<leader>o', ":Files<cr>", {})
+vim.keymap.set('n', '<leader>o', ":NvimTreeToggle<cr>", {})
 vim.keymap.set('n', '<leader>g', ":Rg<cr>", {})
 vim.keymap.set('n', '<leader>b', ":Buffers<cr>", {})
 
@@ -469,26 +488,28 @@ vim.keymap.set('n', '<leader>tl', [[:s/\<\w/\u&/g<CR>:nohlsearch<CR>]])
 -- vim.keymap.set('n', '<leader>h', require('harpoon.mark').add_file, {})
 
 require('colorizer').setup {
-    'css';
-    'javascript';
-    'html';
+    'css',
+    'javascript',
+    'html',
 }
 
 require('lualine').setup {
-  options = {
-    icons_enabled = false,
-    theme = 'onedark',
-    component_separators = { left = '|', right = '|'},
-    section_separators = { left = '', right = ''},
-  },
-  sections = {
-      lualine_c = {
-          {
-              'filename',
-              path = 1, -- relative path to project root
-          }
-      },
-  },
+    options = {
+        icons_enabled = false,
+        -- theme = 'onedark',
+        -- theme = 'gruvbox',
+        theme = 'base16',
+        component_separators = { left = '|', right = '|' },
+        section_separators = { left = '', right = '' },
+    },
+    sections = {
+        lualine_c = {
+            {
+                'filename',
+                path = 1, -- relative path to project root
+            }
+        },
+    },
 }
 
 

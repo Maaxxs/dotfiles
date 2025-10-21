@@ -6,8 +6,14 @@
 syntax match Priority /^[ABC] /
 highlight Priority guifg=orange guibg=default
 
-syntax match Done /^X /
-highlight Done guifg=purple
+syntax match CAPSWORD /[A-Z]\+\s/
+highlight CAPSWORD guifg=white guibg=default
+
+syntax match Priority /^\s*[ABCX] /
+highlight Priority guifg=orange guibg=default
+
+syntax match URL /\vhttps?\S+/
+highlight URL guifg=lightgreen
 
 syntax match Info /\v<MORE>|<WAIT>/
 highlight Info guifg=black guibg=khaki
@@ -20,5 +26,5 @@ syntax match Person /@[a-zA-Z]\+[ .]/
 highlight Person guifg=cyan
 
 syntax match Date /\d\d\d\d.\d\d.\d\d/
-highlight Date guifg=grey
+highlight Date guifg=orange
 

@@ -4,13 +4,16 @@
 " endif
 
 syntax match Priority /^[ABC] /
-highlight Priority guifg=pink guibg=default
+highlight Priority guifg=orange guibg=default
 
 syntax match Done /^X /
 highlight Done guifg=purple
 
 syntax match Info /\v<MORE>|<WAIT>/
 highlight Info guifg=black guibg=khaki
+
+syntax match Doing /\v<DOING>/
+highlight Doing guifg=purple guibg=white
 
 
 syntax match Person /@[a-zA-Z]\+[ .]/

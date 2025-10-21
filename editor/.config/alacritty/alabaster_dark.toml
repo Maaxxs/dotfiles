@@ -2,15 +2,19 @@
 # author tonsky
 
 [colors.primary]
-background = '#0E1415'
+#background = '#0E1415'
+background = '#000000'
 foreground = '#CECECE'
+#foreground = '#FFFF00' # pretty bright yellow
+# foreground = '#FFD800' # school bus yellow
 
 [colors.cursor]
 text = '#0E1415'
 cursor = '#CECECE'
 
 [colors.normal]
-black = '#0E1415'
+#black = '#0E1415'
+black = '#000000'
 red = '#e25d56'
 green = '#73ca50'
 yellow = '#e9bf57'

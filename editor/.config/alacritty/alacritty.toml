@@ -1,55 +1,47 @@
 [font]
-size = 11
-# size = 10.0
+#size = 10 # monospace
+size = 11.5
 
 [font.normal]
-#family = "Monospace"
-family = "iosevka term"
 style = "regular"
-# family = "Hermit"
+#family = "Monospace"
+#family = "Noto Sans Mono"
+family = "Iosevka Term"
+#family = "Jetbrains Mono Nerd Font"
+#family = "Hermit"
 #family = "Cousine Nerd Font"
 #family = "Fira Code"
-# family = "Hack Nerd Font Mono"
+#family = "Hack Nerd Font Mono"
 
 
 [[hints.enabled]]
+binding.key = "O"
+binding.mods = "Control|Shift"
 command = "xdg-open"
 mouse.enabled = true
+post_processing = true # remove trailing chars that are not likely part of URIs
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^<>\"\\{-}^⟨⟩` \n)\\]]+"
 # orig:
 #regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
-regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^<>\"\\{-}^⟨⟩` \n)\\]]+"
-
 #regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)(.[^\\.\\n, ])*[A-z0-9]?"
 # PCR2 expression that works with negative lookahead: https?:\/\/((?![.,]$).)*
 # lookahead/behind is not supported in alacritty, afaict
 
-[hints.enabled.binding]
-key = "O"
-mods = "Control|Shift"
-
 [[hints.enabled]]
 action = "Copy"
-post_processing = false
+binding.key = "Y"
+binding.mods = "Control|Shift"
+mouse.enabled = true
+post_processing = true
 regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^<>\"\\{-}^⟨⟩` \n)\\]]+"
 
-[hints.enabled.binding]
-key = "Y"
-mods = "Control|Shift"
-
-[hints.enabled.mouse]
-enabled = true
-
 [[hints.enabled]]
 action = "Copy"
+binding.key = "H"
+binding.mods = "Control|Shift"
+# mouse.enabled = true
 post_processing = false
 regex = "[0-9a-f]{40}"
-
-[hints.enabled.binding]
-key = "H"
-mods = "Control|Shift"
-
-[hints.enabled.mouse]
-enabled = true
 
 [mouse]
 hide_when_typing = true
@@ -62,14 +54,10 @@ bindings = [
 decorations = "none"
 dynamic_title = false
 startup_mode = "Maximized"
-#opacity = 0.95
-#padding = { x = 20, y = 20 }
+#opacity = 0.90
+# padding = { x = 3, y = 3 }
 
- [general]
- import = [
+[general]
+import = [
 "~/.config/alacritty/alabaster_dark.toml",
- ]
-
-
-#[colors.primary]
-#background = "#111111"
+]

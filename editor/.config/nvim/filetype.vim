@@ -16,4 +16,6 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.adoc set filetype=asciidoc
   autocmd BufNewFile,BufRead *.log set filetype=log nowrap colorcolumn=0
   autocmd Filetype make set noexpandtab
+
+  autocmd Filetype yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 augroup END

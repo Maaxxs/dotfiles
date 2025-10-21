@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 vim.opt.termguicolors = true
-vim.opt.background = "light"
+vim.opt.background = "dark"
 
 -- setup plugin manager if not there yet
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

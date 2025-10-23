@@ -248,13 +248,22 @@ setenv FZF_DEFAULT_OPTS '--height 30%'
 set -g fish_prompt_pwd_dir_length 0
 
 function fish_prompt
-	set last_status $status
-	# VIRTUAL_ENV_PROMPT is set by `pipenv shell`. If set, the venv is already shown in the prompt.
-	if set -q VIRTUAL_ENV and not set -q VIRTUAL_ENV_PROMPT
-	    set venv_name (basename "$VIRTUAL_ENV")
-	    set short_venv_name "("(string split -r -m1 '-' "$venv_name")[1]") "
-	end
-	echo -ns "$short_venv_name" (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
+    set last_status $status
+    # VIRTUAL_ENV_PROMPT is set by `pipenv shell`. If set, the venv is already shown in the prompt.
+    if set -q VIRTUAL_ENV and not set -q VIRTUAL_ENV_PROMPT
+        set venv_name (basename "$VIRTUAL_ENV")
+        set short_venv_name "("(string split -r -m1 '-' "$venv_name")[1]") "
+    end
+
+    if test $last_status -eq 0
+        set display_status (set_color green) '|' (set_color normal)
+    else
+        set display_status (set_color red) '['$last_status']' (set_color normal)
+    end
+
+    #echo -ns "$short_venv_name" (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
+
+    echo -ns "$short_venv_name" '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) "$display_status"
 end
 
 # function fish_greeting

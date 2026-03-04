@@ -20,8 +20,11 @@ abbr -a np "hugo new posts/(date +%Y-%m-%d)-"
 abbr -a tt 'taskwarrior-tui'
 abbr -a zs 'zola serve'
 abbr -a mov 'nvim movie-list.txt'
-abbr -a reading 'nvim reading-list.md'
-abbr -a todo 'nvim ~/nc/todo.txt'
+abbr -a reading 'nvim ~/reading-list.md'
+abbr -a movies 'nvim movie-list.txt'
+abbr -a todos 'nvim ~/nc/todo.txt'
+abbr -a research 'nvim ~/nc/todo.research.txt'
+abbr -a thesis	'nvim ~/nc/AIM/thesis/thesis.md'
 abbr -a ca 'calcurse'
 abbr -a irc 'senpai'
 abbr -a stb 'sudo systemctl start bluetooth'
@@ -82,6 +85,8 @@ alias gco='git checkout'
 alias gcb='git checkout -b'
 alias glodse='git log --graph --date=short --pretty=\'%Cred%h%C(auto)%d %s %C(blue)(%ad) %C(yellow)[%an]\''
 alias gcpr='git fetch upstream && checkout_pr '
+alias gbv='git branch -vva'
+alias monitor-name='swaymsg -t get_outputs | jq -r "..|try select(.focused == true) | .name"'
 
 function checkout_pr -a pr
     git checkout pr/"$pr"
@@ -91,15 +96,19 @@ function checkout_pr -a pr
     # git reset "$base"
 end
 
+function bopen -a filename
+    nohup xdg-open "$filename" &>/dev/null &
+end
+
 # Usage:
 # $ reminder 'Tue 14:00' "some message"
 function reminder -a message time -d "Sets up a one timer reminder that displays a notification"
     # if time starts with a number, prepend today's day before the time
     # "14:00" -> "Sat 14:00" to make it a valid system calendar time
-    if string match -qr '^[0-9]' "$time"
-        # get week day of today. e.g. Sat, Sun, ...
-        set time "$(date +%a) $time"
-    end
+    # if string match -qr '^[0-9]' "$time"
+    #     # get week day of today. e.g. Sat, Sun, ...
+    #     set time "$(date +%a) $time"
+    # end
 
     set random_str (head -c10 /dev/urandom | base64 | tr -d '/+=')
     set unit "remind-me-$random_str"
@@ -158,8 +167,9 @@ end
 
 if command -v eza > /dev/null
 	abbr -a l 'eza'
-	abbr -a ll 'eza -lg --git'
-	abbr -a la 'eza -lag --git'
+	abbr -a ll 'eza -lg --git '
+	abbr -a llsort 'eza -lg --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
+	abbr -a la 'eza -lag --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
 else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
@@ -289,6 +299,11 @@ set -x PATH "$PATH:$HOME/.local/bin"
 set -x PATH "$PATH:$HOME/go/bin"
 set -x PATH "$PATH:$HOME/context/tex/texmf-linux-64/bin"
 
+
+function mon -a brightness
+    ddcutil setvcp 10 "$brightness" -d 1
+    ddcutil setvcp 10 "$brightness" -d 2
+end
 # function syscall_nr
 #     cat /usr/src/linux/arch/x86/syscalls/syscall_64.tbl | \
 #     awk '$2 != "x32" && $3 == "'$1'" { print $1 }'

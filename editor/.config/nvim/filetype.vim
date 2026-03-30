@@ -9,13 +9,14 @@ augroup filetypedetect
   " nftables
   autocmd BufRead,BufNewFile *.nft setfiletype nftables
   " Shorter columns in text
-  autocmd Filetype tex setlocal spell tw=80 colorcolumn=81
+  autocmd Filetype tex setlocal spell tw=0 colorcolumn=0
   autocmd Filetype text setlocal tw=72 colorcolumn=73
   " autocmd Filetype markdown setlocal nospell tw=72 colorcolumn=73 tabstop=2 shiftwidth=2
-  autocmd Filetype markdown setlocal nospell tw=0 colorcolumn=73 tabstop=2 shiftwidth=2
+  " autocmd Filetype markdown setlocal nospell tw=0 colorcolumn=73 tabstop=2 shiftwidth=2 expandtab
   autocmd BufNewFile,BufRead *.adoc set filetype=asciidoc
   autocmd BufNewFile,BufRead *.log set filetype=log nowrap colorcolumn=0
   autocmd Filetype make set noexpandtab
 
   autocmd Filetype yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+  " autocmd Filetype typst setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab autoindent
 augroup END

@@ -106,7 +106,7 @@ require('lazy').setup({
     --     priority = 1000, -- make sure to load this before all
     -- },
     -- 'https://git.sr.ht/~romainl/vim-bruin'
-    -- 'davidosomething/vim-colors-meh'
+    'davidosomething/vim-colors-meh',
     --
     --
     -- 'freitass/todo.txt-vim'  -- also see extended fork of above project at
@@ -154,7 +154,10 @@ require('lazy').setup({
         'chomosuke/typst-preview.nvim',
         lazy = false, -- or ft = 'typst'
         version = '1.*',
-        opts = {},    -- lazy.nvim will implicitly calls `setup {}`
+        opts = {
+            -- auto: dark/light mode based on browser
+            -- invert_colors = "auto"
+        }, -- lazy.nvim will implicitly calls `setup {}`
     },
     {
         "amitds1997/remote-nvim.nvim",
@@ -177,24 +180,37 @@ require('lazy').setup({
 }, lazy_opts)
 
 -- nvim-tree lua setup
--- Disable builtin netrw
-vim.g.loaded_netrw       = 1
-vim.g.loaded_netrwPlugin = 1
-require("nvim-tree").setup()
--- require("nvim-tree").setup({
---   sort = {
---     sorter = "case_sensitive",
---   },
---   view = {
---     width = 30,
---   },
---   renderer = {
---     group_empty = true,
---   },
---   filters = {
---     dotfiles = true,
---   },
--- })
+-- The following two command disable the builtin netrw
+-- vim.g.loaded_netrw       = 1
+-- vim.g.loaded_netrwPlugin = 1
+-- The following two commands let nvim-tree hijack netrw.
+-- This keeps keybinding such as `gx` to open URLs.
+vim.g.nvim_tree_hijack_netrw = 1
+vim.g.nvim_tree_disable_netrw = 0
+
+-- require("nvim-tree").setup()
+
+require("nvim-tree").setup({
+    sort = {
+        sorter = "case_sensitive",
+    },
+    view = {
+        width = {
+            min = 30,
+            max = 50,
+        },
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = false,
+    },
+    git = {
+        enable = true,
+        ignore = false, -- show files ignored by git
+    },
+})
 
 
 
@@ -251,7 +267,7 @@ vim.lsp.config['texlab'] = {
                 executable = 'latexmk',
                 args = { '-pdf', '-interaction=nonstopmode', '-synctex=1', '%f' },
                 onSave = true,
-                forwardSearchAfter = true,
+                forwardSearchAfter = false,
             },
             forwardSearch = {
                 executable = "zathura",
@@ -273,8 +289,15 @@ vim.lsp.config['texlab'] = {
     },
 }
 
+vim.lsp.config['harper_ls'] = {
+    userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+    -- filetypes = { "txt" },
+}
+
 vim.lsp.enable({
+    -- "ltex_plus",
     -- "ltex",
+    "harper_ls",
     "lua_ls",
     "rust_analyzer",
     "texlab",
@@ -284,7 +307,8 @@ vim.lsp.enable({
     "bashls",
     "typst",
     "tinymist",
-    "marksman",
+    -- "marksman",
+    "cssls",
 })
 
 
@@ -417,7 +441,7 @@ o.shortmess:append('I') -- no welcome message
 --o.smarttab = false
 o.number = true
 o.numberwidth = 4
-o.relativenumber = true
+o.relativenumber = false
 o.cursorline = true
 o.signcolumn = 'yes'
 o.ignorecase = true
@@ -454,7 +478,7 @@ o.spelllang = 'en,de'
 o.completeopt = 'menuone,noinsert,noselect'
 o.wildignore = { '*.o', '*.obj.', '*.lock' } -- ignore in file/path completion
 -- explicitly set tab settings and shiftwidth settings
-o.expandtab = false
+o.expandtab = true
 o.shiftwidth = 4
 o.tabstop = 4
 o.conceallevel = 0
@@ -529,7 +553,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.buf.format { async = true }
         end, opts)
 
-        vim.keymap.set('n', '<leader><cr>', '<cmd>LspTexlabForward<cr>', opts)
+        if client.name == "texlab" then
+            vim.keymap.set("n", "<leader><cr>", "<cmd>LspTexlabForward<cr>", opts)
+        end
 
         -- Get signatures (and _only_ signatures) when in argument lists.
         -- either this or cmp-nvim-lsp-signature-help in cmp sources
@@ -776,3 +802,23 @@ endfunction
 noremap <leader>z "=ZoteroCite()<CR>p
 inoremap <C-z> <C-r>=ZoteroCite()<CR>
 ]])
+
+vim.fn.jobstart(
+    { "gsettings", "monitor", "org.gnome.desktop.interface", "color-scheme" },
+    {
+        stdout_buffered = false,
+        -- on_stdout: called with stdout data: chan_id, data, stream name
+        -- https://neovim.io/doc/user/channel/#on_stdout
+        on_stdout = function(_, data)
+            -- print("gsettings:",  chan_id, " data: ",  data)
+            for _, line in ipairs(data) do
+                if line ~= "" then
+                    -- print("for loop line: ", line)
+                    local new_bg = line:match("dark") and "dark" or "light"
+                    -- print("new bg:", new_bg)
+                    vim.o.background = new_bg
+                end
+            end
+        end,
+    }
+)

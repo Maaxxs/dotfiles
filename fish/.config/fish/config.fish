@@ -33,6 +33,9 @@ abbr -a ymd 'date -u +%Y-%m-%d'
 abbr -a sb 'sudo systemctl start bluetooth'
 abbr -a hb 'sudo systemctl stop bluetooth'
 abbr -a ping9 'ping 9.9.9.9'
+abbr -a orphans 'pacman -Qdt'
+abbr -a bins 'cd $HOME/.local/bin/'
+abbr -a sbt 'sudo systemctl start bluetooth'
 
 alias hx="~/.cargo/bin/hx"
 alias hxconf="hx ~/.config/helix/config.toml"
@@ -42,15 +45,14 @@ alias sshconf='nvim ~/.ssh/config'
 alias nvimconf='nvim ~/.config/nvim/init.lua'
 alias swayconf='nvim ~/.config/sway/config'
 alias muttconf='nvim ~/.config/neomutt/neomuttrc'
-alias dl4='yt-dlp -f mp4 -o "%(title)s.%(ext)s"'
+#alias dl4='yt-dlp -f mp4 -o "%(title)s.%(ext)s"'
+alias dl4='yt-dlp -t mp4 -o "%(title)s.%(ext)s"'
 alias dl3='yt-dlp -f "ba" -x --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias duh='du -md1 2>/dev/null | sort -g'
 alias digx='dig +short -x'
 alias tcplisten='netstat -ap tcp | grep LISTEN'
 alias cvpn='sudo systemctl start wg-quick@wg0; kill -USR1 i3status'
 alias dvpn='sudo systemctl stop wg-quick@wg0; kill -USR1 i3status'
-alias chs='sudo systemctl start openvpn-client@hses'
-alias dhs='sudo systemctl stop openvpn-client@hses'
 alias cair='bluetoothctl connect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
 alias dair='bluetoothctl disconnect (bluetoothctl devices | rg AirPods | cut -d" " -f2)'
 alias csony='bluetoothctl connect (bluetoothctl devices | rg WH-1000XM3 | cut -d" " -f2)'
@@ -300,9 +302,15 @@ set -x PATH "$PATH:$HOME/go/bin"
 set -x PATH "$PATH:$HOME/context/tex/texmf-linux-64/bin"
 
 
+# open zathura to view a pdf file and dettach from the terminal
+function v -a pdf
+    zathura "$pdf" 2&>/dev/null &
+    disown
+end
+
 function mon -a brightness
-    ddcutil setvcp 10 "$brightness" -d 1
     ddcutil setvcp 10 "$brightness" -d 2
+    ddcutil setvcp 10 "$brightness" -d 1
 end
 # function syscall_nr
 #     cat /usr/src/linux/arch/x86/syscalls/syscall_64.tbl | \

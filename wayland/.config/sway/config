@@ -27,13 +27,20 @@ focus_follows_mouse always
 ### Output configuration
 # mode: fill, stretch, fit, center, tile
 # output * bg #030303 solid_color
-#output eDP-1 scale 1 position 0 437
-#output 'Dell Inc. DELL U2719DC CRKNTS2' position 1504 0
-#output * bg ~/Pictures/wallpaper/firewatch.png fit
-output * bg ~/Pictures/wallpaper/yosemite/el-capitan.jpg fit
-output eDP-1 bg ~/Pictures/wallpaper/firewatch.png center
+output * bg ~/Pictures/wallpaper/firewatch.png fit
+
+output 'Dell Inc. DELL U2719DC CRKNTS2' bg ~/Pictures/wallpaper/firewatch.png fit
+# vertical:
+#output 'Dell Inc. DELL U2719DC CRKNTS2' bg ~/Pictures/wallpaper/1440x2560/1440x2560-nightsky.jpg fit
+output eDP-1 bg ~/Pictures/wallpaper/2256x1504/2256x1504-space-earth.png fit
+
 # make kanshi configuration take priority
-exec_always kanshictl reload
+# exec_always kanshictl reload
+exec_always systemctl --user start sway-session.target
+
+# Cursor size
+seat * xcursor_theme Adwaita 16
+# exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 0.8
 
 # lid:on means laptop lid is closed.
 bindswitch --locked lid:on output eDP-1 disable, exec kanshictl reload
@@ -46,7 +53,7 @@ set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
 # Autostart applications
-exec_always --no-startup-id easyeffects --gapplication-service
+# exec_always --no-startup-id easyeffects --gapplication-service
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # the following also stores your passwords on disk in that file
 #exec wl-paste -t text --watch clipman store --no-persist
@@ -126,10 +133,10 @@ bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+Shift+Return exec foot tmux
 #bindsym $mod+c exec rofi -show calc
 bindsym $mod+c exec gnome-calendar
-bindsym $mod+i exec firefox-nightly
-bindsym $mod+Shift+i exec firefox
+bindsym $mod+i exec firefox
+bindsym $mod+Shift+i exec firefox-nightly
 bindsym $mod+Shift+c exec gnome-calculator
-bindsym $mod+g exec EDITOR=nvim alacritty -e lf
+bindsym $mod+g exec alacritty -e lf
 bindsym $mod+Shift+g exec thunar
 bindsym $mod+n exec $HOME/.local/bin/next_empty_workspace.sh new
 bindsym $mod+Shift+n exec $HOME/.local/bin/next_empty_workspace.sh move
@@ -175,6 +182,7 @@ bindsym $mod+Shift+f workspace next_on_output
 bindsym $mod+Shift+d workspace prev_on_output
 # grave is the backtick
 bindsym $mod+grave workspace back_and_forth
+bindsym $mod+escape workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
 
 workspace_auto_back_and_forth yes
@@ -222,12 +230,14 @@ bindsym $mod+v splitv
 
 # Switch the current container between different layout styles
 bindsym $mod+s layout stacking
+bindsym $mod+ctrl+s sticky toggle
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
-#bindsym $mod+y exec alacritty --class mpv-term -e "/usr/bin/mpv" "$(wl-paste -n)" &, exec swaymsg '[app_id="mpv-term"] move scratchpad'
+# bindsym $mod+y exec alacritty --class mpv-term -e "/usr/bin/mpv" "$(wl-paste -n)" &, exec swaymsg '[app_id="mpv-term"] move scratchpad'
+bindsym $mod+y exec /usr/bin/mpv "$(wl-paste -n)"
 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
@@ -238,7 +248,10 @@ bindsym $mod+ctrl+d floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Move focus to the parent container
-bindsym $mod+a focus parent
+bindsym $mod+ctrl+a focus parent
+
+bindsym $mod+a exec $HOME/.local/bin/switch_audio.sh
+bindsym $mod+shift+a exec $HOME/.local/bin/switch_audio.sh cycle
 
 # Scratchpad:
 # Move the currently focused window to the scratchpad
@@ -276,8 +289,8 @@ bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle &&
 
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee  $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
-bindsym XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee  $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' | tee $WOBSOCK > ~/.config/i3status/brightness && $refresh_i3status
 bindsym $mod+bracketright exec $HOME/.local/bin/dell-brightness.sh increase
 bindsym $mod+bracketleft exec $HOME/.local/bin/dell-brightness.sh decrease
 
@@ -317,22 +330,27 @@ mode "$mode_system" {
 bindsym $mod+Shift+e mode "$mode_system"
 
 # Manual start applications
-set $applications Firefox (f), mail (m), Thunderbird (t)
+set $applications Zotero (o), Thunderbird (t)
 mode "$applications" {
-    bindsym f exec env MOZ_ENABLE_WAYLAND=1 firefox, mode "default"
-    bindsym t exec env MOZ_ENABLE_WAYLAND=1 thunderbird, mode "default"
+    bindsym t exec gtk-launch thunderbird, mode "default"
+    bindsym o exec gtk-launch zotero, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-#bindsym $mod+o mode "$applications"
-bindsym $mod+o exec /usr/bin/io.github.alainm23.planify.quick-add
-bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
+bindsym $mod+o mode "$applications"
+#bindsym $mod+o exec /usr/bin/io.github.alainm23.planify.quick-add
+#bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
 
 gaps inner 0
 default_border pixel 3
 smart_borders on
+smart_gaps inverse_outer
+bindsym $mod+ctrl+c exec $HOME/.local/bin/sway-center-single-window.sh horizontal
+bindsym $mod+ctrl+v exec $HOME/.local/bin/sway-center-single-window.sh vertical
+bindsym $mod+ctrl+f exec $HOME/.local/bin/sway-center-single-window.sh top
+bindsym $mod+shift+p floating enable, resize set 50 ppt 100 ppt, move position center
 
 # Colors
 # neo green: #19ff00
@@ -353,9 +371,8 @@ set $grey_jet #131516
 set $grey_raven #373D3F
 
 # class                 border  backgr. text    indicator child_border
-#client.focused          $blue $blue $black $orange $blue
-client.focused          $orange $orange $grey_raven $orange $blue
-client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
+client.focused          $orange $orange $black $black $orange
+# client.focused_inactive #5f676a #5f676a #eeeeee #484e50   #5f676a
 # client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 # client.urgent           #2f343a #900000 #ffffff #900000   #900000
 # client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -377,21 +394,18 @@ for_window [app_id="^thunderbird$" title="Erinnerung$"] floating enable, resize 
 
 for_window [app_id="^blueman-manager$"] floating enable
 for_window [app_id="^thunar$" title="^File Operation Progress$"] floating enable
-# had the next 2 options turned on
-#for_window [title="^linkding - add bookmark — .*$"] floating enable
+# for_window [title="^New bookmark - Linkding — Mozilla Firefox$"] floating enable
 #for_window [title="^linkding - add bookmark — .*$"] resize set 640 1300
-# next two maybe activate
-#for_window [title="^linkding - add bookmark — Mozilla Firefox$"] move position 1600 100
-#for_window [title="^linkding - add bookmark — Mozilla Firefox$"] exec $HOME/.local/bin/sway-move-to.sh mid-right
+for_window [title="^New bookmark - Linkding — Mozilla Firefox$"] mark linkding_popup, floating enable, exec $HOME/.local/bin/sway-move-to.sh bottom-right linkding_popup
 for_window [app_id="^$" title="^$"] floating enable
 for_window [app_id="^firefox$" title="^Save As$"] resize set 1000 800
 for_window [title="^Picture-in-Picture$"] floating enable, resize set 900 600, exec $HOME/.local/bin/sway-move-to.sh bottom-right
 # popups from the notification tray, e.g. signal, element
 for_window [app_id="^$" title="^$"] exec $HOME/.local/bin/sway-move-to.sh top-right
+for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 # no idle signal when full screen
 for_window [app_id="firefox"] inhibit_idle fullscreen
-
 
 bar {
     position top
@@ -414,7 +428,7 @@ bar {
     # font pango:Noto Sans Mono 10
     # font pango:Hermit 10
     #font pango:Cousine Nerd Font 10 # last used
-    font pango:Iosevka Bold 11
+    font pango:Iosevka Bold 10
 
     colors {
         statusline #ffffff

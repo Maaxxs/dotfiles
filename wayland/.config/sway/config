@@ -28,10 +28,6 @@ focus_follows_mouse always
 # mode: fill, stretch, fit, center, tile
 # output * bg #030303 solid_color
 output * bg ~/Pictures/wallpaper/firewatch.png fit
-
-output 'Dell Inc. DELL U2719DC CRKNTS2' bg ~/Pictures/wallpaper/firewatch.png fit
-# vertical:
-#output 'Dell Inc. DELL U2719DC CRKNTS2' bg ~/Pictures/wallpaper/1440x2560/1440x2560-nightsky.jpg fit
 output eDP-1 bg ~/Pictures/wallpaper/2256x1504/2256x1504-space-earth.png fit
 
 # make kanshi configuration take priority

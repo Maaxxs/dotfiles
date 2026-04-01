@@ -1,18 +1,22 @@
 [font]
-#size = 10 # monospace
-size = 11.5
+# default: 11.25
+#size = 10      # monospace
+# Add a little space between lines, meaning this adjust the line height.
+offset = { y = 4 }
+glyph_offset = { y = 2 }
 
 [font.normal]
-style = "regular"
-#family = "Monospace"
-#family = "Noto Sans Mono"
+style = "Regular"
 family = "Iosevka Term"
 #family = "Jetbrains Mono Nerd Font"
-#family = "Hermit"
-#family = "Cousine Nerd Font"
-#family = "Fira Code"
-#family = "Hack Nerd Font Mono"
-
+# family = "Monospace"
+# family = "Noto Sans Mono"
+# family = "Inconsolata"
+# family = "Sauce Code Pro Nerd Font"
+# family = "Hermit"
+# family = "Cousine Nerd Font"
+# family = "Fira Code"
+# family = "Hack Nerd Font Mono"
 
 [[hints.enabled]]
 binding.key = "O"
@@ -49,6 +53,12 @@ bindings = [
     { mouse = "Left", mods = "Shift", command = "xdg-open" },
 ]
 
+[keyboard]
+bindings = [
+  { key = "J", mods = "Control|Shift", action = "IncreaseFontSize" },
+  { key = "K", mods = "Control|Shift", action = "DecreaseFontSize" },
+  { key = "U", mods = "Control|Shift", action = "ResetFontSize" }
+]
 
 [window]
 decorations = "none"
@@ -59,5 +69,5 @@ startup_mode = "Maximized"
 
 [general]
 import = [
-"~/.config/alacritty/alabaster_dark.toml",
+"~/.config/alacritty/colors/melange-dark.toml",
 ]

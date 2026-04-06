@@ -74,7 +74,7 @@ exec_always /usr/bin/swaymsg -r -t get_tree | jq -r 'recurse(.nodes[]) | first(s
 exec swayidle -w \
          timeout 595 'notify-send "Going to lock in 5 seconds" "Screen will be locked in 5 seconds"' \
          timeout 600 "$locker" \
-         timeout 630 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 630 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep "playerctl pause" \
          before-sleep "$locker" \
 

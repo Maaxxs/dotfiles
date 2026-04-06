@@ -27,8 +27,8 @@ focus_follows_mouse always
 ### Output configuration
 # mode: fill, stretch, fit, center, tile
 # output * bg #030303 solid_color
-output * bg ~/Pictures/wallpaper/firewatch.png fit
-output eDP-1 bg ~/Pictures/wallpaper/2256x1504/2256x1504-space-earth.png fit
+output * bg ~/Pictures/wallpaper/firewatch.png fit #000000
+output eDP-1 bg ~/Pictures/wallpaper/2256x1504/2256x1504-space-earth.png fit #000000
 
 # make kanshi configuration take priority
 # exec_always kanshictl reload

@@ -32,10 +32,10 @@ output eDP-1 bg ~/Pictures/wallpaper/2256x1504/2256x1504-space-earth.png fit #00
 
 # make kanshi configuration take priority
 # exec_always kanshictl reload
-exec_always systemctl --user start sway-session.target
+exec systemctl --user start sway-session.target
 
 # Cursor size
-seat * xcursor_theme Adwaita 16
+seat * xcursor_theme Adwaita 32
 # exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 0.8
 
 # lid:on means laptop lid is closed.
@@ -424,7 +424,7 @@ bar {
     # font pango:Noto Sans Mono 10
     # font pango:Hermit 10
     #font pango:Cousine Nerd Font 10 # last used
-    font pango:Iosevka Bold 10
+    font pango:Iosevka Bold 11
 
     colors {
         statusline #ffffff

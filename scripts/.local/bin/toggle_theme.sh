@@ -12,7 +12,7 @@ if [ "$MODE" == "light" ]; then
     gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-    sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/melange-dark\.toml\",|' ~/.config/alacritty/alacritty.toml
+    sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/ayu-dark\.toml\",|' ~/.config/alacritty/alacritty.toml
     sed -ri 's/^vim\.opt\.background\s?=\s?"light"$/vim\.opt\.background = "dark"/' ~/.config/nvim/init.lua
     #sed -ri 's/^set recolor\s+(false|true)/set recolor true/' ~/.config/zathura/zathurarc
 
@@ -24,7 +24,7 @@ else
     gsettings set org.gnome.desktop.interface gtk-theme "Arc"
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
 
-    sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/melange-light\.toml\",|' ~/.config/alacritty/alacritty.toml
+    sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/ayu-light\.toml\",|' ~/.config/alacritty/alacritty.toml
     sed -ri 's/^vim\.opt\.background\s?=\s?"dark"$/vim\.opt\.background = "light"/' ~/.config/nvim/init.lua
     #sed -ri 's/^set recolor\s+(false|true)/set recolor false/' ~/.config/zathura/zathurarc
     # sed -ri 's/(^vim\.cmd\.colorscheme\(\")sonokai\"\)$/\1base16-google-light\"\)/' ~/.config/nvim/init.lua

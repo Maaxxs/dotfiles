@@ -19,12 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_opts = {}
 require('lazy').setup({
-    --    'vimwiki/vimwiki',
     'neovim/nvim-lspconfig',    -- Configurations for Nvim LSP
     'hrsh7th/nvim-cmp',         -- Autocompletion plugin
     'hrsh7th/cmp-nvim-lsp',     -- LSP source for nvim-cmp
     'hrsh7th/cmp-path',         -- file path completion
-    -- 'hrsh7th/cmp-nvim-lsp-signature-help',  -- no docs on github. always shows function docs which is not what I want.
     'ray-x/lsp_signature.nvim', -- show function signature. do not show docs
     'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
     'L3MON4D3/LuaSnip',         -- Snippets plugin
@@ -36,12 +34,12 @@ require('lazy').setup({
         tag = '0.1.4',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    'tpope/vim-fugitive',          -- provide :Git
-    'mhinz/vim-signify',           -- show git changes in sign column
+    'tpope/vim-fugitive', -- provide :Git
+    'mhinz/vim-signify',  -- show git changes in sign column
     -- 'lewis6991/gitsigns.nvim' -- not used yet but looks good
-    'LnL7/vim-nix',                -- nix syntax
+    'LnL7/vim-nix',       -- nix syntax
     'rust-lang/rust.vim',
-    'norcalli/nvim-colorizer.lua', -- blazing fast colorizer
+    -- 'norcalli/nvim-colorizer.lua', -- blazing fast colorizer
     -- {
     --     'mrcjkb/rustaceanvim',
     --     version = '^6', -- Recommended
@@ -79,6 +77,7 @@ require('lazy').setup({
 
     'nvim-lualine/lualine.nvim', -- status bar
     -- colorschemes
+    { 'projekt0n/github-nvim-theme', name = 'github-theme' },
     {
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
@@ -111,19 +110,9 @@ require('lazy').setup({
     --
     -- 'freitass/todo.txt-vim'  -- also see extended fork of above project at
     -- https://gitlab.com/dbeniamine/todo.txt-vim
-    {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-    },
 
-    -- formatter
-    --   'stevearc/conform.nvim',
-    --  opts = {},
-    --
-    -- 'karb94/neoscroll.nvim'
     'justinmk/vim-sneak', -- jump to place by typing two letters
     'tpope/vim-surround', -- surround all the things
-    -- 'marcelofern/vale.nvim', -- vale prose linter
     'junegunn/fzf',
     'junegunn/fzf.vim', -- fzf integration
     -- {
@@ -132,15 +121,6 @@ require('lazy').setup({
     --   "nvimtools/none-ls-extras.nvim",
     -- },
 
-    -- {
-    --     "folke/trouble.nvim", -- TODO what is that again?
-    --     dependencies = { "nvim-tree/nvim-web-devicons" },
-    --     opts = {
-    --         -- your configuration comes here
-    --         -- or leave it empty to use the default settings
-    --         -- refer to the configuration section below
-    --     },
-    -- }
     {
         "lervag/vimtex",
         -- lazy = false,     -- we don't want to lazy load VimTeX
@@ -185,10 +165,8 @@ require('lazy').setup({
 -- vim.g.loaded_netrwPlugin = 1
 -- The following two commands let nvim-tree hijack netrw.
 -- This keeps keybinding such as `gx` to open URLs.
-vim.g.nvim_tree_hijack_netrw = 1
-vim.g.nvim_tree_disable_netrw = 0
-
--- require("nvim-tree").setup()
+-- vim.g.nvim_tree_hijack_netrw = 1
+-- vim.g.nvim_tree_disable_netrw = 0
 
 require("nvim-tree").setup({
     sort = {
@@ -250,14 +228,23 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- vim.lsp.config['ltex'] = {
---     settings = {
---         ltex = {
---             -- language = "en-US",
---             -- language = "de-DE",
---         }
---     }
--- }
+WORDS = {}
+for word in io.open(vim.fn.stdpath("config") .. "/spell/en.utf-8.add", "r"):lines() do
+    table.insert(WORDS, word)
+end
+
+
+vim.lsp.config['ltex'] = {
+    settings = {
+        ltex = {
+            language = "en-US",
+            -- language = "de-DE",
+            dictionary = {
+                ["en-US"] = { ":" .. vim.fn.stdpath("config") .. "/spell/en.utf-8.add" },
+            }
+        }
+    }
+}
 
 vim.lsp.config['texlab'] = {
     settings = {
@@ -289,10 +276,21 @@ vim.lsp.config['texlab'] = {
     },
 }
 
-vim.lsp.config['harper_ls'] = {
-    userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
-    -- filetypes = { "txt" },
-}
+
+vim.lsp.config('harper_ls', {
+    settings = {
+        ["harper-ls"] = {
+            userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+            linters = {
+                SentenceCapitalization = false,
+                -- SpellCheck = false,
+                OrthographicConsistency = false,
+            },
+        },
+    },
+})
+
+
 
 vim.lsp.enable({
     -- "ltex_plus",
@@ -318,17 +316,17 @@ vim.diagnostic.config({
 
 vim.g.rustfmt_autosave = 1
 
-require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "diff", "vim", "vimdoc", "python", "markdown" },
-    sync_install = false,
-    auto_install = true,
-    ignore_install = {},
-    modules = {},
-    highlight = {
-        enable = false, -- NOTE enable treesitter highlight
-        additional_vim_regex_highlighting = true,
-    },
-}
+-- require('nvim-treesitter.configs').setup {
+--     ensure_installed = { "c", "diff", "vim", "vimdoc", "python", "markdown" },
+--     sync_install = false,
+--     auto_install = true,
+--     ignore_install = {},
+--     modules = {},
+--     highlight = {
+--         enable = false, -- NOTE enable treesitter highlight
+--         additional_vim_regex_highlighting = true,
+--     },
+-- }
 
 -- pencil settings
 -- pencil init has issues. only detects the textwidth in the second init run.
@@ -384,6 +382,24 @@ vim.keymap.set('n', '<leader>g', ":Rg<cr>", {})
 vim.keymap.set('n', '<leader>b', ":Buffers<cr>", {})
 
 local tele = require('telescope.builtin')
+
+-- vim.keymap.set('n', '<leader>h', function()
+--   tele.grep_string({
+--     search = "^#+ ",
+--     use_regex = true,
+--     search_dirs = { vim.api.nvim_buf_get_name(0) },
+--     disable_coordinates = false,
+--   })
+-- end, {})
+
+vim.keymap.set('n', '<leader>h', function()
+    require('telescope.builtin').current_buffer_fuzzy_find({
+        prompt_title = "Markdown Headings",
+        default_text = "#",
+        -- sorter = require('telescope.sorters').get_fzy_sorter(),
+    })
+end, {})
+
 -- vim.keymap.set('n', '<leader>f', tele.find_files, {})
 -- TOOD: hidden filesvim.keymap.set('n', '<leader>hf', tele.find_files, {})
 -- vim.keymap.set('n', '<leader>gf', tele.git_files, {})
@@ -395,14 +411,16 @@ vim.keymap.set('n', '<leader>S', tele.lsp_dynamic_workspace_symbols, {})
 vim.keymap.set('n', '<leader>s', tele.lsp_workspace_symbols, {})
 vim.keymap.set('n', '<leader>bs', tele.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>d', tele.diagnostics)
-vim.keymap.set('n', '<leader>h', tele.spell_suggest)
+-- vim.keymap.set('n', '<leader>h', tele.spell_suggest)
 vim.keymap.set('n', '<leader>tl', [[:s/\<\w/\u&/g<CR>:nohlsearch<CR>]])
 
-require('colorizer').setup {
-    'css',
-    'javascript',
-    'html',
-}
+-- The plugin should fix the deprecated warning when run:
+-- nvim cmd: :checkhealth vim.deprecated
+-- require('colorizer').setup {
+--     'css',
+--     'javascript',
+--     'html',
+-- }
 
 require('lualine').setup {
     options = {
@@ -492,10 +510,18 @@ o.winborder = 'rounded'
 -- set wildoptions=pum -- make options popup transparent
 -- set pumblend=20
 -- set winblend=30 -- also something with transparency
+-- a bit sad
+-- o.isfname:remove("=")
 
+vim.g.melange_enable_font_variants = {
+    italic = false,
+}
+vim.cmd.colorscheme("github_dark_default")
 -- vim.cmd.colorscheme("melange")
-vim.cmd.colorscheme("gruvbox")
+-- vim.cmd.colorscheme("meh")
+-- vim.cmd.colorscheme("default")
 -- vim.cmd.colorscheme("retrobox")
+-- vim.cmd.colorscheme("gruvbox")
 -- vim.cmd.colorscheme("alabaster")
 -- vim.cmd.colorscheme("wildcharm")
 -- vim.cmd.colorscheme("vague")
@@ -659,7 +685,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     command = [[
 inoremap <buffer> ;c ```<cr>```<Up>
 inoremap <buffer> ;q <div class="quote"><cr><cr></div><Up>
-TSBufEnable highlight
+" TSBufEnable highlight
 ]]
 })
 
@@ -719,6 +745,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     -- pattern = '*',
     command = [[
 inoremap <buffer> ;d <C-R>=strftime('%Y.%m.%d')<CR>
+inoremap <buffer> ;dd # <C-R>=strftime('%Y.%m.%d, ') . ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][strftime('%w')] . ': '<CR>
 inoremap <buffer> ;D <C-R>=strftime('%Y-%m-%d')<CR>
 inoremap <buffer> ;dt <C-R>=strftime('%a %F %T%z')<CR>
 inoremap <buffer> ;md &mdash;
@@ -747,6 +774,19 @@ code-block-font-size: \footnotesize\
 #toc-own-page: true\
 ---\
 
+]]
+})
+
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = '*.typ',
+    command = [[
+inoremap <buffer> ;typ #set page(margin: 1.75in)\
+#set par(leading: 0.55em, spacing: 0.55em, first-line-indent: 1.8em, justify: true)\
+#set text(font: "New Computer Modern")\
+#show raw: set text(font: "New Computer Modern Mono")\
+#show heading: set block(above: 1.4em, below: 1em)\
+\
 ]]
 })
 
@@ -815,8 +855,10 @@ vim.fn.jobstart(
                 if line ~= "" then
                     -- print("for loop line: ", line)
                     local new_bg = line:match("dark") and "dark" or "light"
+                    local new_colo = line:match("dark") and "github_dark_default" or "github_light_default"
                     -- print("new bg:", new_bg)
                     vim.o.background = new_bg
+                    vim.cmd.colorscheme(new_colo)
                 end
             end
         end,

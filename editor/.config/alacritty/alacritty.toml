@@ -1,6 +1,7 @@
 [font]
 # default: 11.25
-#size = 10      # monospace
+#size = 10.5      # monospace
+size = 13
 # Add a little space between lines, meaning this adjust the line height.
 offset = { y = 4 }
 glyph_offset = { y = 2 }
@@ -69,5 +70,5 @@ startup_mode = "Maximized"
 
 [general]
 import = [
-"~/.config/alacritty/colors/melange-dark.toml",
+"~/.config/alacritty/colors/ayu-dark.toml",
 ]

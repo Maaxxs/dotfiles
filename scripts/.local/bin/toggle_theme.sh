@@ -14,6 +14,7 @@ if [ "$MODE" == "light" ]; then
 
     sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/ayu-dark\.toml\",|' ~/.config/alacritty/alacritty.toml
     sed -ri 's/^vim\.opt\.background\s?=\s?"light"$/vim\.opt\.background = "dark"/' ~/.config/nvim/init.lua
+    sed -ri 's/^vim\.cmd\.colorscheme\(.*/vim\.cmd\.colorscheme\("github_dark_default"\)/' ~/.config/nvim/init.lua
     #sed -ri 's/^set recolor\s+(false|true)/set recolor true/' ~/.config/zathura/zathurarc
 
     # pkill swaybg
@@ -26,8 +27,8 @@ else
 
     sed -ri 's|.*config/alacritty/colors/.*|\"\~/\.config/alacritty/colors/ayu-light\.toml\",|' ~/.config/alacritty/alacritty.toml
     sed -ri 's/^vim\.opt\.background\s?=\s?"dark"$/vim\.opt\.background = "light"/' ~/.config/nvim/init.lua
+    sed -ri 's/^vim\.cmd\.colorscheme\(.*/vim\.cmd\.colorscheme\("github_light_default"\)/' ~/.config/nvim/init.lua
     #sed -ri 's/^set recolor\s+(false|true)/set recolor false/' ~/.config/zathura/zathurarc
-    # sed -ri 's/(^vim\.cmd\.colorscheme\(\")sonokai\"\)$/\1base16-google-light\"\)/' ~/.config/nvim/init.lua
 
     # pkill swaybg
     # swaybg --output \* --image "$HOME/Pictures/wallpaper/firewatch-light.png" --mode fit

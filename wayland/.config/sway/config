@@ -36,7 +36,7 @@ exec systemctl --user start sway-session.target
 
 # Cursor size
 seat * xcursor_theme Adwaita 32
-# exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 0.8
+exec gsettings set org.gnome.desktop.interface text-scaling-factor 1.3
 
 # lid:on means laptop lid is closed.
 bindswitch --locked lid:on output eDP-1 disable, exec kanshictl reload
@@ -361,7 +361,8 @@ set $old_phosphor_black #282828
 set $blue #33aadd
 set $darker_blue #1177cc
 set $dark_grey #111111
-set $orange #ffa500
+# set $orange #ffa500
+set $orange #ff8800
 set $white #ffffff
 set $black #000000
 set $grey_jet #131516
@@ -431,6 +432,7 @@ bar {
         statusline #ffffff
         #background #323232
         background #000000
+        focused_workspace $orange $orange $black
         # inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }

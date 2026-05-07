@@ -25,6 +25,9 @@ case "$1" in
     horizontal)
     swaymsg "gaps horizontal current toggle $padding"
         ;;
+    horizontal-floating)
+    swaymsg "floating enable; resize set 50ppt 100ppt; move position center"
+        ;;
     vertical)
         swaymsg "gaps vertical current toggle $padding"
         ;;

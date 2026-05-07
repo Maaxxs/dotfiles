@@ -344,6 +344,7 @@ default_border pixel 3
 smart_borders on
 smart_gaps inverse_outer
 bindsym $mod+ctrl+c exec $HOME/.local/bin/sway-center-single-window.sh horizontal
+bindsym $mod+ctrl+shift+c exec $HOME/.local/bin/sway-center-single-window.sh horizontal-floating
 bindsym $mod+ctrl+v exec $HOME/.local/bin/sway-center-single-window.sh vertical
 bindsym $mod+ctrl+f exec $HOME/.local/bin/sway-center-single-window.sh top
 bindsym $mod+shift+p floating enable, resize set 50 ppt 100 ppt, move position center

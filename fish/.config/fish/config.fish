@@ -34,11 +34,12 @@ abbr -a sb 'sudo systemctl start bluetooth'
 abbr -a hb 'sudo systemctl stop bluetooth'
 abbr -a ping9 'ping 9.9.9.9'
 abbr -a orphans 'pacman -Qdt'
+abbr -a fwcam 'mpv --cache=no --demuxer-lavf-format=video4linux2 --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg av://v4l2:/dev/video0'
 abbr -a bins 'cd $HOME/.local/bin/'
 abbr -a sbt 'sudo systemctl start bluetooth'
 
-alias hx="~/.cargo/bin/hx"
-alias hxconf="hx ~/.config/helix/config.toml"
+alias hx="helix"
+alias hxconf="helix ~/.config/helix/config.toml"
 alias rgi='rg -i'
 alias fishconf='nvim ~/.config/fish/config.fish'
 alias sshconf='nvim ~/.ssh/config'

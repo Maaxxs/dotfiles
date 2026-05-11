@@ -8,7 +8,7 @@ function fish_user_key_bindings
     bind \cc 'cancel-commandline'
 end
 # abbreviations
-abbr -a e nvim
+abbr -a e helix
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open
@@ -206,7 +206,7 @@ end
 # Environment variables
 #set -gx MOAR "--style=gruvbox"
 #set -gx PAGER moar
-set -gx EDITOR nvim
+set -gx EDITOR helix
 set -gx DIFFPROG 'nvim -d'
 set -gx BROWSER firefox
 set -gx SUDO_PROMPT "$(tput setaf 2 bold)Say Please:$(tput sgr0) "

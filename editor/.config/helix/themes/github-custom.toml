@@ -21,7 +21,9 @@ constructor = "scale.purple.2"
 function = "scale.purple.2"
 "function.macro" = "scale.purple.2"
 tag = "scale.green.1"
-comment = "fg.muted"
+# comment = "fg.muted"              # default
+# comment = "scale.orange.2"
+comment = "scale.green.1"
 constant = "scale.blue.2"
 "constant.builtin" = "scale.blue.2"
 string = "scale.blue.1"
@@ -60,7 +62,8 @@ label = "scale.red.3"
 "ui.text.focus" = { fg = "fg.default" }
 "ui.text.inactive" = "fg.subtle"
 "ui.text.directory" = { fg = "scale.blue.2" }
-"ui.virtual" = { fg = "scale.gray.6" }
+# "ui.virtual" = { fg = "scale.gray.6" }
+"ui.virtual" = { fg = "scale.gray.4" } # e.g. lsp inlay type hints
 "ui.virtual.ruler" = { bg = "canvas.subtle" }
 "ui.virtual.jump-label" = { fg = "scale.red.2", modifiers = ["bold"] }
 

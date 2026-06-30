@@ -4,7 +4,8 @@ auto-format = true
 name = "markdown"
 text-width = 80
 rulers = [80]
-soft-wrap = { enable = true, wrap-at-text-width = true }
+soft-wrap = { enable = true}
+# soft-wrap = { enable = true, wrap-at-text-width = true }
 
 [[language]]
 name = "c"
@@ -17,7 +18,8 @@ formatter = { command = "clang-format" }
 [[language]]
 name = "typst"
 text-width = 80
-soft-wrap = { enable = true, wrap-at-text-width = true }
+# soft-wrap = { enable = true, wrap-at-text-width = true }
+soft-wrap = { enable = true}
 rulers = [80]
 
 # [[language]]

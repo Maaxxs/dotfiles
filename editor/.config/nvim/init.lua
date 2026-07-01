@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_opts = {}
 require('lazy').setup({
+    'wincent/base16-nvim',
     'neovim/nvim-lspconfig',    -- Configurations for Nvim LSP
     'hrsh7th/nvim-cmp',         -- Autocompletion plugin
     'hrsh7th/cmp-nvim-lsp',     -- LSP source for nvim-cmp
@@ -35,16 +36,10 @@ require('lazy').setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     'tpope/vim-fugitive', -- provide :Git
-    'mhinz/vim-signify',  -- show git changes in sign column
-    -- 'lewis6991/gitsigns.nvim' -- not used yet but looks good
+    -- 'mhinz/vim-signify',  -- show git changes in sign column
+    'lewis6991/gitsigns.nvim', -- not used yet but looks good
     'LnL7/vim-nix',       -- nix syntax
     'rust-lang/rust.vim',
-    -- 'norcalli/nvim-colorizer.lua', -- blazing fast colorizer
-    -- {
-    --     'mrcjkb/rustaceanvim',
-    --     version = '^6', -- Recommended
-    --     lazy = false, -- This plugin is already lazy
-    -- },
     -- 'ThePrimeagen/harpoon'
     'othree/html5.vim',        -- svelte dev
     'pangloss/vim-javascript', -- svelte dev
@@ -54,6 +49,7 @@ require('lazy').setup({
     'junegunn/limelight.vim',
     'preservim/vim-pencil',
     --    'tpope/vim-markdown',
+    'godlygeek/tabular',
     'dag/vim-fish',
 
     'nvim-lualine/lualine.nvim', -- status bar
@@ -75,32 +71,12 @@ require('lazy').setup({
     },
     'savq/melange-nvim',
     'p00f/alabaster.nvim', -- minimal color theme
-    -- 'folke/tokyonight.nvim',
     -- 'chriskempson/base16-vim',
-    -- 'catppuccin/nvim',
-    -- 'sainnhe/sonokai',
-    -- 'rafi/awesome-vim-colorschemes'
-    -- {
-    --     "vague2k/vague.nvim",
-    --     lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    --     priority = 1000, -- make sure to load this before all
-    -- },
-    -- 'https://git.sr.ht/~romainl/vim-bruin'
-    'davidosomething/vim-colors-meh',
-    --
-    --
-    -- 'freitass/todo.txt-vim'  -- also see extended fork of above project at
-    -- https://gitlab.com/dbeniamine/todo.txt-vim
 
     'justinmk/vim-sneak', -- jump to place by typing two letters
     'tpope/vim-surround', -- surround all the things
     'junegunn/fzf',
     'junegunn/fzf.vim', -- fzf integration
-    -- {
-    -- "nvimtools/none-ls.nvim", -- TODO what is that again?
-    -- dependencies = {
-    --   "nvimtools/none-ls-extras.nvim",
-    -- },
 
     {
         "lervag/vimtex",
@@ -139,6 +115,73 @@ require('lazy').setup({
         end
     },
 }, lazy_opts)
+
+-- call the setup here, so that my options below overwrite defaults of this plugin
+require('gitsigns').setup{
+  on_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- Actions
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hr', gitsigns.reset_hunk)
+
+    map('v', '<leader>hs', function()
+      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('v', '<leader>hr', function()
+      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+
+    map('n', '<leader>hS', gitsigns.stage_buffer)
+    map('n', '<leader>hR', gitsigns.reset_buffer)
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+    map('n', '<leader>hb', function()
+      gitsigns.blame_line({ full = true })
+    end)
+
+    map('n', '<leader>hd', gitsigns.diffthis)
+
+    map('n', '<leader>hD', function()
+      gitsigns.diffthis('~')
+    end)
+
+    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+    map('n', '<leader>hq', gitsigns.setqflist)
+
+    -- Toggles
+    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
+  end
+}
 
 -- nvim-tree lua setup
 -- The following two command disable the builtin netrw
@@ -276,7 +319,7 @@ vim.lsp.config('harper_ls', {
 vim.lsp.enable({
     -- "ltex_plus",
     -- "ltex",
-    "harper_ls",
+    -- "harper_ls",
     "lua_ls",
     "rust_analyzer",
     "texlab",
@@ -469,7 +512,7 @@ o.listchars = { tab = '▸ ', trail = '·' }
 
 o.timeoutlen = 300
 o.updatetime = 100 -- frequent signify updates (git)
--- o.showmatch = true -- show matching brackets
+o.showmatch = true -- show matching brackets
 o.foldenable = true
 o.foldlevel = 99
 -- o.autoindent = false
@@ -497,7 +540,8 @@ o.winborder = 'rounded'
 vim.g.melange_enable_font_variants = {
     italic = false,
 }
-vim.cmd.colorscheme("github_dark_default")
+vim.cmd.colorscheme("alabaster")
+-- vim.cmd.colorscheme("github_dark_default")
 -- vim.cmd.colorscheme("melange")
 -- vim.cmd.colorscheme("meh")
 -- vim.cmd.colorscheme("default")
@@ -836,10 +880,12 @@ vim.fn.jobstart(
                 if line ~= "" then
                     -- print("for loop line: ", line)
                     local new_bg = line:match("dark") and "dark" or "light"
-                    local new_colo = line:match("dark") and "github_dark_default" or "github_light_default"
-                    -- print("new bg:", new_bg)
                     vim.o.background = new_bg
-                    vim.cmd.colorscheme(new_colo)
+
+                    -- With the Alabaster theme, we only need to toggle the 'background' option.
+                    -- local new_colo = line:match("dark") and "gruvbox-dark-hard" or "gruvbox-light-hard"
+                    -- print("new bg:", new_bg)
+                    -- vim.cmd.colorscheme(new_colo)
                 end
             end
         end,

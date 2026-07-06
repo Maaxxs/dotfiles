@@ -143,7 +143,9 @@ bindsym $mod+semicolon exec env MOZ_ENABLE_WAYLAND=1 librewolf
 bindsym $mod+Alt+d exec rofimoji --skin-tone neutral --clipboarder wl-copy --typer wtype
 # bindsym $mod+f1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "it sends"
 # bindsym $mod+f2 exec notify-send "it sends"
-bindsym $mod+p exec ~/.local/bin/fuzzy_open.sh pdf
+#bindsym $mod+p exec ~/.local/bin/fuzzy_open.sh pdf
+bindsym $mod+shift+p exec ~/.local/bin/fuzzy_open.sh recent
+bindsym $mod+p exec ~/.local/bin/rofi-pass.sh
 bindsym $mod+u exec ~/.local/bin/fuzzy_open.sh uni
 bindsym $mod+Shift+u exec ~/.local/bin/fuzzy_open.sh rfc
 bindsym $mod+ctrl+k exec ~/.local/bin/kill_process.sh

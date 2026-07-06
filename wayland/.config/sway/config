@@ -182,6 +182,7 @@ bindsym $mod+Shift+d workspace prev_on_output
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+escape workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
+bindsym $mod+Shift+escape move container to workspace back_and_forth
 
 workspace_auto_back_and_forth yes
 # Switch to workspace
@@ -342,14 +343,18 @@ bindsym $mod+o mode "$applications"
 #bindsym $mod+Shift+o exec /usr/bin/io.github.alainm23.planify
 
 gaps inner 0
+# gaps outer 12
 default_border pixel 3
+# on=if just one window on workspace, omit the border
 smart_borders on
 smart_gaps inverse_outer
 bindsym $mod+ctrl+c exec $HOME/.local/bin/sway-center-single-window.sh horizontal
 bindsym $mod+ctrl+shift+c exec $HOME/.local/bin/sway-center-single-window.sh horizontal-floating
 bindsym $mod+ctrl+v exec $HOME/.local/bin/sway-center-single-window.sh vertical
 bindsym $mod+ctrl+f exec $HOME/.local/bin/sway-center-single-window.sh top
-bindsym $mod+shift+p floating enable, resize set 50 ppt 100 ppt, move position center
+# bindsym $mod+shift+p floating enable, resize set 50 ppt 100 ppt, move position center
+bindsym $mod+ctrl+l gaps horizontal current minus 100
+bindsym $mod+ctrl+h gaps horizontal current plus 100
 
 # Colors
 # neo green: #19ff00

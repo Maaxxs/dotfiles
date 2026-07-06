@@ -434,10 +434,7 @@ bar {
     # swaybar_command ironbar
     status_command i3status
     separator_symbol ":|:"
-    # font pango:Noto Sans Mono 10
-    # font pango:Hermit 10
-    #font pango:Cousine Nerd Font 10 # last used
-    font pango:Iosevka Bold 11
+    font pango:Iosevka Bold 16
 
     colors {
         statusline #ffffff

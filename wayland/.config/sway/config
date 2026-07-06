@@ -414,7 +414,10 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 for_window [app_id="firefox"] inhibit_idle fullscreen
 
 bar {
-    position top
+    position bottom
+    # don't switch workspaces by scrolling on bar
+    bindsym button4 nop
+    bindsym button5 nop
     # other bars:
     # * swaystatus: https://github.com/NobodyXu/swaystatus
     # * swayrbar: not sure exactly what this is. https://lib.rs/crates/swayrbar

@@ -5,34 +5,50 @@ if status is-login
 end
 
 function fish_user_key_bindings
-    bind \cc 'cancel-commandline'
+    bind \cc cancel-commandline
 end
+
+# if status --is-interactive
+#     set output (swaymsg -t get_outputs | jq -r '..|try select(.focused == true) | .name')
+#     if string match --quiet 'eDP-1' "$output"
+# 	# notify-send "is eDP-1"
+# 	alacritty msg config -w $ALACRITTY_WINDOW_ID  'font.size = 14.5'
+#     end
+# end
+
+# Environment variables
+#set -gx MOAR "--style=gruvbox"
+#set -gx PAGER moar
+set -gx EDITOR nvim
+set -gx DIFFPROG 'nvim -d'
+set -gx BROWSER firefox
+set -gx SUDO_PROMPT "$(tput setaf 2 bold)Say Please:$(tput sgr0) "
+# X = leave content on-screen
+# F = quit automatically if less than one screenfull
+# R = raw terminal characters (fixes git diff)
+#     see http://jugglingbits.wordpress.com/2010/03/24/a-better-less-playing-nice-with-git/
+set -gx LESS '-i -j .25 -R'
+set -gx DIRENV_LOG_FORMAT ''
+set -gx GPG_TTY (tty)
+
 # abbreviations
 abbr -a e helix
+abbr -a n nvim
 abbr -a g git
 abbr -a m make
 abbr -a o xdg-open
 abbr -a c cargo
-abbr -a lk 'lookup'
 abbr -a lka 'linank -a'
 abbr -a ta 'task add'
 abbr -a np "hugo new posts/(date +%Y-%m-%d)-"
-abbr -a tt 'taskwarrior-tui'
-abbr -a zs 'zola serve'
-abbr -a mov 'nvim movie-list.txt'
-abbr -a reading 'nvim ~/reading-list.md'
-abbr -a movies 'nvim movie-list.txt'
-abbr -a todos 'nvim ~/nc/todo.txt'
-abbr -a research 'nvim ~/nc/todo.research.txt'
-abbr -a thesis	'nvim ~/nc/AIM/thesis/thesis.md'
-abbr -a ca 'calcurse'
-abbr -a irc 'senpai'
+abbr -a irc senpai
 abbr -a stb 'sudo systemctl start bluetooth'
 abbr -a hexedit 'hexedit -l16'
 abbr -a ymd 'date -u +%Y-%m-%d'
 abbr -a sb 'sudo systemctl start bluetooth'
 abbr -a hb 'sudo systemctl stop bluetooth'
 abbr -a ping9 'ping 9.9.9.9'
+abbr -a mailsync 'mbsync -a && notmuch new'
 abbr -a orphans 'pacman -Qdt'
 abbr -a fwcam 'mpv --cache=no --demuxer-lavf-format=video4linux2 --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg av://v4l2:/dev/video0'
 abbr -a bins 'cd $HOME/.local/bin/'
@@ -60,6 +76,7 @@ alias dair='bluetoothctl disconnect (bluetoothctl devices | rg AirPods | cut -d"
 alias csony='bluetoothctl connect (bluetoothctl devices | rg WH-1000XM3 | cut -d" " -f2)'
 alias dsony='bluetoothctl disconnect (bluetoothctl devices | rg WH-1000XM3 | cut -d" " -f2)'
 alias cbose='bluetoothctl connect (bluetoothctl devices | rg "Bose QC45" | cut -d" " -f2)'
+alias chua='bluetoothctl connect (bluetoothctl devices | rg "FreeBuds" | cut -d" " -f2)'
 alias dbose='bluetoothctl disconnect (bluetoothctl devices | rg "Bose QC45" | cut -d" " -f2)'
 alias bld='bluetoothctl devices | cut -f2 -d" " | while read uuid; bluetoothctl info $uuid; end|grep -e "Device\|Connected\|Name"'
 alias cls="clear && printf '\e[3J'"
@@ -147,93 +164,61 @@ function rebuild -a file -d "Watch the given Markdown file for modications and r
     set filestem (basename -s ".md" "$file")
     set fileout "$filestem.pdf"
     while true
-	inotifywait -e modify "$file" 2>/dev/null
-	echo "Rebuilding '$fileout'"
-	pandock --template eisvogel --listings -o "$fileout" "$file"
+        inotifywait -e modify "$file" 2>/dev/null
+        echo "Rebuilding '$fileout'"
+        pandock --template eisvogel --listings -o "$fileout" "$file"
     end
 end
 
-
-if command -v ip  > /dev/null
+if command -v ip >/dev/null
     alias ipa='ip -c addr show'
     alias ipr='ip -c route show'
     alias ipr6='ip -c -6 route show'
 end
 
-if command -v yay > /dev/null
-	alias up='yay -Syu'
-	alias s='yay -Ss'
-	alias si='yay -Si'
-	alias i='yay -S'
-	alias u='yay -Runs'
-	alias q='yay -Qi'
-	alias pacs='pacman -Ss'
+if command -v yay >/dev/null
+    alias up='yay -Syu'
+    alias s='yay -Ss'
+    alias si='yay -Si'
+    alias i='yay -S'
+    alias u='yay -Runs'
+    alias q='yay -Qi'
+    alias pacs='pacman -Ss'
 else
-	alias up='sudo pacman -Syu'
-	alias s='pacman -Ss'
-	alias si='pacman -Si'
-	alias i='sudo pacman -S'
-	alias u='sudo pacman -Runs'
-	alias q='pacman -Qi'
+    alias up='sudo pacman -Syu'
+    alias s='pacman -Ss'
+    alias si='pacman -Si'
+    alias i='sudo pacman -S'
+    alias u='sudo pacman -Runs'
+    alias q='pacman -Qi'
 end
 
-
-if command -v eza > /dev/null
-	abbr -a l 'eza'
-	abbr -a ll 'eza -lg --git '
-	abbr -a llsort 'eza -lg --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
-	abbr -a la 'eza -lag --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
+if command -v eza >/dev/null
+    abbr -a l eza
+    abbr -a ll 'eza -lg --git '
+    abbr -a llsort 'eza -lg --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
+    abbr -a la 'eza -lag --git --time-style "+%Y-%m-%d %H:%M" --sort=modified --group-directories-first'
 else
-	abbr -a l 'ls'
-	abbr -a ll 'ls -l'
-	abbr -a la 'ls -la'
+    abbr -a l ls
+    abbr -a ll 'ls -l'
+    abbr -a la 'ls -la'
 end
-
-# email settings
-if command -v neomutt > /dev/null
-    abbr -a mutt 'neomutt'
-end
-
-# function mut
-#     alacritty msg config -w $ALACRITTY_WINDOW_ID  'font.normal = { family="Hermit" }'
-#     alacritty msg config -w $ALACRITTY_WINDOW_ID  'window.padding = { x = 12, y = 0 }'
-#     neomutt
-#     alacritty msg config -w $ALACRITTY_WINDOW_ID --reset
-# end
-
 
 # Type d to move up to top parent dir which is a repository
 function d
-	while test $PWD != "/"
-		if test -d .git
-			break
-		end
-		cd ..
-	end
+    while test $PWD != /
+        if test -d .git
+            break
+        end
+        cd ..
+    end
 end
 
-
-# Environment variables
-#set -gx MOAR "--style=gruvbox"
-#set -gx PAGER moar
-set -gx EDITOR helix
-set -gx DIFFPROG 'nvim -d'
-set -gx BROWSER firefox
-set -gx SUDO_PROMPT "$(tput setaf 2 bold)Say Please:$(tput sgr0) "
-# X = leave content on-screen
-# F = quit automatically if less than one screenfull
-# R = raw terminal characters (fixes git diff)
-#     see http://jugglingbits.wordpress.com/2010/03/24/a-better-less-playing-nice-with-git/
-set -gx LESS '-i -j .25 -R'
-set -gx DIRENV_LOG_FORMAT ''
-set -gx GPG_TTY (tty)
-
 # Fish git prompt
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showuntrackedfiles yes
+set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showstashstate ''
-set __fish_git_prompt_showupstream 'none'
-
+set __fish_git_prompt_showupstream none
 
 # Color manpage
 # 1=red, 2=green, 4=blue
@@ -263,7 +248,7 @@ set __fish_git_prompt_showupstream 'none'
 setenv MANWIDTH 80
 
 # FZF environment vars
-setenv FZF_DEFAULT_COMMAND 'fd --type file --follow'
+# setenv FZF_DEFAULT_COMMAND 'fd --type file --follow'
 setenv FZF_CTRL_T_COMMAND 'fd --type file --follow'
 setenv FZF_DEFAULT_OPTS '--height 30%'
 
@@ -312,17 +297,51 @@ set -x PATH "$PATH:$HOME/.local/bin"
 set -x PATH "$PATH:$HOME/go/bin"
 set -x PATH "$PATH:$HOME/context/tex/texmf-linux-64/bin"
 
-
 # open zathura to view a pdf file and dettach from the terminal
 function v -a pdf
-    zathura "$pdf" 2&>/dev/null &
+    set -l zathura_history "$HOME/.config/zathura/history.txt"
+    set -l abspath (realpath "$pdf")
+    set -l now (date +%Y%m%dT%H%M%S)
+    echo "$now:$abspath" >>"$zathura_history"
+    # Sort entries by timestamp so the files accessed latest are at the top
+    sort --unique --reverse --output "$zathura_history" "$zathura_history"
+    # Remove double file entries (different timestamp, same file path).
+    # This cmd only keeps the first match (=the latest access time of this path)
+    sort --unique --reverse --field-separator=: --key=2 --output "$zathura_history" "$zathura_history"
+    # Above command removed duplicates, but sorted by pdf path. Sort again by timestamp
+    sort --unique --reverse --output "$zathura_history" "$zathura_history"
+    # Only keep 10 most recent entries
+    head --lines=10 "$zathura_history" | sponge "$zathura_history"
+    zathura "$pdf" &>/dev/null &
     disown
 end
 
-function mon -a brightness
-    ddcutil setvcp 10 "$brightness" -d 2
-    ddcutil setvcp 10 "$brightness" -d 1
+function pre -a inputfile -d "Preview pdf of the given file with Typst"
+    set -l pdffile (path change-extension pdf -- "$inputfile")
+    set -l typfile (path change-extension typ -- "$inputfile")
+    touch "$pdffile"
+    typst compile "$typfile" &>/dev/null &
+    v "$pdffile"
+    typst watch "$typfile" &>"$typfile.compile.log" &
+    helix "$typfile"
 end
+
+function mon -a brightness
+    # ddcutil setvcp 10 "$brightness" -d 2
+    ddcutil setvcp 10 "$brightness" -d 1 &
+    echo "$brightness" >~/.config/i3status/dell_brightness
+    pkill -USR1 i3status
+end
+
+# set due (todo list --due 48 | wc -l)
+# set overdue (todo list --due 0 | wc -l)
+# echo "You have $due tasks due in the next 48 hours."
+# if test "$overdue" -eq 1
+#     echo "You have $overdue overdue task."
+# else if test "$overdue" -gt 2
+#     echo "You have $overdue overdue tasks."
+# end
+
 # function syscall_nr
 #     cat /usr/src/linux/arch/x86/syscalls/syscall_64.tbl | \
 #     awk '$2 != "x32" && $3 == "'$1'" { print $1 }'
@@ -335,7 +354,6 @@ end
 #     source "$BASE16_SHELL/profile_helper.fish"
 # end
 # base16_materia
-
 
 # enable vim keybindings. breaks Ctrl+f for autocompletion
 # fish_vi_key_bindings

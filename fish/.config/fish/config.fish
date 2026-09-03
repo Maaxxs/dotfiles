@@ -263,6 +263,10 @@ function fish_prompt
         set short_venv_name "("(string split -r -m1 '-' "$venv_name")[1]") "
     end
 
+    if set -q IN_NIX_SHELL
+        set nix_prefix "[NIX] "
+    end
+
     if test $last_status -eq 0
         set display_status (set_color green) '|' (set_color normal)
     else
@@ -271,7 +275,7 @@ function fish_prompt
 
     #echo -ns "$short_venv_name" (set_color brblack) '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) (if test $last_status -eq 0; set_color green; else; set_color red; end) ' | ' (set_color normal)
 
-    echo -ns "$short_venv_name" '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) "$display_status"
+    echo -ns "$nix_prefix" "$short_venv_name" '['(date "+%H:%M")'] ' (set_color yellow) (prompt_pwd) (set_color green) (__fish_git_prompt) "$display_status"
 end
 
 # function fish_greeting

@@ -116,6 +116,13 @@ require('lazy').setup({
     },
 }, lazy_opts)
 
+require('nvim-treesitter').install { 'markdown', 'bash', 'c', 'rust' }
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'markdown' },
+    callback = function() vim.treesitter.start() end,
+})
+
 -- call the setup here, so that my options below overwrite defaults of this plugin
 require('gitsigns').setup{
   on_attach = function(bufnr)
@@ -416,13 +423,37 @@ local tele = require('telescope.builtin')
 --   })
 -- end, {})
 
-vim.keymap.set('n', '<leader>h', function()
-    require('telescope.builtin').current_buffer_fuzzy_find({
-        prompt_title = "Markdown Headings",
-        default_text = "#",
-        -- sorter = require('telescope.sorters').get_fzy_sorter(),
-    })
-end, {})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.keymap.set('n', '<leader>h', function()
+            require('telescope.builtin').current_buffer_fuzzy_find({
+                prompt_title = "Markdown Headings",
+                default_text = "#",
+                -- sorter = require('telescope.sorters').get_fzy_sorter(),
+            })
+        end, {
+            buffer = true,
+            desc = "Search Markdown Heading",
+        })
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "typst",
+    callback = function()
+        vim.keymap.set('n', '<leader>h', function()
+            require('telescope.builtin').live_grep({
+                prompt_title = "Headings",
+                glob_pattern = "*.typ",
+                default_text = "^=+ ",
+            })
+        end, {
+            buffer = true,
+            desc = "Find Typst Heading",
+        })
+    end,
+})
 
 -- vim.keymap.set('n', '<leader>f', tele.find_files, {})
 -- TOOD: hidden filesvim.keymap.set('n', '<leader>hf', tele.find_files, {})
@@ -709,6 +740,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = '*.md',
     command = [[
 inoremap <buffer> ;c ```<cr>```<Up>
+inoremap <buffer> ;t - [ ]<space>
 inoremap <buffer> ;q <div class="quote"><cr><cr></div><Up>
 " TSBufEnable highlight
 ]]
@@ -777,6 +809,7 @@ inoremap <buffer> ;md &mdash;
 inoremap <buffer> ;nd &ndash;
 inoremap <buffer> ;rev Reviewed-By: Max
 inoremap <buffer> ;mfg Mit freundlichen Grüßen,
+inoremap <buffer> ;vg Viele Grüße
 inoremap <buffer> ;g — Max
 inoremap <buffer> ;sho ¯\_(ツ)_/¯
 ]]
